@@ -1,0 +1,10 @@
+name: eegdash-llm-tagger
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pandas>=2.0
+  - pip
+  - pip:
+    # Add any pip-only packages here if needed
