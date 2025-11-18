@@ -1,4 +1,10 @@
-## Claude files 
+## Claude files
 CLAUDE.md
+
+## Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 
 
