@@ -82,6 +82,52 @@ class DatasetSummary:
 
         return result
 
+    def to_llm_json(self) -> dict:
+        """
+        Return a JSON-serializable dict optimized for LLM consumption.
+        Tasks and events are returned as lists.
+        Format:
+        {
+            "title": "...",
+            "dataset_description": "...",
+            "readme": "...",
+            "participants_overview": "...",
+            "tasks": ["task1", "task2", ...],
+            "events": ["event1", "event2", ...]
+        }
+        """
+        result = {}
+
+        # Title
+        if self.title:
+            result["title"] = self.title
+
+        # Dataset description (truncate if needed)
+        if self.dataset_description:
+            result["dataset_description"] = _truncate_text(self.dataset_description, 2000)
+
+        # README (truncate to reasonable size)
+        if self.readme_text:
+            result["readme"] = _truncate_text(self.readme_text, 4000)
+
+        # Participants overview
+        if self.participants_summary:
+            result["participants_overview"] = _truncate_text(self.participants_summary, 1000)
+
+        # Tasks as list
+        if self.task_names:
+            result["tasks"] = self.task_names
+        else:
+            result["tasks"] = []
+
+        # Events as list
+        if self.event_types:
+            result["events"] = self.event_types[:50]  # Cap at 50 event types
+        else:
+            result["events"] = []
+
+        return result
+
 
 # Helper functions
 
