@@ -1,28 +1,29 @@
 #!/usr/bin/env python
 """
-Show the JSON-formatted output for LLM consumption
+Show the JSON-formatted output for LLM consumption with tagging results
 """
 
 from eegdash_metadata import build_dataset_summary
+from eegdash_tagger import tag_from_summary
 import json
 
-# Test both datasets
+# Test dataset
 datasets = [
-    "/home/ad-kkokate/BIDS-LLM/ds006923",
-    "/home/ad-kkokate/BIDS-LLM/ds004841"
+    "/Users/kuntalkokate/neuroscience_work/ds001971"
 ]
 
 for dataset_path in datasets:
-    print("=" * 80)
-    print(f"Dataset: {dataset_path.split('/')[-1]}")
-    print("=" * 80)
-
     # Build the summary
     summary = build_dataset_summary(dataset_path)
 
-    # Get JSON output
+    # Get JSON output from parser
     llm_json = summary.to_llm_json()
 
-    # Pretty print JSON
-    print(json.dumps(llm_json, indent=2, ensure_ascii=False))
-    print()
+    # Run tagger on the parsed metadata
+    tagging_result = tag_from_summary(llm_json)
+
+    # Combine parser output and tagging results
+    combined = {**llm_json, **tagging_result}
+
+    # Pretty print combined JSON
+    print(json.dumps(combined, indent=2, ensure_ascii=False))

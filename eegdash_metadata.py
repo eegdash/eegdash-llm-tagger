@@ -88,7 +88,9 @@ class DatasetSummary:
         Tasks and events are returned as lists.
         Format:
         {
+            "dataset_id": "ds001971",
             "title": "...",
+            "recording_modality": "EEG" or "EEG+MRI",
             "dataset_description": "...",
             "readme": "...",
             "participants_overview": "...",
@@ -98,9 +100,19 @@ class DatasetSummary:
         """
         result = {}
 
+        # Dataset ID
+        if self.dataset_id:
+            result["dataset_id"] = self.dataset_id
+
         # Title
         if self.title:
             result["title"] = self.title
+
+        # Recording modality (join multiple modalities with +)
+        if self.modalities:
+            result["recording_modality"] = "+".join(self.modalities)
+        else:
+            result["recording_modality"] = None
 
         # Dataset description (truncate if needed)
         if self.dataset_description:
