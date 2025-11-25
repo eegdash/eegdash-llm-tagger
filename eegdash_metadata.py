@@ -1,22 +1,34 @@
 """
 BIDS Dataset Metadata Extraction Module
 
-This module provides functionality to extract and summarize metadata from a
-local BIDS-style EEG/MEG dataset repository for use in LLM-based tagging.
+This module provides functionality to extract and summarize metadata from
+BIDS-style EEG/MEG datasets using a FileProvider abstraction that works
+with both local and remote (GitHub API) data sources.
 """
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Union
+from typing import Any, Union, Optional, List
+from io import StringIO
 import json
 import pandas as pd
+import fnmatch
+
+# Import FileProvider protocol (avoid circular import by importing at function level where needed)
+try:
+    from file_providers import FileProvider
+except ImportError:
+    # Fallback for type checking
+    from typing import Protocol
+    class FileProvider(Protocol):
+        def list_files(self, prefix: str = "") -> List[str]: ...
+        def read_text(self, path: str) -> Optional[str]: ...
 
 
 @dataclass
 class DatasetSummary:
     """Summary of a BIDS dataset's metadata."""
 
-    root: Path
     dataset_id: str | None
 
     # High-level metadata
@@ -30,6 +42,8 @@ class DatasetSummary:
     participants_summary: str | None
     tasks_summary: str | None
     events_summary: str | None
+    extra_docs_text: str | None        # concatenated extra README-like docs from code/, stimuli/
+    tasks_detailed_text: str | None    # combined detailed task descriptions
 
     # Raw structured bits (for debugging / future use)
     task_names: list[str]
@@ -138,41 +152,78 @@ class DatasetSummary:
         else:
             result["events"] = []
 
+        # Task details (extended task information)
+        if self.tasks_detailed_text:
+            result["task_details"] = _truncate_text(self.tasks_detailed_text, 4000)
+
+        # Extra docs (from code/, stimuli/, etc.)
+        if self.extra_docs_text:
+            result["extra_docs"] = _truncate_text(self.extra_docs_text, 4000)
+
         return result
 
 
 # Helper functions
 
-def find_first(root: Path, names: list[str]) -> Path | None:
+def find_first_file(provider: FileProvider, names: List[str]) -> Optional[str]:
     """
-    Return the first existing file with any of the given names under root.
-    First checks root directory, then searches recursively (limited depth).
-    """
-    # Check root directory first
-    for name in names:
-        candidate = root / name
-        if candidate.exists() and candidate.is_file():
-            return candidate
+    Return the first existing file with any of the given names.
+    First checks root directory, then immediate subdirectories.
 
-    # Check immediate subdirectories
+    Args:
+        provider: FileProvider instance
+        names: List of possible filenames to search for
+
+    Returns:
+        Relative path to first found file, or None if not found
+    """
+    all_files = provider.list_files()
+
+    # Check root directory first (exact filename match)
     for name in names:
-        for candidate in root.glob(f"*/{name}"):
-            if candidate.is_file():
-                return candidate
+        if name in all_files:
+            return name
+
+    # Check immediate subdirectories (one level deep: "subdir/filename")
+    for name in names:
+        for file_path in all_files:
+            # Match pattern: exactly one slash, ends with the target name
+            if file_path.count("/") == 1 and file_path.endswith("/" + name):
+                return file_path
 
     return None
 
 
-def glob_relative(root: Path, pattern: str, max_files: int | None = None) -> list[Path]:
+def glob_files(provider: FileProvider, pattern: str, max_files: Optional[int] = None) -> List[str]:
     """
-    Glob recursively under root for pattern (e.g. '**/*events.tsv').
-    Optionally cap number of files.
+    Find all files matching the given pattern (e.g., 'task-*.json' or '*events.tsv').
+
+    Args:
+        provider: FileProvider instance
+        pattern: Glob-style pattern to match against filenames
+        max_files: Optional limit on number of files to return
+
+    Returns:
+        List of relative paths matching the pattern
     """
     try:
-        files = list(root.glob(f"**/{pattern}"))
+        all_files = provider.list_files()
+        matched = []
+
+        for file_path in all_files:
+            # Match against the full path
+            if fnmatch.fnmatch(file_path, f"**/{pattern}") or fnmatch.fnmatch(file_path, pattern):
+                matched.append(file_path)
+            # Also try matching just the filename
+            elif "/" in file_path:
+                filename = file_path.split("/")[-1]
+                if fnmatch.fnmatch(filename, pattern):
+                    matched.append(file_path)
+
         if max_files is not None:
-            files = files[:max_files]
-        return files
+            matched = matched[:max_files]
+
+        return sorted(matched)
     except Exception:
         return []
 
@@ -227,23 +278,27 @@ def _shorten_json_description(raw_json: dict) -> str:
 
 # Parsing functions
 
-def parse_dataset_description(path: Path) -> dict[str, Any]:
+def parse_dataset_description(provider: FileProvider, rel_path: str) -> dict[str, Any]:
     """
-    Load JSON. Extract relevant fields:
-        - Name
-        - DatasetType
-        - Modality / modalities
-        - Authors (optional)
-        - HowToAcknowledge (optional)
-    Return a dict with at least keys:
+    Load and parse dataset_description.json.
+
+    Args:
+        provider: FileProvider instance
+        rel_path: Relative path to dataset_description.json
+
+    Returns:
+        Dict with keys:
         - 'title': str | None
         - 'dataset_type': str | None
         - 'modalities': list[str]
         - 'raw_json': dict
     """
     try:
-        with open(path, 'r', encoding='utf-8') as f:
-            data = json.load(f)
+        content = provider.read_text(rel_path)
+        if content is None:
+            raise FileNotFoundError(f"File not found: {rel_path}")
+
+        data = json.loads(content)
 
         title = data.get("Name")
         dataset_type = data.get("DatasetType")
@@ -266,7 +321,7 @@ def parse_dataset_description(path: Path) -> dict[str, Any]:
             "modalities": modalities,
             "raw_json": data
         }
-    except Exception as e:
+    except Exception:
         # Fail softly
         return {
             "title": None,
@@ -276,14 +331,22 @@ def parse_dataset_description(path: Path) -> dict[str, Any]:
         }
 
 
-def parse_readme(path: Path, max_chars: int = 8000) -> str:
+def parse_readme(provider: FileProvider, rel_path: str, max_chars: int = 8000) -> str:
     """
-    Read text, normalize newlines, strip leading/trailing whitespace.
-    Truncate to max_chars.
+    Read and normalize README text.
+
+    Args:
+        provider: FileProvider instance
+        rel_path: Relative path to README file
+        max_chars: Maximum characters to return
+
+    Returns:
+        Normalized and truncated README text
     """
     try:
-        with open(path, 'r', encoding='utf-8', errors='ignore') as f:
-            text = f.read()
+        text = provider.read_text(rel_path)
+        if text is None:
+            return ""
 
         # Normalize newlines and strip
         text = text.replace('\r\n', '\n').replace('\r', '\n')
@@ -294,21 +357,27 @@ def parse_readme(path: Path, max_chars: int = 8000) -> str:
         return ""
 
 
-def parse_participants(path: Path, max_unique_per_column: int = 20) -> tuple[dict[str, list[str]], str]:
+def parse_participants(provider: FileProvider, rel_path: str, max_unique_per_column: int = 20) -> tuple[dict[str, list[str]], str]:
     """
-    Use pandas.read_csv(sep='\t').
+    Parse participants.tsv file.
 
-    For each column:
-      - compute unique non-null values (as strings)
-      - sort them
-      - keep at most max_unique_per_column values
-    Return:
-      - columns_map: dict[column_name -> list[str]]
-      - summary_str: human-readable text summarizing key columns
-        e.g. 'diagnosis: ["control", "patient"]; group: ["HC", "MDD"]'
+    Args:
+        provider: FileProvider instance
+        rel_path: Relative path to participants.tsv
+        max_unique_per_column: Maximum unique values to keep per column
+
+    Returns:
+        Tuple of (columns_map, summary_str):
+        - columns_map: dict[column_name -> list[str]]
+        - summary_str: human-readable text summarizing key columns
     """
     try:
-        df = pd.read_csv(path, sep='\t', dtype=str, na_values=['n/a', 'N/A', ''])
+        content = provider.read_text(rel_path)
+        if content is None:
+            return {}, None
+
+        # Parse TSV using pandas
+        df = pd.read_csv(StringIO(content), sep='\t', dtype=str, na_values=['n/a', 'N/A', ''])
 
         columns_map = {}
         summary_parts = []
@@ -341,36 +410,43 @@ def parse_participants(path: Path, max_unique_per_column: int = 20) -> tuple[dic
         summary_str = "; ".join(summary_parts) if summary_parts else None
         return columns_map, summary_str
 
-    except Exception as e:
+    except Exception:
         return {}, None
 
 
-def parse_tasks(task_files: list[Path]) -> tuple[list[str], list[str], str]:
+def parse_tasks(provider: FileProvider, rel_paths: List[str]) -> tuple[list[str], list[str], str]:
     """
-    For each JSON:
-      - load
-      - extract fields like 'TaskName', 'TaskDescription', 'CognitiveDescription', 'Instructions'
-    Collect:
-      - task_names: list of task names
-      - task_descriptions: list of short textual descriptions
-    Build a short summary string joining them.
+    Parse multiple task JSON files.
+
+    Args:
+        provider: FileProvider instance
+        rel_paths: List of relative paths to task-*.json files
+
+    Returns:
+        Tuple of (task_names, task_descriptions, summary_str):
+        - task_names: list of task names
+        - task_descriptions: list of textual descriptions
+        - summary_str: human-readable summary
     """
     task_names = []
     task_descriptions = []
     summary_parts = []
 
-    for task_file in task_files:
+    for rel_path in rel_paths:
         try:
-            with open(task_file, 'r', encoding='utf-8') as f:
-                data = json.load(f)
+            content = provider.read_text(rel_path)
+            if content is None:
+                continue
+
+            data = json.loads(content)
 
             # Extract task name
             task_name = data.get("TaskName")
             if not task_name:
                 # Try to infer from filename: task-<name>_bold.json -> <name>
-                stem = task_file.stem
-                if "task-" in stem:
-                    task_name = stem.split("task-")[1].split("_")[0]
+                filename = rel_path.split("/")[-1]
+                if "task-" in filename:
+                    task_name = filename.split("task-")[1].split("_")[0].split(".")[0]
 
             if task_name:
                 task_names.append(task_name)
@@ -398,24 +474,31 @@ def parse_tasks(task_files: list[Path]) -> tuple[list[str], list[str], str]:
     return task_names, task_descriptions, summary_str
 
 
-def parse_events(event_files: list[Path], max_unique: int = 40) -> tuple[list[str], str]:
+def parse_events(provider: FileProvider, rel_paths: List[str], max_unique: int = 40) -> tuple[list[str], str]:
     """
-    Use pandas.read_csv for each file (sep='\t', low_memory=True, nrows maybe 2000 if large).
-    Look for meaningful columns in priority:
-       - 'trial_type', 'event_type', 'stim_type', 'condition'
-    Aggregate unique values across all files for those columns.
-    Deduplicate and sort, cap at max_unique.
-    Return:
-      - event_labels: list[str] of unique event type / condition values
-      - summary_str: short text like 'trial_type: ["standard", "target"]; condition: ["rest", "task"]'
+    Parse multiple events.tsv files.
+
+    Args:
+        provider: FileProvider instance
+        rel_paths: List of relative paths to *events.tsv files
+        max_unique: Maximum unique event types to keep
+
+    Returns:
+        Tuple of (event_labels, summary_str):
+        - event_labels: list of unique event type/condition values
+        - summary_str: human-readable summary
     """
     priority_columns = ['trial_type', 'event_type', 'stim_type', 'condition']
     all_values = {col: set() for col in priority_columns}
 
-    for event_file in event_files:
+    for rel_path in rel_paths:
         try:
+            content = provider.read_text(rel_path)
+            if content is None:
+                continue
+
             # Read limited rows to avoid memory issues
-            df = pd.read_csv(event_file, sep='\t', dtype=str, nrows=2000,
+            df = pd.read_csv(StringIO(content), sep='\t', dtype=str, nrows=2000,
                            na_values=['n/a', 'N/A', ''])
 
             for col in priority_columns:
@@ -448,48 +531,167 @@ def parse_events(event_files: list[Path], max_unique: int = 40) -> tuple[list[st
 
 # Main entry point
 
-def build_dataset_summary(root: Union[str, Path]) -> DatasetSummary:
+def collect_extra_docs(provider: FileProvider, max_file_size: int = 100_000) -> Optional[str]:
     """
-    Build a DatasetSummary from a local BIDS dataset repository.
+    Collect extra documentation files from code/, stimuli/ directories and
+    *description*.md/txt files.
 
     Args:
-        root: Path to the local dataset root directory
+        provider: FileProvider instance
+        max_file_size: Maximum file size in bytes to include (default 100KB)
+
+    Returns:
+        Concatenated text with headers, or None if no extra docs found
+    """
+    all_files = provider.list_files()
+
+    # Patterns to look for
+    extra_doc_patterns = [
+        "code/README*",
+        "code/*.md",
+        "code/*.txt",
+        "stimuli/README*",
+        "stimuli/*.md",
+        "stimuli/*.txt",
+        "*description*.md",
+        "*description*.txt",
+    ]
+
+    # Exclude the main README (already processed separately)
+    exclude_patterns = ["README.md", "README.MD", "README.txt", "README"]
+
+    extra_docs = []
+
+    for pattern in extra_doc_patterns:
+        matches = glob_files(provider, pattern, max_files=20)
+        for file_path in matches:
+            # Skip if it's the main README
+            filename = file_path.split("/")[-1]
+            if filename in exclude_patterns:
+                continue
+
+            try:
+                content = provider.read_text(file_path)
+                if content is None:
+                    continue
+
+                # Skip if too large
+                if len(content) > max_file_size:
+                    continue
+
+                # Skip if appears to be binary
+                if '\x00' in content[:1000]:
+                    continue
+
+                # Add with header
+                extra_docs.append(f"=== {file_path} ===\n{_truncate_text(content, 10000)}")
+
+            except Exception:
+                continue
+
+    if extra_docs:
+        return "\n\n".join(extra_docs)
+
+    return None
+
+
+def collect_detailed_task_info(provider: FileProvider, task_files: List[str],
+                                task_names: List[str], task_descriptions: List[str]) -> Optional[str]:
+    """
+    Collect detailed task information from task-*.json files.
+
+    Args:
+        provider: FileProvider instance
+        task_files: List of task JSON file paths
+        task_names: List of task names (from parse_tasks)
+        task_descriptions: List of task descriptions (from parse_tasks)
+
+    Returns:
+        Combined detailed task text, or None if no tasks
+    """
+    if not task_files:
+        return None
+
+    detailed_parts = []
+
+    for i, rel_path in enumerate(task_files):
+        try:
+            content = provider.read_text(rel_path)
+            if content is None:
+                continue
+
+            data = json.loads(content)
+
+            # Get task name
+            task_name = task_names[i] if i < len(task_names) else "Unknown"
+
+            # Collect all descriptive fields
+            desc_fields = []
+            for key in ["TaskName", "TaskDescription", "CognitiveDescription",
+                       "Instructions", "CogAtlasID", "TaskDesignType"]:
+                if key in data:
+                    val = str(data[key])
+                    if val and len(val) > 5:  # Skip very short values
+                        desc_fields.append(f"{key}: {_truncate_text(val, 800)}")
+
+            if desc_fields:
+                detailed_parts.append(f"Task '{task_name}':\n" + "\n".join(desc_fields))
+
+        except Exception:
+            continue
+
+    if detailed_parts:
+        return "\n\n".join(detailed_parts)
+
+    return None
+
+
+def build_dataset_summary(provider: FileProvider, dataset_id: Optional[str] = None) -> DatasetSummary:
+    """
+    Build a DatasetSummary from a BIDS dataset using a FileProvider.
+
+    This function works with any FileProvider implementation (local filesystem,
+    GitHub API, etc.) to extract metadata without requiring a local clone.
+
+    Args:
+        provider: FileProvider instance for accessing dataset files
+        dataset_id: Optional dataset identifier (e.g., "ds001971")
 
     Returns:
         DatasetSummary object containing extracted metadata
     """
-    root = Path(root).resolve()
-
-    # dataset_id: basename of root folder (e.g. 'ds001785' or 'DS001785')
-    dataset_id = root.name
-
     # dataset_description.json
-    dd_path = find_first(root, ["dataset_description.json"])
-    dd_info = parse_dataset_description(dd_path) if dd_path else {
+    dd_path = find_first_file(provider, ["dataset_description.json"])
+    dd_info = parse_dataset_description(provider, dd_path) if dd_path else {
         "title": None, "dataset_type": None, "modalities": [], "raw_json": {}
     }
 
     # README
-    readme_path = find_first(root, ["README.md", "README.MD", "README.txt", "README"])
-    readme_text = parse_readme(readme_path) if readme_path else None
+    readme_path = find_first_file(provider, ["README.md", "README.MD", "README.txt", "README"])
+    readme_text = parse_readme(provider, readme_path) if readme_path else None
 
     # participants
-    participants_path = find_first(root, ["participants.tsv"])
+    participants_path = find_first_file(provider, ["participants.tsv"])
     if participants_path:
-        participants_columns, participants_summary = parse_participants(participants_path)
+        participants_columns, participants_summary = parse_participants(provider, participants_path)
     else:
         participants_columns, participants_summary = {}, None
 
     # tasks
-    task_files = glob_relative(root, "task-*.json")
-    task_names, task_descriptions, tasks_summary = parse_tasks(task_files) if task_files else ([], [], None)
+    task_files = glob_files(provider, "task-*.json")
+    task_names, task_descriptions, tasks_summary = parse_tasks(provider, task_files) if task_files else ([], [], None)
 
     # events
-    event_files = glob_relative(root, "*events.tsv")
-    event_types, events_summary = parse_events(event_files) if event_files else ([], None)
+    event_files = glob_files(provider, "*events.tsv")
+    event_types, events_summary = parse_events(provider, event_files) if event_files else ([], None)
+
+    # extra docs (code/, stimuli/, description files)
+    extra_docs_text = collect_extra_docs(provider)
+
+    # detailed task information
+    tasks_detailed_text = collect_detailed_task_info(provider, task_files, task_names, task_descriptions)
 
     return DatasetSummary(
-        root=root,
         dataset_id=dataset_id,
         title=dd_info["title"],
         dataset_description=_shorten_json_description(dd_info["raw_json"]),
@@ -499,8 +701,36 @@ def build_dataset_summary(root: Union[str, Path]) -> DatasetSummary:
         participants_summary=participants_summary,
         tasks_summary=tasks_summary,
         events_summary=events_summary,
+        extra_docs_text=extra_docs_text,
+        tasks_detailed_text=tasks_detailed_text,
         task_names=task_names,
         task_descriptions=task_descriptions,
         participants_columns=participants_columns,
         event_types=event_types,
     )
+
+
+def build_dataset_summary_from_path(root: Union[str, Path]) -> DatasetSummary:
+    """
+    Build a DatasetSummary from a local BIDS dataset repository.
+
+    This is a backward-compatible wrapper that uses LocalFileProvider internally.
+
+    Args:
+        root: Path to the local dataset root directory
+
+    Returns:
+        DatasetSummary object containing extracted metadata
+
+    Example:
+        >>> summary = build_dataset_summary_from_path("/path/to/ds001971")
+        >>> print(summary.to_llm_json())
+    """
+    # Import LocalFileProvider here to avoid circular dependency
+    from file_providers import LocalFileProvider
+
+    root_path = Path(root).resolve()
+    dataset_id = root_path.name
+
+    provider = LocalFileProvider(root_path)
+    return build_dataset_summary(provider, dataset_id=dataset_id)

@@ -5,6 +5,8 @@ channels:
 dependencies:
   - python=3.11
   - pandas>=2.0
+  - requests
+  - beautifulsoup4
   - pip
   - pip:
     # Add any pip-only packages here if needed

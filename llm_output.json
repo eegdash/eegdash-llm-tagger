@@ -1,0 +1,1177 @@
+{
+  "results": [
+    {
+      "dataset_id": "DS005505",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Learning"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS004745",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Perception"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS005514",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Learning"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS005512",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Learning"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS005510",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Learning"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS005511",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Learning"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS005509",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Learning"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS005508",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Learning"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS005507",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Learning"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS005506",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Learning"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS004854",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Other"
+      ],
+      "type": [
+        "Memory"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.6,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS004853",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Other"
+      ],
+      "type": [
+        "Memory"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.6,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS004844",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Attention"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS004843",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Attention"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS004842",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Attention"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.8
+      }
+    },
+    {
+      "dataset_id": "DS004852",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Other"
+      ],
+      "type": [
+        "Memory"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.6,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS004851",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Other"
+      ],
+      "type": [
+        "Attention"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.6,
+        "type": 0.75
+      }
+    },
+    {
+      "dataset_id": "DS002181",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Other"
+      ],
+      "type": [
+        "Resting state"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.6,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS005697",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Perception"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.8
+      }
+    },
+    {
+      "dataset_id": "DS005670",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Multi sensory"
+      ],
+      "type": [
+        "Affect"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.95,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS005787",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Perception"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS005420",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Resting State"
+      ],
+      "type": [
+        "Resting state"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS005565",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Multi sensory"
+      ],
+      "type": [
+        "Perception"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.8
+      }
+    },
+    {
+      "dataset_id": "DS005170",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Auditory"
+      ],
+      "type": [
+        "Other"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.6
+      }
+    },
+    {
+      "dataset_id": "DS003670",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Multi sensory"
+      ],
+      "type": [
+        "Clinical/Intervention"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.95,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS005397",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Perception"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.8
+      }
+    },
+    {
+      "dataset_id": "DS005545",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Decision making"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS005530",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Sleep"
+      ],
+      "type": [
+        "Sleep"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.95,
+        "type": 0.95
+      }
+    },
+    {
+      "dataset_id": "DS005642",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Sleep"
+      ],
+      "type": [
+        "Sleep"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.95,
+        "type": 0.95
+      }
+    },
+    {
+      "dataset_id": "DS005028",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Attention"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS004675",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Auditory"
+      ],
+      "type": [
+        "Affect"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS004598",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Other"
+      ],
+      "type": [
+        "Motor"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.6,
+        "type": 0.7
+      }
+    },
+    {
+      "dataset_id": "DS005486",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Resting State"
+      ],
+      "type": [
+        "Resting state"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.85,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS004598",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Other"
+      ],
+      "type": [
+        "Motor"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.6,
+        "type": 0.7
+      }
+    },
+    {
+      "dataset_id": "DS005486",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Resting State"
+      ],
+      "type": [
+        "Resting state"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.85,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS005795",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Multi sensory"
+      ],
+      "type": [
+        "Learning"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS005272",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Other"
+      ],
+      "type": [
+        "Motor"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.6,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS005274",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Perception"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.8
+      }
+    },
+    {
+      "dataset_id": "DS005268",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Other"
+      ],
+      "type": [
+        "Motor"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.6,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS005269",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Other"
+      ],
+      "type": [
+        "Motor"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.6,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS005270",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Other"
+      ],
+      "type": [
+        "Motor"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.6,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS005271",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Other"
+      ],
+      "type": [
+        "Motor"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.6,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS005692",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Auditory"
+      ],
+      "type": [
+        "Attention"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS005555",
+      "pathology": [
+        "Other"
+      ],
+      "modality": [
+        "Sleep"
+      ],
+      "type": [
+        "Sleep"
+      ],
+      "confidence": {
+        "pathology": 0.7,
+        "modality": 0.95,
+        "type": 0.95
+      }
+    },
+    {
+      "dataset_id": "DS005688",
+      "pathology": [
+        "Other"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Perception"
+      ],
+      "confidence": {
+        "pathology": 0.7,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS005540",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Multi sensory"
+      ],
+      "type": [
+        "Affect"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS005583",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Resting State"
+      ],
+      "type": [
+        "Resting state"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS005584",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Resting State"
+      ],
+      "type": [
+        "Resting state"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS004902",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Resting State"
+      ],
+      "type": [
+        "Resting state"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS004511",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Motor"
+      ],
+      "type": [
+        "Decision making"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS004075",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Other"
+      ],
+      "type": [
+        "Perception"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.6,
+        "type": 0.7
+      }
+    },
+    {
+      "dataset_id": "DS005571",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Attention"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS002833",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Perception"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.8
+      }
+    },
+    {
+      "dataset_id": "DS005874",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Multi sensory"
+      ],
+      "type": [
+        "Decision making"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.95,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS005571",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Attention"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS005873",
+      "pathology": [
+        "Epilepsy"
+      ],
+      "modality": [
+        "Other"
+      ],
+      "type": [
+        "Other"
+      ],
+      "confidence": {
+        "pathology": 0.97,
+        "modality": 0.6,
+        "type": 0.7
+      }
+    },
+    {
+      "dataset_id": "DS005872",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Auditory"
+      ],
+      "type": [
+        "Perception"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS005591",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Auditory"
+      ],
+      "type": [
+        "Perception"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS005451",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Auditory"
+      ],
+      "type": [
+        "Perception"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS005350",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Auditory"
+      ],
+      "type": [
+        "Perception"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS005540",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Multi sensory"
+      ],
+      "type": [
+        "Affect"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS005586",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Perception"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS004995",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Perception"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.8
+      }
+    },
+    {
+      "dataset_id": "DS004521",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Attention"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS005520",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Resting state"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.9
+      }
+    },
+    {
+      "dataset_id": "DS005406",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Other"
+      ],
+      "type": [
+        "Perception"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.6,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS005345",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Multi sensory"
+      ],
+      "type": [
+        "Perception"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS005515",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Learning"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    },
+    {
+      "dataset_id": "DS005516",
+      "pathology": [
+        "Healthy"
+      ],
+      "modality": [
+        "Visual"
+      ],
+      "type": [
+        "Learning"
+      ],
+      "confidence": {
+        "pathology": 0.8,
+        "modality": 0.9,
+        "type": 0.85
+      }
+    }
+  ]
+}

@@ -1,29 +1,34 @@
 #!/usr/bin/env python
 """
-Show the JSON-formatted output for LLM consumption with tagging results
+Show the JSON-formatted metadata output for a BIDS dataset
 """
 
-from eegdash_metadata import build_dataset_summary
-from eegdash_tagger import tag_from_summary
+import argparse
 import json
+from eegdash_metadata import build_dataset_summary_from_path
 
-# Test dataset
-datasets = [
-    "/Users/kuntalkokate/neuroscience_work/ds001971"
-]
 
-for dataset_path in datasets:
-    # Build the summary
-    summary = build_dataset_summary(dataset_path)
+def main():
+    parser = argparse.ArgumentParser(
+        description="Extract and display metadata from a BIDS dataset"
+    )
+    parser.add_argument(
+        "--dataset",
+        required=True,
+        help="Path to BIDS dataset directory"
+    )
+
+    args = parser.parse_args()
+
+    # Build the summary using backward-compatible wrapper
+    summary = build_dataset_summary_from_path(args.dataset)
 
     # Get JSON output from parser
     llm_json = summary.to_llm_json()
 
-    # Run tagger on the parsed metadata
-    tagging_result = tag_from_summary(llm_json)
+    # Pretty print JSON
+    print(json.dumps(llm_json, indent=2, ensure_ascii=False))
 
-    # Combine parser output and tagging results
-    combined = {**llm_json, **tagging_result}
 
-    # Pretty print combined JSON
-    print(json.dumps(combined, indent=2, ensure_ascii=False))
+if __name__ == "__main__":
+    main()

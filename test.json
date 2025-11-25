@@ -1,0 +1,1181 @@
+[
+  {
+    "dataset_id": "DS004532",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS004532.html",
+    "openneuro_id": "ds004532",
+    "openneuro_url": "https://openneuro.org/datasets/ds004532",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds004532",
+    "eegdash_subjects": 110,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "EEG: Probabilistic Selection Task (PST) + PST with Cabergoline Challenge",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: EEG: Probabilistic Selection Task (PST) + PST with Cabergoline Challenge\nAuthors: James F Cavanagh, Michael J Frank\nReferences: PMID: 25367437\nDOI: doi:10.18112/openneuro.ds004532.v1.2.0",
+      "readme": "Probabilistic Selection Task.  Unpublished!   Same sample as this published study: 10.1038/ncomms6394.  \n\nStudy 1: 80 healthy participants + 5 placebo session from a pilot of the drug study.  Total n=85.   But Subj 173 might have bad EEG.   \n\nStudy 2: 30 healthy participants (3 dropout) in a double-blind drug study.    Total n=27.   Drug was Cabergoline 1.25 mg.   \n\nIf you look in the code folder at the .xls sheet, you'll see that subjects had different initial IDs.  \n\nStudy 1 subjects had subject IDs 101-180 plus the 5 placebo runs from an early test of ultra-low-dose cabergoline: these pilot runs were subject # 301/401 | 305/405.   Study 2 subjects had IDs 306/406 | 335/435.   Why the odd ranges for the drug study?   Glad you asked.  The dual numbers were for session:  300s were first session, 400s were second session.  The last two digits were subject ID.  (here with the benefit of BIDS formatting we have simply put them in as session 1 and session 2 with unique sub-#, which is BETTER).  \n\nFor example.  Joe Smith would have been 305 on visit 1, then 405 on visit 2.   Jane Henderson would have been 306 on visit 1, then 406 on visit 2.   Whatever visit got cab or placebo is indicated in the .xls sheet as well as on the Sess1_Drug and Sess2_Drug columns in the main .tsv file.   \n\nTask included in Matlab programming language.   Data collected circa 2012-2013 in Laboratory for Neural Computation & Cognition at Brown.  Check the .xls sheet under code folder for more meta data.   A few old analysis scripts are included.  - James F Cavanagh 02/15/2021\n\nUPDATES:   \n1) Uploaded a .json sidecar developed by EEGLab for NEMAR indexing:  task-PST_events.json\n2) Since this was updated, I had to erase each subject's *_events.json files.   \n3) Note that the Reward and Penalty feedback labels ('FB: 0' and 'FB: +1') are incorrect here.   The actual feedback was 'Correct!' or 'Incorrect.'   I'm just going to leave those as-is in the files since it doesn't change too much.  Run the task (under /stimuli) to see what the feedbacks look like.\n4) there was a bug in the original task description that indicated this as 'Simon Conflict'.  This is not that task.  This is a Probabilistic Selection Task.  These should have been changed to PST, but if you see SimonConflict just realize that was an original mis-label.",
+      "participants_overview": "sex: [\"Female\", \"Male\"]; age: [\"18\", \"19\", \"20\", \"21\", \"22\", \"23\", \"24\", \"25\", \"26\", \"27\" (and 2 more)]; Study: [\"Study 1\", \"Study 2\"]; sess1_Drug: [\"Cab\", \"Placebo\"]; sess2_Drug: [\"Cab\", \"Placebo\"]",
+      "tasks": [
+        "PST"
+      ],
+      "events": [
+        "FB: +1",
+        "FB: 0",
+        "STATUS",
+        "Test No Response",
+        "Test Resp: left,correct",
+        "Test Resp: left,incorrect",
+        "Test Resp: right,correct",
+        "Test Resp: right,incorrect",
+        "Trn No Response",
+        "Trn Resp: left,correct",
+        "Trn Resp: left,incorrect",
+        "Trn Resp: right,correct",
+        "Trn Resp: right,incorrect",
+        "Trn Stim: AB",
+        "Trn Stim: BA",
+        "Trn Stim: CD",
+        "Trn Stim: DC",
+        "Trn Stim: EF",
+        "Trn Stim: FE",
+        "Tst Stim: AB",
+        "Tst Stim: AC",
+        "Tst Stim: AD",
+        "Tst Stim: AE",
+        "Tst Stim: AF",
+        "Tst Stim: BA",
+        "Tst Stim: BC",
+        "Tst Stim: BD",
+        "Tst Stim: BE",
+        "Tst Stim: BF",
+        "Tst Stim: CA",
+        "Tst Stim: CB",
+        "Tst Stim: CD",
+        "Tst Stim: CE",
+        "Tst Stim: CF",
+        "Tst Stim: DA",
+        "Tst Stim: DB",
+        "Tst Stim: DC",
+        "Tst Stim: DE",
+        "Tst Stim: DF",
+        "Tst Stim: EA"
+      ],
+      "openneuro_name": "EEG: Probabilistic Selection Task (PST) + PST with Cabergoline Challenge",
+      "openneuro_authors": [
+        "James F Cavanagh",
+        "Michael J Frank"
+      ],
+      "openneuro_doi": "doi:10.18112/openneuro.ds004532.v1.2.0",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "PST"
+      ],
+      "eegdash_subjects": 110
+    }
+  },
+  {
+    "dataset_id": "DS004902",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEGBEH",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS004902.html",
+    "openneuro_id": "ds004902",
+    "openneuro_url": "https://openneuro.org/datasets/ds004902",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds004902",
+    "eegdash_subjects": 71,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "A Resting-state EEG Dataset for Sleep Deprivation",
+      "recording_modality": "EEGBEH",
+      "dataset_description": "Name: A Resting-state EEG Dataset for Sleep Deprivation\nAuthors: Chuqin Xiang, Xinrui Fan, Duo Bai, Ke Lv, Xu Lei\nDOI: doi:10.18112/openneuro.ds004902.v1.0.8",
+      "readme": "# General information\n                                                                                                                                                                                                                                                      \nThe dataset provides resting-state EEG data (eyes open,partially eyes closed) from 71 participants who underwent two experiments involving normal sleep (NS---session1) and  sleep deprivation(SD---session2) .The dataset also provides information on participants' sleepiness and mood states.\n（Please note here Session 1 (NS) and Session 2 (SD) is not the time order, the time order is counterbalanced across participants and is listed in metadata.）\n\n\n# Dataset \n                                                                                                                                                                                                                                                                 \n## Presentation\n                                                                                                                                                                                                                                                            \nThe data collection was initiated in March 2019 and was terminated in December 2020. The detailed description of the dataset is currently under working by Chuqin Xiang,Xinrui Fan,Duo Bai,Ke Lv and Xu Lei, and will submit to Scientific Data for publication.\n\n  \n                         \n#### EEG acquisition\n                                                                                                                                                                                                                                                       \n* EEG system (Brain Products GmbH, Steing- rabenstr, Germany, 61 electrodes)                                                                                                                                                                                               \n* Sampling frequency: 500Hz\n* Impedances were kept below 5k\n\n     \n## Contact                                                                                                                                                                                                                                                               \n      * If you have any questions or comments, please contact:\n      * Xu Lei: xlei@swu.edu.cn      \n\n## Article\nXiang, C., Fan, X., Bai, D. et al. A resting-state EEG dataset for sleep deprivation. Sci Data 11, 427 (2024). https://doi.org/10.1038/s41597-024-03268-2",
+      "participants_overview": "Gender: [\"F\", \"M\"]; Age: [\"17\", \"18\", \"19\", \"20\", \"21\", \"22\", \"23\"]; SessionOrder: [\"NS->SD\", \"SD->NS\"]; PVT_item1_NS: [\"0\", \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\"]; PVT_item1_SD: [\"0\", \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\"]; SSS_NS: [\"1\", \"2\", \"3\", \"4\", \"5\"]; SSS_SD: [\"1\", \"2\", \"3\", \"4\", \"5\", \"7\"]; KSS_NS: [\"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\"]; KSS_SD: [\"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\"]; SleepDiary_item3_NS: [\"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\"]; PSQI_item1: [\"0\", \"1\", \"2\", \"3\"]; PSQI_item2: [\"0\", \"1\", \"2\", \"3\"]; PSQI_item3: [\"0\", \"1\", \"2\"]; PSQI_item4: [\"0\", \"1\", \"2\", \"3\"]; PSQI_item5: [\"0\", \"1\", \"2\"]; PSQI_item6: [\"0\"]; PSQI_item7: [\"0\", \"1\", \"2\", \"3\"]",
+      "tasks": [],
+      "events": [],
+      "openneuro_name": "A Resting-state EEG Dataset for Sleep Deprivation",
+      "openneuro_authors": [
+        "Chuqin Xiang",
+        "Xinrui Fan",
+        "Duo Bai",
+        "Ke Lv",
+        "Xu Lei"
+      ],
+      "openneuro_doi": "doi:10.18112/openneuro.ds004902.v1.0.8",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg",
+        "beh"
+      ],
+      "openneuro_tasks": [
+        "eyesclosed",
+        "eyesopen"
+      ],
+      "eegdash_subjects": 71
+    }
+  },
+  {
+    "dataset_id": "DS004295",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS004295.html",
+    "openneuro_id": "ds004295",
+    "openneuro_url": "https://openneuro.org/datasets/ds004295",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds004295",
+    "eegdash_subjects": 26,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "Reward gain and punishment avoidance reversal learning",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: Reward gain and punishment avoidance reversal learning\nAuthors: Christopher Stolz, Alan Pickering, Erik M. Mueller\nReferences: \nDOI: doi:10.18112/openneuro.ds004295.v1.0.0",
+      "readme": "Two reversal learning tasks with different reinforcer (monetary reward vs. primary threat reinforcer). Positive feedback in the reward task indicated monetary reward (+10 Cent) and negative feedback monetary non-reward (+0 Cent). In the punishment task, positive feedback signaled successful avoidance of a loud white noise burst and negative feedback the application of the noise burst. The white noise burst intensity was titrated to match monetary reward (+10 Cent) for every participant (81 dB, 84 dB, 87, dB, 90 dB).",
+      "participants_overview": "Gender: [\"19\", \"20\", \"21\", \"22\", \"23\", \"24\", \"25\", \"26\", \"27\", \"29\" (and 1 more)]; Age: [\"F\", \"M\"]; task_sequence: [\"1\", \"2\"]; noise_burst: [\"84\", \"87\", \"90\"]; burst_rating: [\"2\", \"3\", \"4\"]; REWpos_rating: [\"1\", \"2\", \"3\", \"4\"]; REWneg_rating: [\"0\", \"1\", \"2\", \"3\", \"4\"]; PUNpos_rating: [\"0\", \"1\", \"2\", \"3\", \"4\"]; PUNneg_rating: [\"2\", \"3\", \"4\"]; Comments: [\"Due to technical issues with the saving of EEG data, 23 trials in the punishment task were not recorded. Feedback arrays were derived from the EEG markers which is why the PES/PCS are missing.\", \"Recorded with 512 Hz sampling rate instead of 1024 Hz.\"]; Excluded: [\"Excluded due to event-related muscle artefacts. Computational models were not fit to behavioral data for this participant.\", \"Excluded participant due to technical issues with EEG recording. Computational models were not fit to behavioral data for this participant.\"]",
+      "tasks": [
+        "task"
+      ],
+      "events": [],
+      "openneuro_name": "Reward gain and punishment avoidance reversal learning",
+      "openneuro_authors": [
+        "Christopher Stolz",
+        "Alan Pickering",
+        "Erik M. Mueller"
+      ],
+      "openneuro_doi": "doi:10.18112/openneuro.ds004295.v1.0.0",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "task"
+      ],
+      "eegdash_subjects": 26
+    }
+  },
+  {
+    "dataset_id": "DS003519",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS003519.html",
+    "openneuro_id": "ds003519",
+    "openneuro_url": "https://openneuro.org/datasets/ds003519",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds003519",
+    "eegdash_subjects": 27,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "EEG: Visual Working Memory + Cabergoline Challenge",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: EEG: Visual Working Memory + Cabergoline Challenge\nAuthors: James F Cavanagh, Michael J Frank, James Broadway\nReferences: PMID: 29569219\nDOI: 10.18112/openneuro.ds003519.v1.1.0",
+      "readme": "Visual Working Memory.  Mostly unpublished!   Beh data published here:  10.3758/s13415-018-0584-6.   EEG data never published.   Same sample as this published study: 10.1038/ncomms6394.  30 healthy participants (3 dropout) in a double-blind drug study.    Total n=27.   Drug was Cabergoline 1.25 mg.   Subjects had IDs 305/405 - 330/430.   The dual numbers were for session:  300s were first session, 400s were second session.  Here we have simply put them in as session 1 and session 2.   So Joe Smith would have been 305 on visit 1, then 405 on visit 2.  If he got cab first we indicated that in the Sess1_Drug column.   Task included in Matlab programming language.   Data collected circa 2012-2013 in Laboratory for Neural Computation & Cognition at Brown.  Check the .xls sheet under code folder for more meta data, incl. OSpan etc.   - James F Cavanagh 02/15/2021",
+      "participants_overview": "sex: [\"Female\", \"Male\"]; age: [\"18\", \"19\", \"20\", \"21\", \"22\", \"23\", \"24\", \"26\"]; sess1_Drug: [\"Cab\", \"Placebo\"]; sess2_Drug: [\"Cab\", \"Placebo\"]",
+      "tasks": [],
+      "events": [
+        "Question Mark Probe: \"In\"",
+        "Question Mark Probe: \"Out\"",
+        "Response: Correct",
+        "Response: Inorrect",
+        "STATUS",
+        "Stim Onset: 3 Red",
+        "Stim Onset: 3 Red + 2 yellow",
+        "Stim Onset: 5 Red"
+      ],
+      "openneuro_name": "EEG: Visual Working Memory + Cabergoline Challenge",
+      "openneuro_authors": [
+        "James F Cavanagh",
+        "Michael J Frank",
+        "James Broadway"
+      ],
+      "openneuro_doi": "10.18112/openneuro.ds003519.v1.1.0",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "VisualWorkingMemory"
+      ],
+      "eegdash_subjects": 27
+    }
+  },
+  {
+    "dataset_id": "DS003458",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS003458.html",
+    "openneuro_id": "ds003458",
+    "openneuro_url": "https://openneuro.org/datasets/ds003458",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds003458",
+    "eegdash_subjects": 23,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "EEG: Three armed bandit gambling task",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: EEG: Three armed bandit gambling task\nAuthors: James F Cavanagh  jcavanagh@unm.edu\nReferences: PMID: 25676913\nDOI: 10.18112/openneuro.ds003458.v1.1.0",
+      "readme": "Healthy control college students.  23 subjects completed the 3-armed bandit task with oscillating probabilities.    For example, the 'blue' stim would slowly move from 20% reinforcing to 90% then back to 20 over many trials.  The other 'red' and 'green' stims would move similarly, but in different phase.  See Fig 1 of the paper.  This makes the task great for investigating reward processing & reward prediction error in the service of novel task set generation.\n\nTask included in Matlab programming language.  \n\nData collected in 2014 in the Cognitive Rhythms and Computation Lab, University of New Mexico.   \n\nI also collected Corrugator EMG (may be labeled EKG) and Skin Conductance on most people.  But quality was dubious so I never did much with it.  Check .xls sheet under code folder.\n\nSome pre-processing scripts are included in code folder as well.   \n\n- James F Cavanagh 01/04/2021",
+      "participants_overview": "sex: [\"1\", \"2\"]; age: [\"18\", \"19\", \"20\", \"21\", \"22\", \"23\", \"24\"]",
+      "tasks": [],
+      "events": [
+        "Feedback Loss: \"~\"",
+        "Feedback Null: \"No Response\"",
+        "Feedback Win: \"+1\"",
+        "Fixation",
+        "Response: Left",
+        "Response: Right",
+        "Response: Up",
+        "STATUS",
+        "Stimulus (Left, Right, Up): X,Y,Z",
+        "Stimulus (Left, Right, Up): X,Z,Y",
+        "Stimulus (Left, Right, Up): Y,X,Z",
+        "Stimulus (Left, Right, Up): Y,Z,X",
+        "Stimulus (Left, Right, Up): Z,X,Y",
+        "Stimulus (Left, Right, Up): Z,Y,X"
+      ],
+      "openneuro_name": "EEG: Three armed bandit gambling task",
+      "openneuro_authors": [
+        "James F Cavanagh  jcavanagh@unm.edu"
+      ],
+      "openneuro_doi": "10.18112/openneuro.ds003458.v1.1.0",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "ThreeArmedBandit"
+      ],
+      "eegdash_subjects": 23
+    }
+  },
+  {
+    "dataset_id": "DS003004",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS003004.html",
+    "openneuro_id": "ds003004",
+    "openneuro_url": "https://openneuro.org/datasets/ds003004",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds003004",
+    "eegdash_subjects": 34,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "Imagined Emotion Study",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: Imagined Emotion Study\nAuthors: Julie Onton, Scott Makeig\nReferences: Onton J.A. and Makeig S. (2009). High-frequency broadband modulations of electroencephalographic spectra. Front. Hum. Neurosci. 3,:61. DOI: https://doi.org/10.3389/neuro.09.061.2009; Onton J.A. and Makeig S. (2009). Independent modulators of regional EEG alpha sub-band power during a working memory task. Poster session presented to Cognitive Neuroscience Society; San Francisco, CA. https://sccn.ucsd.edu/~julie/AlphaIMposter.pdf; Kothe C.A., Makeig S., and Onton J.A. (2013). Emotion Recognition from EEG during Self-Paced Emotional Imagery. 2013 Humaine Association Conference on Affective Computing and Intelligent Interaction. IEEE. 855-858, DOI: https://doi.org/10.1109/ACII.2013.160 (and 1 more)\nDOI: doi:10.18112/openneuro.ds003004.v1.1.1",
+      "readme": "**PARADIGM:** The study uses the method of guided imagery to induce resting, eyes-closed participants using voice-guided imagination to enter distinct 15 emotion states during acquisition of high-density EEG data. \n\nDuring the study, participants listen to 15 voice recordings that each suggest imagining a scenario in which they have experienced -- or would experience the named target emotion. Some target emotions have positive valence (e.g., joy, happiness), others negative valence (e.g., sadness, anger). Before and between the 15 emotion imagination periods, participants hear relaxation suggestions ('Now return to a neutral state by ...').\n\n**PROCEDURE:** When the participant first begins to feel the target emotion, they are asked to indicate this by pressing a handheld button. Participants are asked to continue feeling the emotion as long as possible.  To intensify and lengthen the periods of experienced emotion, participants are asked to interoceptively perceive and attend relevant somatosensory sensations. When the target feeling wanes (typically after 1 and 5 minutes), participants push the button again to leave the emotion imagination period and cue the relaxation instructions.\n\n**DATA HANDLING:** The raw data have been preprocessed to fix confusing event codes and to remove excessively noisy channels. In addition, a 1-Hz high pass filter  was applied to ready the data for ICA decomposition. Note: Unfortunately, the unfiltered data are no longer available.\n\n**NOTE:** Sub22 was a repeat subject, hence was removed from the dataset.",
+      "participants_overview": "Gender: [\"F\", \"M\"]; Age: [\"18\", \"19\", \"20\", \"21\", \"22\", \"23\", \"24\", \"25\", \"26\", \"28\" (and 6 more)]; Group: [\"normal\"]; Handedness: [\"L\", \"R\"]",
+      "tasks": [],
+      "events": [],
+      "openneuro_name": "Imagined Emotion Study",
+      "openneuro_authors": [
+        "Julie Onton",
+        "Scott Makeig"
+      ],
+      "openneuro_doi": "doi:10.18112/openneuro.ds003004.v1.1.1",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "ImaginedEmotion"
+      ],
+      "eegdash_subjects": 34
+    }
+  },
+  {
+    "dataset_id": "DS004200",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS004200.html",
+    "openneuro_id": "ds004200",
+    "openneuro_url": "https://openneuro.org/datasets/ds004200",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds004200",
+    "eegdash_subjects": 20,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "Temporal Scaling",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: Temporal Scaling\nAuthors: Cameron D. Hassall, Jack Harley, Nils Kolling, Laurence T. Hunt\nReferences: \nDOI: doi:10.18112/openneuro.ds004200.v1.0.1",
+      "readme": "# Temporal Scaling\n\nTwenty participants learned three temporal intervals. There were two subtasks, randomly interleaved. In the Production task, participants produced either a short, medium, or long temporal interval. In the Perception task, participants judged a computer-produced interval as correct or incorrect (again, for a short, medium, or long temporal interval). In both tasks participants received visual feedback (a checkmark or x).\n\nPreprint: https://doi.org/10.1101/2020.12.11.421180",
+      "participants_overview": "age: [\"20\", \"21\", \"23\", \"24\", \"25\", \"30\", \"39\", \"40\", \"49\", \"53\" (and 6 more)]; sex: [\"F\", \"M\"]; handedness: [\"L\", \"LR\", \"R\"]",
+      "tasks": [
+        "temporalscaling"
+      ],
+      "events": [],
+      "openneuro_name": "Temporal Scaling",
+      "openneuro_authors": [
+        "Cameron D. Hassall",
+        "Jack Harley",
+        "Nils Kolling",
+        "Laurence T. Hunt"
+      ],
+      "openneuro_doi": "doi:10.18112/openneuro.ds004200.v1.0.1",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "temporalscaling"
+      ],
+      "eegdash_subjects": 20
+    }
+  },
+  {
+    "dataset_id": "DS004015",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS004015.html",
+    "openneuro_id": "ds004015",
+    "openneuro_url": "https://openneuro.org/datasets/ds004015",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds004015",
+    "eegdash_subjects": 36,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "Attended speaker paradigm (cEEGrid data)",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: Attended speaker paradigm (cEEGrid data)\nAuthors: Bjoern Holtze, Marc Rosenkranz, Manuela Jaeger, Stefan Debener, Bojana Mirkovic\nReferences: https://doi.org/10.3389/fnins.2022.869426\nDOI: doi:10.18112/openneuro.ds004015.v1.0.2",
+      "readme": "Within this study cEEGrid data from two previous studies were pooled. \n15 participants from Jaeger et al. (2020) and 21 from Holtze et al. (2021) were included. \nParticipants performed a two-competing speaker paradigm in both original studies. \nParticipants were instructed to either attend to the left or right audio book. \nThe paradigm consisted of six (Jaeger et al. 2020) or five (Holtze et al. 2021) \n10-minute blocks of audio book presentation. In Jaeger et al. (2020) both audio \nbooks were always presented equally loud. In Holtze et al. 2021, a 10-minute block could \neither be presented in the omnidirectional condition (both audio books were presented \nequally loud) or in the beamforming condition (the to-be-attended audio book \nwas louder than the to-be-ignored audio book). The first 10-minute block was always \npresented in the omnidirectional condition whereas the conditions were alternated \nfor the later four blocks, with one half of the participants starting with the \nomnidirectonal condition and the other half starting with the beamforming condition. \nThe article (https://doi.org/10.3389/fnins.2022.869426) contains all methodological details\n\n- Björn Holtze (February, 2022)",
+      "participants_overview": "attended_ch: [\"left\", \"right\"]; gender: [\"f\", \"m\"]; age: [\"18\", \"20\", \"21\", \"22\", \"23\", \"24\", \"27\", \"28\", \"29\", \"30\" (and 2 more)]; orig_study: [\"holtze2021\", \"jaeger2020\"]; first_bl: [\"1\"]; second_bl: [\"2\", \"3\", \"4\"]; third_bl: [\"3\", \"4\", \"5\"]; con_order: [\"-\", \"BOBO\", \"OBOB\"]",
+      "tasks": [],
+      "events": [],
+      "openneuro_name": "Attended speaker paradigm (cEEGrid data)",
+      "openneuro_authors": [
+        "Bjoern Holtze",
+        "Marc Rosenkranz",
+        "Manuela Jaeger",
+        "Stefan Debener",
+        "Bojana Mirkovic"
+      ],
+      "openneuro_doi": "doi:10.18112/openneuro.ds004015.v1.0.2",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "AttendedSpeakerParadigmcEEGridAttention"
+      ],
+      "eegdash_subjects": 36
+    }
+  },
+  {
+    "dataset_id": "DS004595",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS004595.html",
+    "openneuro_id": "ds004595",
+    "openneuro_url": "https://openneuro.org/datasets/ds004595",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds004595",
+    "eegdash_subjects": 53,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "EEG: RL Task (3-Armed Bandit) with alcohol cues in hazardous drinkers and ctls",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: EEG: RL Task (3-Armed Bandit) with alcohol cues in hazardous drinkers and ctls\nAuthors: Ethan Campbell, James F Cavanagh\nReferences: pending\nDOI: doi:10.18112/openneuro.ds004595.v1.0.0",
+      "readme": "RL task (3-armed bandit) with alcohol vs. beverage cues in N=53 Community participants.   Data collected from 2019-2021 in the CRCL at UNM.   The paper [Campbell, E., Singh, G., Claus, E.D., Witkiewitz,K., Costa, V.D., Hogeveen, J; & Cavanagh, J.F. Electrophysiological markers of aberrant cue-specific exploration in hazardous drinkers]  Should be coming out in print soonish.  Your best bet for understanding this task  would be to read that paper first.   For more info on triggers and outputs, see BEH_EXPLAIN.m file in code folder.  - James F Cavanagh 03/06/2023",
+      "participants_overview": "sex: [\"F\", \"M\"]; age: [\"18\", \"22\", \"24\", \"25\", \"26\", \"27\", \"28\", \"29\", \"30\", \"31\" (and 10 more)]; GROUP: [\"AUD\", \"CTRL\"]",
+      "tasks": [],
+      "events": [
+        "CUE: 123",
+        "CUE: 132",
+        "CUE: 213",
+        "CUE: 231",
+        "CUE: 312",
+        "CUE: 321",
+        "FB: Loss",
+        "FB: No Resp",
+        "FB: Win",
+        "Fixation",
+        "Left Button",
+        "No Response",
+        "Right Button",
+        "STATUS",
+        "Up Button"
+      ],
+      "openneuro_name": "EEG: RL Task (3-Armed Bandit) with alcohol cues in hazardous drinkers and ctls",
+      "openneuro_authors": [
+        "Ethan Campbell",
+        "James F Cavanagh"
+      ],
+      "openneuro_doi": "doi:10.18112/openneuro.ds004595.v1.0.0",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "ThreeArmedBandit"
+      ],
+      "eegdash_subjects": 53
+    }
+  },
+  {
+    "dataset_id": "DS004626",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS004626.html",
+    "openneuro_id": "ds004626",
+    "openneuro_url": "https://openneuro.org/datasets/ds004626",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds004626",
+    "eegdash_subjects": 52,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "Can we dissociate hypervigilance to social threats from altered perceptual decision-making processes in lonely individuals? An exploration with Drift Diffusion Modelling and event-related potentials.",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: Can we dissociate hypervigilance to social threats from altered perceptual decision-making processes in lonely individuals? An exploration with Drift Diffusion Modelling and event-related potentials.\nAuthors: Szymon Mąka, Marta Chrustowicz, Łukasz Okruszek\nReferences: \nDOI: doi:10.18112/openneuro.ds004626.v1.0.2",
+      "readme": "Dataset is related to publication: Mąka, S., Chrustowicz, M., & Okruszek, Ł. (2023). Can we dissociate hypervigilance to social threats from altered perceptual decision-making processes in lonely individuals? An exploration with Drift Diffusion Modeling and event-related potentials. Psychophysiology, e14406. https://doi. org/10.1111/psyp.14406",
+      "participants_overview": "group: [\"lonely\", \"not-lonely\", \"not-lonley\"]; age: [\"19\", \"20\", \"21\", \"22\", \"23\", \"24\", \"25\", \"26\", \"27\", \"28\" (and 6 more)]; sex: [\"Female\", \"Male\"]; edu_years: [\"12\", \"15\", \"17\", \"21\"]",
+      "tasks": [
+        "DotProbe"
+      ],
+      "events": [],
+      "openneuro_name": "Can we dissociate hypervigilance to social threats from altered perceptual decision-making processes in lonely individuals? An exploration with Drift Diffusion Modelling and event-related potentials.",
+      "openneuro_authors": [
+        "Szymon Mąka",
+        "Marta Chrustowicz",
+        "Łukasz Okruszek"
+      ],
+      "openneuro_doi": "doi:10.18112/openneuro.ds004626.v1.0.2",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "DotProbe"
+      ],
+      "eegdash_subjects": 52
+    }
+  },
+  {
+    "dataset_id": "DS004475",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEGMRI",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS004475.html",
+    "openneuro_id": "ds004475",
+    "openneuro_url": "https://openneuro.org/datasets/ds004475",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds004475",
+    "eegdash_subjects": 30,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "Mobile EEG split-belt walking study",
+      "recording_modality": "EEGMRI",
+      "dataset_description": "Name: Mobile EEG split-belt walking study\nAuthors: Noelle A. Jacobsen, Daniel P. Ferris\nAcknowledgment: Noelle A. Jacobsen and Daniel P. Ferris (2023). Mobile EEG split-belt walking study. OpenNeuro. [Dataset] doi:10.18112/openneuro.ds004475.v1.0.0\nReferences: Jacobsen, N. A., & Ferris, D. P. (2023). Electrocortical activity correlated with locomotor adaptation during split‐belt treadmill walking. The Journal of Physiology. https://doi.org/10.1113/JP284505\nDOI: doi:10.18112/openneuro.ds004475.v1.0.3",
+      "readme": "This mobile brain body imaging (MoBI) experiment investigates brain activity correlated to gait adaptation during split-belt treadmill walking. 30 participants completed an abrupt and gradual split-belt walking paradigm (2:1 belt speed ratio).",
+      "participants_overview": "Age: [\"19\", \"20\", \"21\", \"22\", \"23\", \"24\", \"25\", \"26\", \"29\"]; Sex: [\"F\", \"M\"]",
+      "tasks": [],
+      "events": [],
+      "openneuro_name": "Mobile EEG split-belt walking study",
+      "openneuro_authors": [
+        "Noelle A. Jacobsen",
+        "Daniel P. Ferris"
+      ],
+      "openneuro_doi": "doi:10.18112/openneuro.ds004475.v1.0.3",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg",
+        "mri"
+      ],
+      "openneuro_tasks": [
+        "task"
+      ],
+      "eegdash_subjects": 30
+    }
+  },
+  {
+    "dataset_id": "DS004515",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS004515.html",
+    "openneuro_id": "ds004515",
+    "openneuro_url": "https://openneuro.org/datasets/ds004515",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds004515",
+    "eegdash_subjects": 54,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "EEG: Alcohol imagery reinforcement learning task with light and heavy drinker participants",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: EEG: Alcohol imagery reinforcement learning task with light and heavy drinker participants\nAuthors: Garima Singh, James F Cavanagh\nReferences: pending\nDOI: doi:10.18112/openneuro.ds004515.v1.0.0",
+      "readme": "Affective state reinforcement learning task in N=54 Community participants.  High and low drinkers.  Data collected from 2019-2021 in the CRCL at UNM.  The paper [Singh, G., Campbell, E., Hogeveen, J; Witkiewitz,K., Claus, E.D., & Cavanagh, J.F.  Alcohol Imagery Boosts The Reward Positivity in Heavy Drinkers]  Under review at the moment.  Your best bet for understanding this task  would be to read that paper first.  - James F Cavanagh 08/02/2022",
+      "participants_overview": "sex: [\"F\", \"M\"]; age: [\"18\", \"22\", \"24\", \"25\", \"26\", \"27\", \"28\", \"29\", \"30\", \"31\" (and 10 more)]; GROUP: [\"ALC\", \"CTL\"]",
+      "tasks": [],
+      "events": [
+        "CUE: D - HARD Alcohol",
+        "FB: LOSE ALCOHOL",
+        "FB: LOSE PUPPY",
+        "FB: WIN ALCOHOL",
+        "FB: WIN PUPPY",
+        "Left Button",
+        "Right Button",
+        "STATUS"
+      ],
+      "openneuro_name": "EEG: Alcohol imagery reinforcement learning task with light and heavy drinker participants",
+      "openneuro_authors": [
+        "Garima Singh",
+        "James F Cavanagh"
+      ],
+      "openneuro_doi": "doi:10.18112/openneuro.ds004515.v1.0.0",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "ProbabilisticSelection"
+      ],
+      "eegdash_subjects": 54
+    }
+  },
+  {
+    "dataset_id": "DS004883",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS004883.html",
+    "openneuro_id": "ds004883",
+    "openneuro_url": "https://openneuro.org/datasets/ds004883",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds004883",
+    "eegdash_subjects": 172,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "Registerd Report of ERN During Three Versions of a Flanker Task",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: Registerd Report of ERN During Three Versions of a Flanker Task\nAuthors: Peter E. Clayson, Michael J. Larson\nReferences: https://osf.io/qt2zh/; https://osf.io/preprints/psyarxiv/a3s42\nDOI: doi:10.18112/openneuro.ds004883.v1.0.0",
+      "readme": "This study is described at https://osf.io/qt2zh/. Scripts used for data processing are posted there.\n\nHere is the script from the manuscript that describes these data.\n\nError-related negativity is a widely used measure of error monitoring, and many projects are independently moving ERN recorded during a flanker task towards standardization, optimization, and eventual clinical application. However, each project uses a different version of the flanker task and tacitly assumes ERN is functionally equivalent across each version. The routine neglect of a rigorous test of this assumption undermines efforts to integrate ERN findings across tasks, optimize and standardize ERN assessment, and widely apply ERN in clinical trials. The purpose of this registered report was to determine whether ERN shows similar experimental effects (correct vs. error trials) and data quality (intraindividual variability) during three commonly-used versions of a flanker task. ERN was recorded from 172 participants during three versions of a flanker task across two study sites. ERN scores showed numerical differences between tasks, raising questions about the comparability of ERN findings across studies and tasks. Although ERN scores from all three versions of the flanker task yielded high data quality and internal consistency, one version did outperform the other two in terms of the size of experimental effects and the data quality. Exploratory analyses of the error positivity (Pe) provided tentative support for the other two versions of the task over the paradigm that appeared optimal for ERN. The present study provides a roadmap for how to statistically compare psychometric characteristics of ERP scores across paradigms and gives preliminary recommendations for flanker tasks to use for ERN- and Pe-focused studies.",
+      "participants_overview": "Gender: [\"Man\", \"Other\", \"Woman\"]; Sex: [\"Female\", \"Male\"]; Age: [\"18\", \"19\", \"20\", \"21\", \"22\", \"23\", \"24\", \"25\", \"26\", \"27\" (and 1 more)]; Race: [\"American Indian/Alaskan\", \"Asian\", \"Black/AA\", \"Hawaiian/Other PI\", \"Multiracial\", \"White\"]; Ethnicity: [\"No\", \"Yes\"]; StudySite: [\"BYU\", \"USF\"]",
+      "tasks": [
+        "FFERN"
+      ],
+      "events": [],
+      "openneuro_name": "Registerd Report of ERN During Three Versions of a Flanker Task",
+      "openneuro_authors": [
+        "Peter E. Clayson",
+        "Michael J. Larson"
+      ],
+      "openneuro_doi": "doi:10.18112/openneuro.ds004883.v1.0.0",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "mixed"
+      ],
+      "eegdash_subjects": 172
+    }
+  },
+  {
+    "dataset_id": "DS003739",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS003739.html",
+    "openneuro_id": "ds003739",
+    "openneuro_url": "https://openneuro.org/datasets/ds003739",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds003739",
+    "eegdash_subjects": 30,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "Perturbed beam-walking task",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: Perturbed beam-walking task\nAuthors: Steven Peterson, Daniel Ferris\nAcknowledgment: Please cite:\n\nPeterson SM & Ferris DP (2018). Differentiation in theta and beta electrocortical activity between visual and physical perturbations to walking and standing balance. eNeuro, 5(4): ENE...\nReferences: https://doi.org/10.1016/j.neuroimage.2019.05.038; https://doi.org/10.1523/ENEURO.0207-18.2018\nDOI: 10.18112/openneuro.ds003739.v1.0.2",
+      "readme": "Data was collected at the University of Michigan by Steven Peterson in the lab of Daniel Ferris. This study's protocol was approved by the University of Michigan Institutional Review Board and all participants provided written consent.\n\nEach data file includes synchronized 128-channel EEG, lower leg EMG, neck EMG, EOG, and motion capture data. Participants performed four 10-minute, same-day sessions where they either stood or walked at 0.22 m/s on a treadmill-mounted balance beam that was 2.5 cm tall and 12.7 cm wide.\n\nDuring each session, participants were exposed to sensorimotor perturbations (either virtual-reality-induced visual field rotations or side-to-side waist pulls, lasting 0.5 seconds and 1 second in duration, respectively). Each session involved 150 perturbation events, balanced between rotation/pull directions.\n\nWe have included the indices of all good channels for each participant in EEG.etc.good_chans of each .set file (includes non-EEG channel indices). Criteria for determining good/bad EEG channels can be found in our eNeuro publication. EEG.etc also includes the resulting ICA sphere and weight matrices when run on only the EEG channels, along with the selected good IC's that were retained for our analyses.",
+      "participants_overview": "gender: [\"F\", \"M\"]; age: [\"18\", \"19\", \"20\", \"21\", \"22\", \"23\", \"24\", \"26\", \"28\", \"29\" (and 3 more)]; handedness: [\"R\"]; footedness: [\"R\"]",
+      "tasks": [],
+      "events": [
+        "stimulus"
+      ],
+      "openneuro_name": "Perturbed beam-walking task",
+      "openneuro_authors": [
+        "Steven Peterson",
+        "Daniel Ferris"
+      ],
+      "openneuro_doi": "doi:10.18112/openneuro.ds003739.v1.0.3",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "mixed"
+      ],
+      "eegdash_subjects": 30
+    }
+  },
+  {
+    "dataset_id": "DS004367",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS004367.html",
+    "openneuro_id": "ds004367",
+    "openneuro_url": "https://openneuro.org/datasets/ds004367",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds004367",
+    "eegdash_subjects": 40,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "Meta-rdk: Raw EEG data",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: Meta-rdk: Raw EEG data\nAuthors: Martin Rouy, Matthieu Roger, Dorian Goueytes, Michael Pereira, Paul Roux (and 1 more)\nReferences: \nDOI: doi:10.18112/openneuro.ds004367.v1.0.2",
+      "readme": "The study was approved by the ethical committee Sud Mditranne II (217 R01). Twenty individuals with a schizophrenia spectrum disorder (schizophrenia or schizoaffective disorder, 16 males, 4 females) and 22 healthy participants (15 males, 7 females) from the general population took part in this study. Schizophrenia and schizoaffective disorders were diagnosed based on the Structured Clinical Interview for assessing the DSM-5 criteria. The control group was screened for current or past psychiatric illness, and individuals were excluded if they met the criteria for a severe and persistent mental disorder.                                                                                                                                                                                                                                                                \n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \nWe used a visual discrimination task. Stimuli consisted of 100 moving dots within a circle (3 radius) at the center of the screen. On each trial, participants indicated whether the motion direction of the dots was to the left or to the right by reaching and clicking on one of two choice targets (3 radius circle) at the top corners of the screen with a mouse. After 6 seconds without response, a buzz sound rang and a message was displayed inviting the participant to respond quicker. Motion coherence was adapted at the individual level via a 1up/2down staircase procedure in order to match task-performance between groups. Following each perceptual decision, participants were asked to report their confidence about their response using a vertical visual analog scale from 0% (Sure incorrect) to 100% (Sure correct), with 50% confidence meaning Not sure at all.\u0000",
+      "participants_overview": "Gender: [\"F\", \"M\"]; Age: [\"19\", \"23\", \"25\", \"26\", \"27\", \"28\", \"30\", \"32\", \"34\", \"37\" (and 10 more)]; Group: [\"Control\", \"Patient\"]",
+      "tasks": [
+        "rdk"
+      ],
+      "events": [],
+      "openneuro_name": "Meta-rdk: Raw EEG data",
+      "openneuro_authors": [
+        "Martin Rouy",
+        "Matthieu Roger",
+        "Dorian Goueytes",
+        "Michael Pereira",
+        "Paul Roux",
+        "Nathan Faivre"
+      ],
+      "openneuro_doi": "doi:10.18112/openneuro.ds004367.v1.0.2",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "rdk"
+      ],
+      "eegdash_subjects": 40
+    }
+  },
+  {
+    "dataset_id": "DS004369",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS004369.html",
+    "openneuro_id": "ds004369",
+    "openneuro_url": "https://openneuro.org/datasets/ds004369",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds004369",
+    "eegdash_subjects": 41,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "Blink-Pause-Relation (Competing Speaker Paradigm)",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: Blink-Pause-Relation (Competing Speaker Paradigm)\nAuthors: Bjoern Holtze, Marc Rosenkranz, Martin Bleichner, Stefan Debener\nReferences: tba\nDOI: doi:10.18112/openneuro.ds004369.v1.0.1",
+      "readme": "Within this study the EOG channels from two previous studies were pooled. \n20 participants from Jaeger et al. (2020) and 21 from Holtze et al. (2021) were included. \nParticipants performed a two-competing speaker paradigm in both original studies. \nParticipants were instructed to either attend to the left or right audio book. \nThe paradigm consisted of six (Jaeger et al. 2020) or five (Holtze et al. 2021) \n10-minute blocks of audio book presentation. In Jaeger et al. (2020) both audio \nbooks were always presented equally loud. In Holtze et al. 2021, a 10-minute block could \n either be presented in the omnidirectional condition (both audio books were presented \nequally loud) or in the beamforming condition (the to-be-attended audio book \nwas louder than the to-be-ignored audio book). The first 10-minute block was always \npresented in the omnidirectional condition whereas the conditions were alternated \nfor the later four blocks, with one half of the participants starting with the \nomnidirectonal condition and the other half starting with the beamforming condition \nThe article (see Reference) contains all methodological details\n\n- Bjrn Holtze (December, 2022)",
+      "participants_overview": "min100blinks: [\"0\", \"1\"]; attended_ch: [\"left\", \"right\"]; gender: [\"f\", \"m\"]; age: [\"18\", \"19\", \"20\", \"21\", \"22\", \"23\", \"24\", \"27\", \"28\", \"29\" (and 3 more)]; con_order: [\"-\", \"BOBO\", \"OBOB\"]; selected_bl: [\"1,2,3,4,5\", \"1,2,3,4,5,6\", \"1,2,4\", \"1,3,5\"]",
+      "tasks": [],
+      "events": [],
+      "openneuro_name": "Blink-Pause-Relation (Competing Speaker Paradigm)",
+      "openneuro_authors": [
+        "Bjoern Holtze",
+        "Marc Rosenkranz",
+        "Martin Bleichner",
+        "Stefan Debener"
+      ],
+      "openneuro_doi": "doi:10.18112/openneuro.ds004369.v1.0.1",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "attendedSpeakerParadigm"
+      ],
+      "eegdash_subjects": 41
+    }
+  },
+  {
+    "dataset_id": "DS004579",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS004579.html",
+    "openneuro_id": "ds004579",
+    "openneuro_url": "https://openneuro.org/datasets/ds004579",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds004579",
+    "eegdash_subjects": 139,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "Interval Timing Task",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: Interval Timing Task\nAuthors: Arun Singh arun.singh@usd.edu, Rachel Cole rachel-cole@uiowa.edu, Arturo Espinoza arturo-espinoza@uiowa.edu, Jan R Wessel jan-wessel@uiowa.edu, Jim Cavanagh jcavanagh@unm.edu (and 1 more)\nReferences: doi: https://doi.org/10.1101/2022.07.26.22278079\nDOI: doi:10.18112/openneuro.ds004579.v1.0.0",
+      "readme": "This experiment includes 139 subjects: 94 individuals with Parkinsons disease, \nand 45 controls. Subjects completed  this IntervalTiming task (along with multiple other cognitive tasks) \nwhile EEG was recorded with a 64-channel BrainVision cap. This task presented black instructional \ntext on the center of a white screen that read \"Short interval\" on 3-second interval trials \nand \"Long interval\" on 7-second interval trials. The researchers never communicated the actual \ninterval durations to the patient. The instructions were displayed for 1 second,  and the appearance \nof an image of a solid box in the center of the computer screen indicated the start of the interval. \nThe cue was displayed on the screen for the entire trial, which lasted 6 s for 3-s intervals and \n14 s for 7-s intervals. The researchers instructed participants to press the keyboard spacebar \nwhen they judged the target interval to have elapsed. Participants were directed not to count, and \na distractor vowel appeared at random intervals in the screen center.",
+      "participants_overview": "GROUP: [\"Control\", \"PD\"]; AGE: [\"48\", \"52\", \"53\", \"54\", \"56\", \"57\", \"58\", \"60\", \"61\", \"62\" (and 10 more)]; GENDER: [\"F\", \"M\"]; TYPE: [\"0\", \"1\"]",
+      "tasks": [
+        "IntervalTiming"
+      ],
+      "events": [],
+      "openneuro_name": "Interval Timing Task",
+      "openneuro_authors": [
+        "Arun Singh arun.singh@usd.edu",
+        "Rachel Cole rachel-cole@uiowa.edu",
+        "Arturo Espinoza arturo-espinoza@uiowa.edu",
+        "Jan R Wessel jan-wessel@uiowa.edu",
+        "Jim Cavanagh jcavanagh@unm.edu",
+        "Nandakumar Narayanan nandakumar-narayanan@uiowa.edu"
+      ],
+      "openneuro_doi": "doi:10.18112/openneuro.ds004579.v1.0.0",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "IntervalTiming"
+      ],
+      "eegdash_subjects": 139
+    }
+  },
+  {
+    "dataset_id": "DS001785",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS001785.html",
+    "openneuro_id": "ds001785",
+    "openneuro_url": "https://openneuro.org/datasets/ds001785",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds001785",
+    "eegdash_subjects": 18,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "Evidence accumulation relates to perceptual consciousness and monitoring",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: Evidence accumulation relates to perceptual consciousness and monitoring\nAuthors: Michael Pereira, Pierre Mégevand, Mi Xue Tan, Wenwen Chang, Shuo Wang (and 7 more)\nAcknowledgment: If you reference this dataset in your publications, please acknowledge its authors. Also, please include the following message: 'This data was obtained from the Open Neuro database.'\nReferences: List of papers or websites\nDOI: 10.18112/openneuro.ds001785.v1.1.1",
+      "readme": "This dataset contains the EEG used in the paper: Evidence accumulation relates to perceptual consciousness and monitoring, 2021, Nature Communications\n\nParticipants:\nTwenty healthy participants (7 woman; age: 25.2, SD = 4.1) participated in this study for a 40 CHF compensation. Subjects gave written informed consent prior to participating and all experimental procedures were approved by the Commission Cantonale d'Ethique de la Recherche de la République et Canton de Genève (2015-00092 15-273). \n\nOne patient with intractable epilepsy. The patient provided informed written consent for the present  study which was approved by the Commission Cantonale d’Ethique de la Recherche de la République et Canton de Genève (2016-01856). \n\nStimuli were applied on the lateral palmar side of the right wrist using a MMC3 Haptuator vibrotactile device from TactileLabs Inc. (Montreal, Canada) driven by a 230 Hz sinusoid audio signal lasting 100 ms. Experiments started by a simple estimation of the individual detection threshold. The tactile stimulus was applied with decreasing intensity with steps corresponding to 2% of the initial intensity until the participant reported not feeling it anymore three times in a row. We then repeated the same procedure but with increasing intensity and until the participant reported feeling the vibration three times in a row. The perceptual threshold was estimated to be the average between the two thresholds found using this procedure. This approximation was then used as a seed value for an adaptive staircase during the main experiment.\n \nParticipants sat in front of a computer screen. A white fixation cross appeared in the middle of the screen for 2 s. From the moment the fixation cross turned green, participants were told that a tactile stimulus could be applied at any moment during the next 2 s. During this period, stimulus onset was uniformly distributed in 80% of trials, the 20% remaining trials served as catch trials. In all trials, 1 second after the green cross disappeared, participants were prompted to answer with the keyboard whether they felt the stimulus or not. Following a 500 ms stimulus onset asynchrony, participants were asked to report the confidence in their first order response by moving a slider on a visual analog scale with marks at 0 (certainty that the first-order response was erroneous), 0.5 (unsure about the first-order response) and 1.0 (certainty that the first-order response was correct). Detection and confidence reports were provided with the left (non-stimulated) hand, using different keys. The total experiment included 500 trials divided in 10 blocks and lasted about 2 hours. \n\n\nRecordings:\nElectroencephalographic data were acquired from 62 active electrodes (10-20 montage) using a WaveGuard EEG cap and amplifier (ANTNeuro, Hengelo, The Netherlands) and digitized at a sampling rate of 1024 Hz. Horizontal and vertical electrooculography (EOG) was derived using bipolar referenced electrodes placed around participants' eyes. The audio signal driving the vibrotactile actuator was recorded as an extra channel to precisely realign data to stimulus onset.\n\nFor the patient, electrocorticographical data was obtained through a 24 electrode ECoG grid (Ad-Tech Medical) covering the left hemisphere from the premotor cortex to the superior parietal lobule. The electrodes had a 4 mm diameter with 2.3 mm exposed corresponding to an area of 4.15 mm2. The data was amplified and sampled at 2048 Hz (Brain Quick LTM, Micromed, Treviso, Italy).",
+      "participants_overview": "age: [\"18\", \"22\", \"23\", \"24\", \"25\", \"26\", \"28\", \"29\", \"30\", \"31\" (and 1 more)]; sex: [\"F\", \"M\"]",
+      "tasks": [
+        "adapt",
+        "thrdown",
+        "thrup"
+      ],
+      "events": [
+        "conf",
+        "conf-resp",
+        "cr",
+        "fa",
+        "hit",
+        "miss",
+        "stim-adapt",
+        "stim-thr"
+      ],
+      "openneuro_name": "Evidence accumulation relates to perceptual consciousness and monitoring",
+      "openneuro_authors": [
+        "Michael Pereira",
+        "Pierre Mégevand",
+        "Mi Xue Tan",
+        "Wenwen Chang",
+        "Shuo Wang",
+        "Ali Rezai",
+        "Margitta Seeck",
+        "Marco Corniola",
+        "Shahan Momjian",
+        "Fosco Bernasconi",
+        "Olaf Blanke",
+        "Nathan Faivre"
+      ],
+      "openneuro_doi": "10.18112/openneuro.ds001785.v1.1.1",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "tactile detection"
+      ],
+      "eegdash_subjects": 18
+    }
+  },
+  {
+    "dataset_id": "DS001971",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS001971.html",
+    "openneuro_id": "ds001971",
+    "openneuro_url": "https://openneuro.org/datasets/ds001971",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds001971",
+    "eegdash_subjects": 20,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "Audiocue walking study",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: Audiocue walking study\nAuthors: Johanna Wagner, Ramon Martinez-Cancino, Scott Makeig, Arnaud Delorme, Christa Neuper (and 2 more)\nReferences: http://www.jneurosci.org/content/36/7/2212.short\nDOI: 10.18112/openneuro.ds001971.v1.1.1",
+      "readme": "This mobile brain body imaging (MoBI) gait adaptation experiment contains 18 subjects. \nParticipants were walking on a treadmill at a constant speed and were required to step in \ntime to an auditory tone sequence and adapt their step length and rate to occasional\nshifts in tempo of the pacing stimulus (i.e., following shifts to a faster or slower tempo).\nThe scientific article (see Reference) contains all methodological details\n\n- Johanna Wagner (June 6, 2019)",
+      "participants_overview": "sex: [\"F\", \"M\"]; age: [\"18-38\", \"23\", \"28\", \"32\", \"38\"]; handedness: [\"R\"]",
+      "tasks": [
+        "AudioCueWalkingStudy"
+      ],
+      "events": [
+        "AdvanceTempo",
+        "DelayTempo",
+        "PreferredCadence",
+        "STATUS",
+        "UncuedWalking"
+      ],
+      "openneuro_name": "Audiocue walking study",
+      "openneuro_authors": [
+        "Johanna Wagner",
+        "Ramon Martinez-Cancino",
+        "Scott Makeig",
+        "Arnaud Delorme",
+        "Christa Neuper",
+        "Teodoro Solis-Escalante",
+        "Gernot Mueller-Putz"
+      ],
+      "openneuro_doi": "10.18112/openneuro.ds001971.v1.1.1",
+      "openneuro_license": "Creative commons",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "AudioCueWalkingStudy"
+      ],
+      "eegdash_subjects": 20
+    }
+  },
+  {
+    "dataset_id": "DS003478",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS003478.html",
+    "openneuro_id": "ds003478",
+    "openneuro_url": "https://openneuro.org/datasets/ds003478",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds003478",
+    "eegdash_subjects": 122,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "EEG: Depression rest",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: EEG: Depression rest\nAuthors: James F Cavanagh  jcavanagh@unm.edu\nReferences: PMID: 31149639\nDOI: 10.18112/openneuro.ds003478.v1.1.0",
+      "readme": "Resting EEG data with 122 college-age participants. These are the same participants as the Openneuro prob selection task. Subjects have the same task IDs, so you could match them up if you like.   Task included in DMDX programming language, with instructions for eyes open & eyes closed  Triggers included for instrucgted one minute spans for open or closed, e.g. : OCCOCO or COOCOC   Data collected circa 2008-2010 in John J.B. Allen lab at U Arizona.  Subjects scored reliably high or low in Beck Depression Inventory.  Some have been clinically interviewed.  See .xls sheet. For some subjects (maybe all?), HEOG and VEOG may be mis-labeled as the other.  Some files have had some channels interpolated already.  There are no raw data to revert to instead...  I have never even looked at the last rest run; no idea how it looks.  First rest run was high quality though.  The first 6 mins happened immedately after EEG hook-up.  The second 6 minutes came after task performance (about 1 hour later)  516 has no rest2.  544 was unused in all anlayses due to unstable BDI between mass assessment and lab assessment (1-4 months)   - James F Cavanagh 01/18/2021",
+      "participants_overview": "sex: [\"1\", \"2\"]; age: [\"18\", \"19\", \"20\", \"21\", \"22\", \"23\", \"24\"]; SCID: [\"Current MDD\", \"Do not meet criterion for current or past MDD\", \"No Interview\", \"Past MDD\"]",
+      "tasks": [],
+      "events": [
+        "Eyes Closed: Every 2000 ms",
+        "Eyes Closed: Every 500 ms",
+        "Eyes Open: Every 2000 ms",
+        "Eyes Open: Every 500 ms",
+        "STATUS",
+        "Start and Finish"
+      ],
+      "openneuro_name": "EEG: Depression rest",
+      "openneuro_authors": [
+        "James F Cavanagh  jcavanagh@unm.edu"
+      ],
+      "openneuro_doi": "10.18112/openneuro.ds003478.v1.1.0",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "Rest"
+      ],
+      "eegdash_subjects": 122
+    }
+  },
+  {
+    "dataset_id": "DS004306",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS004306.html",
+    "openneuro_id": "ds004306",
+    "openneuro_url": "https://openneuro.org/datasets/ds004306",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds004306",
+    "eegdash_subjects": 12,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "EEG Semantic Imagination and Perception Dataset",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: EEG Semantic Imagination and Perception Dataset\nAuthors: Holly Wilson, Mohammad Golbabaee, Michael Proulx, Eamonn O'Neill\nAcknowledgment: \nReferences: ; ; \nDOI: doi:10.18112/openneuro.ds004306.v1.0.2",
+      "readme": "This dataset consists of electroencephalography (EEG) signals acquired with a 124 EEG ANT-Neuro device. \n\n### Participants and Sessions\nThere are 13 participants included, ten performed one session and three performed two sessions. All participants had normal or corrected vision and hearing, apart from sub-16.\n\n### Task\nThe task consisted of imagining and perceiving stimuli from three modalities; visual pictorial, visual orthographic (writing) or auditory. Each of the stimuli belonged to one of three categories: guitar, flower and penguin. These categories were selected based on being semantically dissimilar to one another, and because there were all of 2 syllables. \n\n### Dataset Versions\nThe dataset provided consists of the raw EEG data, a pre-processed version, and an epoched version.",
+      "participants_overview": "vviq: [\"3.1\", \"3.2\", \"3.3\", \"3.5\", \"3.6\", \"4.1\", \"4.2\", \"4.25\", \"4.9\"]; bais: [\"3.8\", \"4\", \"4.2\", \"4.8\", \"5\", \"5.6\", \"5.7\", \"6.33\"]; cap: [\"L\", \"M\"];  vision_impaired: [\"n\", \"y\"]; hearing_impaired: [\"n\", \"y\"]",
+      "tasks": [],
+      "events": [
+        "0, Imagination_a_flower_high_10###my_stream_name",
+        "0, Imagination_a_flower_high_11###my_stream_name",
+        "0, Imagination_a_flower_high_17###my_stream_name",
+        "0, Imagination_a_flower_high_23###my_stream_name",
+        "0, Imagination_a_flower_high_4###my_stream_name",
+        "0, Imagination_a_flower_high_5###my_stream_name",
+        "0, Imagination_a_flower_low_10###my_stream_name",
+        "0, Imagination_a_flower_low_13###my_stream_name",
+        "0, Imagination_a_flower_low_17###my_stream_name",
+        "0, Imagination_a_flower_low_23###my_stream_name",
+        "0, Imagination_a_flower_low_25###my_stream_name",
+        "0, Imagination_a_flower_low_5###my_stream_name",
+        "0, Imagination_a_flower_normal_10###my_stream_name",
+        "0, Imagination_a_flower_normal_11###my_stream_name",
+        "0, Imagination_a_flower_normal_12###my_stream_name",
+        "0, Imagination_a_flower_normal_16###my_stream_name",
+        "0, Imagination_a_flower_normal_17###my_stream_name",
+        "0, Imagination_a_flower_normal_19###my_stream_name",
+        "0, Imagination_a_flower_normal_21###my_stream_name",
+        "0, Imagination_a_flower_normal_22###my_stream_name",
+        "0, Imagination_a_flower_normal_23###my_stream_name",
+        "0, Imagination_a_flower_normal_24###my_stream_name",
+        "0, Imagination_a_flower_normal_3###my_stream_name",
+        "0, Imagination_a_flower_normal_5###my_stream_name",
+        "0, Imagination_a_flower_normal_6###my_stream_name",
+        "0, Imagination_a_guitar_high_11###my_stream_name",
+        "0, Imagination_a_guitar_high_14###my_stream_name",
+        "0, Imagination_a_guitar_high_18###my_stream_name",
+        "0, Imagination_a_guitar_high_19###my_stream_name",
+        "0, Imagination_a_guitar_high_25###my_stream_name",
+        "0, Imagination_a_guitar_high_5###my_stream_name",
+        "0, Imagination_a_guitar_low_10###my_stream_name",
+        "0, Imagination_a_guitar_low_17###my_stream_name",
+        "0, Imagination_a_guitar_low_19###my_stream_name",
+        "0, Imagination_a_guitar_low_25###my_stream_name",
+        "0, Imagination_a_guitar_low_3###my_stream_name",
+        "0, Imagination_a_guitar_low_6###my_stream_name",
+        "0, Imagination_a_guitar_normal_1###my_stream_name",
+        "0, Imagination_a_guitar_normal_10###my_stream_name",
+        "0, Imagination_a_guitar_normal_11###my_stream_name"
+      ],
+      "openneuro_name": "EEG Semantic Imagination and Perception Dataset",
+      "openneuro_authors": [
+        "Holly Wilson",
+        "Mohammad Golbabaee",
+        "Michael Proulx",
+        "Eamonn O'Neill"
+      ],
+      "openneuro_doi": "doi:10.18112/openneuro.ds004306.v1.0.2",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "experiment"
+      ],
+      "eegdash_subjects": 12
+    }
+  },
+  {
+    "dataset_id": "DS005305",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS005305.html",
+    "openneuro_id": "ds005305",
+    "openneuro_url": "https://openneuro.org/datasets/ds005305",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds005305",
+    "eegdash_subjects": 165,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "EEG Resting-state Microstates Correlates of Executive Functions",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: EEG Resting-state Microstates Correlates of Executive Functions\nAuthors: Chenot Quentin, Hamery Caroline, Truninger Moritz, De Boissezon Xavier, Langer Nicolas (and 1 more)\nReferences: https://osf.io/zfhcn/\nDOI: doi:10.18112/openneuro.ds005305.v1.0.1",
+      "readme": "## README\nProject name:\tProject Microstates & Executive Functions (Project_microstates_EFs)\nYears: \t\t2021-2023\nContact person: Quentin chenot (quentinchenot@gmail.com)\n\n## Overview\nSummary: This study aimed to specifically explore the relationship between intrinsic brain spatio-temporal dynamics and Executive Functions.\nTo do so, resting-state EEG microstates were used to assess brain spatio-temporal dynamics in 140 healthy participants, while a comprehensive battery of nine cognitive function tasks was employed to evaluate their executive functions.\nCorrelations were computed between the EEG microstates metrics at rest and the mean score in executive function tasks.\n\n## Dataset content\n1160 Files, 6.38GB\n165 - Subjects\n2 - Session\nAvailable Tasks: Resting-State, Antisaccade, Category-Switch, Color-Shape, Dual N-back, Keep-Track, Letter-Memory, Number-Letter, Stop-Signal, Stroop\nAvailable Modalities: EEG\nIndependent variables: NA\nDependent variables:\n\tDV1: Mean score in the nine executive functions tasks (z-scored)\n\tDV2: resting-state EEG microstates metrics (number of occurrences, mean duration)\nControl variables:\n\tAge\n\tGender\n\tEducation\n\tHandedness\n\n## Methods\n### Subjects\n165 participants were recruited for this experiment. 140 constitute the final sample.\nRecrutment procedure: participants were recruited with flyers, mailing-lists and mouth to hear in the Toulouse University campuses.\nInclusion criteria: age (18-35 years); affiliation to social insurance; having read the information document about the experiment; signed informed consent form; native French language\nExclusion criteria: addiction (alcohol, drugs); major hearing loss; major visual deficit; including hemianopsia and color blindness; neurological or psychiatric pathology; known brain injury, drugs intake targeting the central nervous system; refusal to sign the consent form\n\n### Material\nParticipants performed the experiment in a windowless room at a stable temperature, seated and facing a 24' inches screen. They underwent two sessions:\nsession 1: EEG measures with a 5 min resting-state alternating between eyes closed and eyes open (30 sec each). EEG apparatus: 64 electrodes Biosemi Active-two amplifier (data acquired at 512 Hz)\nsession 2: behavioral measures, with the nine cognitive tasks in the following order: antisaccade, letter-memory, color–shape, number–letter, Stroop, keep track, dual n-back, category switch, stop-signal. \n\n### Experimental location and acquisition timeframe\nThe experiment took place in the Centre de Neuroergonomie at ISAE-SUPAERO (Toulouse, France), from february 2022 to july 2023.\n\n## Installation and Setup\nThe repository contains scripts for preprocessing and analyzing behavioral and EEG data, as well as the project's documentation and results.\nSee code_documentation.pdf in \\docs (available in https://osf.io/fm58p/).\n\n## Publications\nRegistered Report stage 1 IPA: EEG resting-state microstates correlates of executive functions (https://osf.io/dwz2r)\nRegistered Report stage 2: Investigating the relationship between Resting-State EEG Microstates and Executive Functions: A Null Finding (https://doi.org/10.1016/j.cortex.2024.05.019)\n\n## Authors\nQuentin Chenot, Caroline Hamery, Moritz Truninger, Xavier De Boissezon, Nicolas Langer, Sébastien Scannella\n\n## CRediT author statement\nQC: conceptualization, methodology, software, formal analysis, investigation, data curation, writing – original draft, writing – review & editing, Visualization.\nCH: methodology, software, validation, formal analysis, data curation, writing – review & editing, visualization.\nMT: methodology, software, validation, formal analysis, data curation, writing – review & editing, visualization.\nNL: methodology, software, validation, formal analysis, resources, writing – review & editing.\nXDB: resources, writing – review & editing, supervision, funding acquisition.\nSS: conceptualization, methodology, resources, writing – review & editing, supervision, project administra...",
+      "participants_overview": "Gender: [\"man\", \"woman\"]; Age: [\"18\", \"19\", \"20\", \"21\", \"22\", \"23\", \"24\", \"25\", \"26\", \"27\" (and 9 more)]; NativeLanguage: [\"french\", \"other\"]; EducationLevel: [\"12\", \"13\", \"14\", \"15\", \"16\", \"17\", \"18\", \"19\", \"20\"]; Handedness: [\"left-handed\", \"right-handed\"]; Inclusion: [\"0\", \"1\"]",
+      "tasks": [
+        "restingstate"
+      ],
+      "events": [],
+      "openneuro_name": "EEG Resting-state Microstates Correlates of Executive Functions",
+      "openneuro_authors": [
+        "Chenot Quentin",
+        "Hamery Caroline",
+        "Truninger Moritz",
+        "De Boissezon Xavier",
+        "Langer Nicolas",
+        "Scannella Sébastien"
+      ],
+      "openneuro_doi": "doi:10.18112/openneuro.ds005305.v1.0.1",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "Resting-State"
+      ],
+      "eegdash_subjects": 165
+    }
+  },
+  {
+    "dataset_id": "DS005114",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS005114.html",
+    "openneuro_id": "ds005114",
+    "openneuro_url": "https://openneuro.org/datasets/ds005114",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds005114",
+    "eegdash_subjects": 91,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "EEG: DPX Cog Ctl Task in Acute Mild TBI",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: EEG: DPX Cog Ctl Task in Acute Mild TBI\nAuthors: James F Cavanagh\nReferences: DOI: 10.1007/s11682-019-00171-y\nDOI: doi:10.18112/openneuro.ds005114.v1.0.0",
+      "readme": "Dot Probe Continuous Performance Task in control & sub-acute mild TBI.   Published here: https://pubmed.ncbi.nlm.nih.gov/31368085/    For CTL and sub-acute mTBI: Session 1 was from 3 to 14 days post-injury and was the only session with MRI. MRI will be uploaded later (bug issues on upload).  Session 2 was ~2 months (1.5 to 3) and Session 3 was ~4 months (3 to 5) following Session 1.   There was A LOT of subject attrition over timepoints.   Same samples as reported here: https://psycnet.apa.org/record/2020-66677-001   https://pubmed.ncbi.nlm.nih.gov/31344589/  10.1016/j.neuropsychologia.2019.107125   Task included in Matlab programming language.   Data collected 2016-2018 in the Center for Brain Recovery and Repair at the UNM Health Sciences Center.  Check the .xls sheet under code folder for *LOTS* more meta data.   Analysis scripts are included.  - James F Cavanagh 04/29/2024",
+      "participants_overview": "sex: [\"0\", \"1\"]; age: [\"18\", \"19\", \"20\", \"21\", \"22\", \"23\", \"24\", \"25\", \"26\", \"27\" (and 10 more)]; Group: [\"0\", \"1\"]",
+      "tasks": [],
+      "events": [
+        "CueAOnset",
+        "CueBOnset",
+        "Feedback: CueErr",
+        "Feedback: CueNoResp",
+        "Feedback: ProbeErr",
+        "Feedback: ProbeNoResp",
+        "Practice: filler trigger",
+        "Probe_aX_onset",
+        "Probe_aY_onset",
+        "Probe_bY_onset",
+        "Response: CueCorr",
+        "Response: CueIncorr",
+        "Response: Probe_Corr",
+        "Response: Probe_Incorr",
+        "STATUS"
+      ],
+      "openneuro_name": "EEG: DPX Cog Ctl Task in Acute Mild TBI",
+      "openneuro_authors": [
+        "James F Cavanagh"
+      ],
+      "openneuro_doi": "doi:10.18112/openneuro.ds005114.v1.0.0",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "DPX"
+      ],
+      "eegdash_subjects": 91
+    }
+  },
+  {
+    "dataset_id": "DS003039",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS003039.html",
+    "openneuro_id": "ds003039",
+    "openneuro_url": "https://openneuro.org/datasets/ds003039",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds003039",
+    "eegdash_subjects": 16,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "free walking study",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: free walking study\nAuthors: Nadine Jacobsen, Sarah Blum, Karsten Witt, Stefan Debener, Joanna Scanlon\nReferences: Jacobsen, N. S. J., Blum, S., Witt, K., & Debener, S. (2020). A walk in the park? Characterizing gait-related artifacts in mobile EEG recordings. European Journal of Neuroscience. https://doi.org/10.1111/ejn.14965\nDOI: doi:10.18112/openneuro.ds003039.v1.0.2",
+      "readme": "This free walking experiment consists of 19 participants.\nSubjects walked two different routes outdoors\nEach route was walked twice. Once while pressing buttons in a self-paced manner.\nThe article (see Reference) contains all methodological details\n\n- Nadine Jacobsen (March, 2020)",
+      "participants_overview": "gender: [\"F\", \"M\"]; age: [\"19\", \"20\", \"21\", \"23\", \"24\", \"25\", \"26\", \"28\", \"29\", \"32\"]; handedness: [\"R\"]",
+      "tasks": [],
+      "events": [],
+      "openneuro_name": "free walking study",
+      "openneuro_authors": [
+        "Nadine Jacobsen",
+        "Sarah Blum",
+        "Karsten Witt",
+        "Stefan Debener",
+        "Joanna Scanlon"
+      ],
+      "openneuro_doi": "doi:10.18112/openneuro.ds003039.v1.0.2",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "neurCorrYoung"
+      ],
+      "eegdash_subjects": 16
+    }
+  },
+  {
+    "dataset_id": "DS003602",
+    "pathology": "",
+    "modality": "",
+    "type": "",
+    "record_modality": "EEG",
+    "detail_url": "https://eegdash.org/api/dataset/eegdash.dataset.DS003602.html",
+    "openneuro_id": "ds003602",
+    "openneuro_url": "https://openneuro.org/datasets/ds003602",
+    "github_url": "https://github.com/OpenNeuroDatasets/ds003602",
+    "eegdash_subjects": 118,
+    "metadata": {
+      "dataset_id": "repo",
+      "title": "Childhood Sexual Abuse and problem drinking in women: Neurobehavioral mechanisms",
+      "recording_modality": "EEG",
+      "dataset_description": "Name: Childhood Sexual Abuse and problem drinking in women: Neurobehavioral mechanisms\nAuthors: Ozlem Korucuoglu, Andrey P. Anokhin\nReferences: No bibliographic reference other than the DOI for this dataset\nDOI: 10.18112/openneuro.ds003602.v1.0.0",
+      "readme": "Data collection took place at the Washington University School of Medicine, St. Louis, under the supervision of Dr. Andrey Anokhin (andrey@wustl.edu). The project was approved by the Washington University Institutional Review Board (IRB project # 201707051). Detailed task description and subject instructions can be found in a seperate PDF file under the folder stimuli. The task sequence file (stim program code) together with the visual stimuli used in the task are also provided in the stimulus folder. Participants were Monozygotic twin pairs, twin pairs have the same FamilyID (provided in participants.tsv)",
+      "participants_overview": "gender: [\"F\"]; age: [\"32.8273972603\", \"33.3534246575\", \"33.4958904110\", \"33.5369863014\", \"33.7671232877\", \"33.8493150685\", \"33.9041095890\", \"34.2383561644\", \"34.2712328767\", \"34.5397260274\" (and 10 more)]; Handedness: [\"Left\", \"Right\"]; TwinNo: [\"1\", \"2\"]",
+      "tasks": [],
+      "events": [
+        "EndOfRest",
+        "EyesClose1",
+        "EyesClose2",
+        "EyesOpen1",
+        "EyesOpen2",
+        "FreqFixedSOA",
+        "FrequentFixedSOA",
+        "FrequentVariableSOA",
+        "GoFixedSOA",
+        "GoVariableSOA",
+        "NegAlcP1000",
+        "NegAlcP2000",
+        "NegAlcP3000",
+        "NegAlcStimWithoutStartle",
+        "NegNonAlcP1000",
+        "NegNonAlcP2000",
+        "NegNonAlcP3000",
+        "NegNonAlcStimWithoutStartle",
+        "NegStim",
+        "NeuAlcP1000",
+        "NeuAlcP2000",
+        "NeuAlcP3000",
+        "NeuAlcStimWithoutStartle",
+        "NeuCorrB1",
+        "NeuCorrB2",
+        "NeuCorrB3",
+        "NeuCorrB4",
+        "NeuIncorrB1",
+        "NeuIncorrB2",
+        "NeuIncorrB3",
+        "NeuIncorrB4",
+        "NeuNonAlcP1000",
+        "NeuNonAlcP2000",
+        "NeuNonAlcP3000",
+        "NeuNonAlcStimWithoutStartle",
+        "NeuStim",
+        "NovelFixedSOA",
+        "NovelVariableSOA",
+        "PenaltyB1",
+        "PenaltyB2"
+      ],
+      "openneuro_name": "Childhood Sexual Abuse and problem drinking in women: Neurobehavioral mechanisms",
+      "openneuro_authors": [
+        "Ozlem Korucuoglu",
+        "Andrey P. Anokhin"
+      ],
+      "openneuro_doi": "doi:10.18112/openneuro.ds003602.v1.0.1",
+      "openneuro_license": "CC0",
+      "openneuro_modalities": [
+        "eeg"
+      ],
+      "openneuro_tasks": [
+        "Experiment"
+      ],
+      "eegdash_subjects": 118
+    }
+  }
+]
