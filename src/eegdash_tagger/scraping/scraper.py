@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 EEGDash Dataset Scraper
 
@@ -8,20 +7,18 @@ into temporary directories, and extracts metadata using our existing metadata
 parser. Cloned repositories are automatically cleaned up after parsing.
 """
 
+import json
+import re
+import subprocess
+import sys
+import tempfile
 from pathlib import Path
 from typing import List, Dict, Any, Optional
-import argparse
-import json
-import subprocess
-import tempfile
-import sys
 
 import requests
 from bs4 import BeautifulSoup
 
-# Import our existing metadata parser
-from eegdash_metadata import build_dataset_summary, build_dataset_summary_from_path
-
+from ..metadata import build_dataset_summary_from_path
 
 # ============================================================================
 # Constants
@@ -123,26 +120,6 @@ def fetch_dataset_table() -> List[Dict[str, str]]:
     return datasets
 
 
-def needs_tagging(row: Dict[str, str]) -> bool:
-    """
-    Return True if this dataset is missing any of the three key tags:
-    pathology, modality, or type.
-
-    Treats empty strings or case-insensitive 'unknown' as missing.
-
-    Args:
-        row: Dataset dict with pathology, modality, and type fields
-
-    Returns:
-        True if any tag is missing or unknown
-    """
-    for key in ['pathology', 'modality', 'type']:
-        value = row.get(key, '').strip().lower()
-        if not value or value == 'unknown':
-            return True
-    return False
-
-
 def fetch_openneuro_id(detail_url: str) -> Optional[str]:
     """
     Fetch the EEGDash dataset detail page and extract the OpenNeuro dataset ID.
@@ -168,7 +145,6 @@ def fetch_openneuro_id(detail_url: str) -> Optional[str]:
     for line in lines:
         if 'openneuro' in line.lower():
             # Look for ds followed by digits
-            import re
             match = re.search(r'\b(ds\d{6})\b', line, re.IGNORECASE)
             if match:
                 return match.group(1).lower()
@@ -177,13 +153,11 @@ def fetch_openneuro_id(detail_url: str) -> Optional[str]:
     for link in soup.find_all('a', href=True):
         href = link['href']
         if 'openneuro.org' in href:
-            import re
             match = re.search(r'/(ds\d{6})', href, re.IGNORECASE)
             if match:
                 return match.group(1).lower()
 
     # Strategy 3: Look for any ds\d{6} pattern in the page
-    import re
     match = re.search(r'\b(ds\d{6})\b', text, re.IGNORECASE)
     if match:
         return match.group(1).lower()
@@ -229,14 +203,12 @@ def fetch_eegdash_detail_info(detail_url: str, verbose: bool = False) -> Dict[st
 
             # Extract subject count
             if 'subject' in line_lower:
-                import re
                 match = re.search(r'(\d+)\s*subject', line_lower)
                 if match:
                     result['eegdash_subjects'] = int(match.group(1))
 
             # Extract sampling rate
             if 'sampling' in line_lower or 'sample rate' in line_lower:
-                import re
                 match = re.search(r'(\d+(?:\.\d+)?)\s*hz', line_lower)
                 if match:
                     result['eegdash_sampling_rate'] = float(match.group(1))
@@ -382,60 +354,6 @@ def fetch_openneuro_metadata(openneuro_id: str, verbose: bool = False) -> Dict[s
 # Repository Handling
 # ============================================================================
 
-def get_github_token() -> str:
-    """
-    Get GitHub token from GITHUB_TOKEN environment variable.
-
-    Returns:
-        GitHub token string
-
-    Raises:
-        ValueError: If GITHUB_TOKEN is not set
-    """
-    from file_providers import get_github_token_from_env
-    return get_github_token_from_env()
-
-
-def clone_repo_to_temp(github_url: str) -> Path:
-    """
-    [DEPRECATED] Clone the given GitHub repo into a temporary directory.
-
-    This function is deprecated in favor of direct GitHub API access via
-    build_metadata_for_dataset(), which doesn't require cloning.
-
-    Kept for potential manual testing or special cases.
-
-    Args:
-        github_url: GitHub repository URL
-
-    Returns:
-        Path to cloned repository root
-
-    Raises:
-        RuntimeError: If cloning fails
-    """
-    temp_dir = tempfile.mkdtemp(prefix='eegdash_')
-    temp_path = Path(temp_dir)
-
-    try:
-        result = subprocess.run(
-            ["git", "clone", "--depth", "1", github_url, str(temp_path)],
-            check=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            timeout=300  # 5 minute timeout
-        )
-    except subprocess.CalledProcessError as e:
-        raise RuntimeError(f"Git clone failed: {e.stderr}")
-    except subprocess.TimeoutExpired:
-        raise RuntimeError(f"Git clone timed out after 5 minutes")
-    except FileNotFoundError:
-        raise RuntimeError("Git command not found. Please install git.")
-
-    return temp_path
-
-
 def build_metadata_for_dataset(github_url: str, token: Optional[str] = None, verbose: bool = False) -> Dict[str, Any]:
     """
     Extract metadata from a GitHub repository by shallow cloning into a
@@ -518,6 +436,8 @@ def collect_incomplete_datasets(verbose: bool = False) -> List[Dict[str, Any]]:
             ...
         }
     """
+    from .dataset_filters import needs_tagging
+
     if verbose:
         print("Fetching dataset table from EEGDash...")
 
@@ -565,154 +485,3 @@ def collect_incomplete_datasets(verbose: bool = False) -> List[Dict[str, Any]]:
         enriched.append(dataset)
 
     return enriched
-
-
-def enrich_with_metadata(rows: List[Dict[str, Any]], token: Optional[str] = None, verbose: bool = False) -> List[Dict[str, Any]]:
-    """
-    For each row, fetch metadata by cloning GitHub repositories.
-
-    Args:
-        rows: List of dataset dicts from collect_incomplete_datasets()
-        token: UNUSED (kept for backward compatibility)
-        verbose: If True, print progress messages
-
-    Returns:
-        List of dicts with 'metadata' field added (or 'error' on failure)
-    """
-    results = []
-
-    for i, row in enumerate(rows, 1):
-        if verbose:
-            print(f"\n[{i}/{len(rows)}] Fetching metadata for {row['dataset_id']} ({row['openneuro_id']})...")
-
-        try:
-            # Fetch BIDS metadata by cloning repository
-            bids_meta = build_metadata_for_dataset(row['github_url'], token, verbose=verbose)
-
-            # Start from BIDS metadata
-            metadata = dict(bids_meta)
-
-            # Ensure recording_modality prefers EEGDash record_modality if available
-            rec_mod = row.get("record_modality") or metadata.get("recording_modality")
-            if rec_mod:
-                metadata["recording_modality"] = rec_mod
-
-            # Fetch and attach OpenNeuro metadata (only in metadata object, not at parent level)
-            if verbose:
-                print(f"  Fetching OpenNeuro metadata...")
-            openneuro_info = fetch_openneuro_metadata(row.get('openneuro_id'), verbose=verbose)
-
-            # Add OpenNeuro fields to metadata
-            if openneuro_info.get("openneuro_name"):
-                metadata["openneuro_name"] = openneuro_info["openneuro_name"]
-            if openneuro_info.get("openneuro_authors"):
-                metadata["openneuro_authors"] = openneuro_info["openneuro_authors"]
-            if openneuro_info.get("openneuro_doi"):
-                metadata["openneuro_doi"] = openneuro_info["openneuro_doi"]
-            if openneuro_info.get("openneuro_license"):
-                metadata["openneuro_license"] = openneuro_info["openneuro_license"]
-            if openneuro_info.get("openneuro_modalities"):
-                metadata["openneuro_modalities"] = openneuro_info["openneuro_modalities"]
-            if openneuro_info.get("openneuro_tasks"):
-                metadata["openneuro_tasks"] = openneuro_info["openneuro_tasks"]
-
-            # Attach EEGDash info to metadata (subjects count is useful)
-            if row.get("eegdash_subjects") is not None:
-                metadata["eegdash_subjects"] = row["eegdash_subjects"]
-
-            row['metadata'] = metadata
-
-            if verbose:
-                print(f"  ✓ Successfully extracted metadata")
-                print(f"    Title: {metadata.get('title', 'N/A')}")
-                print(f"    Tasks: {len(metadata.get('tasks', []))} tasks")
-                print(f"    Events: {len(metadata.get('events', []))} event types")
-
-        except Exception as e:
-            row['error'] = str(e)
-
-            if verbose:
-                print(f"  ✗ Error: {e}")
-
-        results.append(row)
-
-    return results
-
-
-# ============================================================================
-# CLI Interface
-# ============================================================================
-
-def main():
-    """CLI entry point for the scraper."""
-    parser = argparse.ArgumentParser(
-        description="Scrape EEGDash for datasets with missing tags and extract metadata"
-    )
-    parser.add_argument(
-        "--output-json",
-        required=True,
-        help="Path to output JSON file"
-    )
-    parser.add_argument(
-        "--limit",
-        type=int,
-        help="Limit number of datasets to process (for testing)"
-    )
-    parser.add_argument(
-        "--verbose",
-        action="store_true",
-        help="Print progress messages"
-    )
-
-    args = parser.parse_args()
-
-    # Step 1: Collect incomplete datasets
-    if args.verbose:
-        print("=" * 60)
-        print("EEGDash Dataset Scraper (Git Clone Mode)")
-        print("=" * 60)
-
-    incomplete_datasets = collect_incomplete_datasets(verbose=args.verbose)
-
-    if not incomplete_datasets:
-        print("No datasets found with missing tags")
-        return 0
-
-    # Step 2: Apply limit if specified
-    if args.limit:
-        incomplete_datasets = incomplete_datasets[:args.limit]
-        if args.verbose:
-            print(f"\nLimiting to first {args.limit} dataset(s)")
-
-    # Step 3: Enrich with metadata by cloning GitHub repos
-    if args.verbose:
-        print(f"\nFetching metadata for {len(incomplete_datasets)} dataset(s) by cloning GitHub repos...")
-
-    enriched_datasets = enrich_with_metadata(incomplete_datasets, token=None, verbose=args.verbose)
-
-    # Step 4: Write output
-    output_path = Path(args.output_json)
-    with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(enriched_datasets, f, indent=2, ensure_ascii=False)
-
-    # Step 5: Print summary
-    successful = sum(1 for d in enriched_datasets if 'metadata' in d)
-    failed = sum(1 for d in enriched_datasets if 'error' in d)
-
-    if args.verbose:
-        print("\n" + "=" * 60)
-        print("Summary")
-        print("=" * 60)
-        print(f"Total processed:    {len(enriched_datasets)}")
-        print(f"Successful:         {successful}")
-        print(f"Failed:             {failed}")
-        print(f"Output written to:  {output_path}")
-    else:
-        print(f"Processed {len(enriched_datasets)} datasets ({successful} successful, {failed} failed)")
-        print(f"Output written to: {output_path}")
-
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())

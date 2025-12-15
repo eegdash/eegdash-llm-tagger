@@ -10,9 +10,13 @@ Usage:
     python test_github_api.py
 """
 
-import os
 import json
-from file_providers import fetch_metadata_from_github_repo, get_github_token_from_env
+import os
+
+from eegdash_tagger.metadata import (
+    fetch_metadata_from_github_repo,
+    get_github_token_from_env,
+)
 
 def main():
     # Test repository URL

@@ -1,5 +1,6 @@
 ## Claude files
 CLAUDE.md
+.claude/
 
 ## Python cache
 __pycache__/
@@ -7,4 +8,25 @@ __pycache__/
 *.pyo
 *.pyd
 
+## Data files
+data/
+*.DS_Store
 
+## Virtual environment
+venv/
+env/
+.venv/
+*.egg-info/
+dist/
+build/
+
+## IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+## Temporary
+*.log
+tmp/
+temp/

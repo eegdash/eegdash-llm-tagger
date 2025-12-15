@@ -176,19 +176,17 @@ def update_csv_with_predictions(
             stats['pathology_skipped_existing'] += 1
             if verbose:
                 print(f"  Pathology: Keeping existing value '{current_pathology}'")
-        elif pred['pathology']:
-            if pathology_confidence >= confidence_threshold:
-                # High confidence - use value as-is
-                df.at[row_idx, pathology_col] = pred['pathology']
-                stats['pathology_updated_high_conf'] += 1
-                if verbose:
-                    print(f"  Pathology: Updated to '{pred['pathology']}' (confidence {pathology_confidence:.2f})")
-            else:
-                # Low confidence - mark with suffix
-                df.at[row_idx, pathology_col] = f"{pred['pathology']} (low confidence)"
-                stats['pathology_updated_low_conf'] += 1
-                if verbose:
-                    print(f"  Pathology: Updated to '{pred['pathology']} (low confidence)' (confidence {pathology_confidence:.2f})")
+        elif pred['pathology'] and pathology_confidence >= confidence_threshold:
+            # Only update if confidence meets threshold
+            df.at[row_idx, pathology_col] = pred['pathology']
+            stats['pathology_updated_high_conf'] += 1
+            if verbose:
+                print(f"  Pathology: Updated to '{pred['pathology']}' (confidence {pathology_confidence:.2f})")
+        elif pred['pathology'] and pathology_confidence < confidence_threshold:
+            # Low confidence - skip
+            stats['pathology_updated_low_conf'] += 1
+            if verbose:
+                print(f"  Pathology: Skipped (low confidence {pathology_confidence:.2f})")
 
         # Update modality
         current_modality = df.at[row_idx, modality_col]
@@ -198,43 +196,23 @@ def update_csv_with_predictions(
             stats['modality_skipped_existing'] += 1
             if verbose:
                 print(f"  Modality: Keeping existing value '{current_modality}'")
-        elif pred['modality']:
-            if modality_confidence >= confidence_threshold:
-                # High confidence - use value as-is
-                df.at[row_idx, modality_col] = pred['modality']
-                stats['modality_updated_high_conf'] += 1
-                if verbose:
-                    print(f"  Modality: Updated to '{pred['modality']}' (confidence {modality_confidence:.2f})")
-            else:
-                # Low confidence - mark with suffix
-                df.at[row_idx, modality_col] = f"{pred['modality']} (low confidence)"
-                stats['modality_updated_low_conf'] += 1
-                if verbose:
-                    print(f"  Modality: Updated to '{pred['modality']} (low confidence)' (confidence {modality_confidence:.2f})")
-
-        # Update type
-        current_type = df.at[row_idx, type_col]
-        type_confidence = pred['confidence'].get('type', 0.0)
-
-        if not is_empty_value(current_type):
-            stats['type_skipped_existing'] += 1
+        elif pred['modality'] and modality_confidence >= confidence_threshold:
+            # Only update if confidence meets threshold
+            df.at[row_idx, modality_col] = pred['modality']
+            stats['modality_updated_high_conf'] += 1
             if verbose:
-                print(f"  Type: Keeping existing value '{current_type}'")
-        elif pred['type']:
-            if type_confidence >= confidence_threshold:
-                # High confidence - use value as-is
-                df.at[row_idx, type_col] = pred['type']
-                stats['type_updated_high_conf'] += 1
-                if verbose:
-                    print(f"  Type: Updated to '{pred['type']}' (confidence {type_confidence:.2f})")
-            else:
-                # Low confidence - mark with suffix
-                df.at[row_idx, type_col] = f"{pred['type']} (low confidence)"
-                stats['type_updated_low_conf'] += 1
-                if verbose:
-                    print(f"  Type: Updated to '{pred['type']} (low confidence)' (confidence {type_confidence:.2f})")
+                print(f"  Modality: Updated to '{pred['modality']}' (confidence {modality_confidence:.2f})")
+        elif pred['modality'] and modality_confidence < confidence_threshold:
+            # Low confidence - skip
+            stats['modality_updated_low_conf'] += 1
+            if verbose:
+                print(f"  Modality: Skipped (low confidence {modality_confidence:.2f})")
 
+        # Update type - DISABLED
+        # Type field updates are currently disabled due to low prediction accuracy.
+        # This functionality has been removed. See git history for previous implementation.
         if verbose:
+            print(f"  Type: Skipped (updates disabled)")
             print()
 
     # Print summary
@@ -244,24 +222,24 @@ def update_csv_with_predictions(
     print(f"Total datasets in LLM output: {stats['total_datasets']}")
     print()
     print(f"Pathology:")
-    print(f"  Updated (high conf):  {stats['pathology_updated_high_conf']}")
-    print(f"  Updated (low conf):   {stats['pathology_updated_low_conf']}")
+    print(f"  Updated:              {stats['pathology_updated_high_conf']}")
+    print(f"  Skipped (low conf):   {stats['pathology_updated_low_conf']}")
     print(f"  Skipped (existing):   {stats['pathology_skipped_existing']}")
     print()
     print(f"Modality:")
-    print(f"  Updated (high conf):  {stats['modality_updated_high_conf']}")
-    print(f"  Updated (low conf):   {stats['modality_updated_low_conf']}")
+    print(f"  Updated:              {stats['modality_updated_high_conf']}")
+    print(f"  Skipped (low conf):   {stats['modality_updated_low_conf']}")
     print(f"  Skipped (existing):   {stats['modality_skipped_existing']}")
     print()
     print(f"Type:")
-    print(f"  Updated (high conf):  {stats['type_updated_high_conf']}")
-    print(f"  Updated (low conf):   {stats['type_updated_low_conf']}")
+    print(f"  Updated:              {stats['type_updated_high_conf']}")
+    print(f"  Skipped (low conf):   {stats['type_updated_low_conf']}")
     print(f"  Skipped (existing):   {stats['type_skipped_existing']}")
     print()
 
-    total_updates = (stats['pathology_updated_high_conf'] + stats['pathology_updated_low_conf'] +
-                     stats['modality_updated_high_conf'] + stats['modality_updated_low_conf'] +
-                     stats['type_updated_high_conf'] + stats['type_updated_low_conf'])
+    total_updates = (stats['pathology_updated_high_conf'] +
+                     stats['modality_updated_high_conf'] +
+                     stats['type_updated_high_conf'])
 
     if dry_run:
         print(f"DRY RUN: Would have updated {total_updates} values")

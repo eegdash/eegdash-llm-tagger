@@ -5,7 +5,8 @@ Show the JSON-formatted metadata output for a BIDS dataset
 
 import argparse
 import json
-from eegdash_metadata import build_dataset_summary_from_path
+
+from eegdash_tagger.metadata import build_dataset_summary_from_path
 
 
 def main():

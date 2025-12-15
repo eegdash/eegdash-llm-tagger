@@ -427,8 +427,8 @@ def fetch_metadata_from_github_repo(repo_url: str, token: str, verbose: bool = F
     if dataset_id.endswith(".git"):
         dataset_id = dataset_id[:-4]
 
-    # Import here to avoid circular dependency
-    from eegdash_metadata import build_dataset_summary
+    # Import here to avoid circular dependency (PEP8 allows this)
+    from .parser import build_dataset_summary
 
     # Build metadata using provider
     summary = build_dataset_summary(provider, dataset_id=dataset_id)

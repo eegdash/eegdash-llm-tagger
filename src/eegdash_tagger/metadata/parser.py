@@ -8,21 +8,14 @@ with both local and remote (GitHub API) data sources.
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Union, Optional, List
+from typing import Any, Union, Optional, List, Protocol
 from io import StringIO
-import json
-import pandas as pd
 import fnmatch
+import json
 
-# Import FileProvider protocol (avoid circular import by importing at function level where needed)
-try:
-    from file_providers import FileProvider
-except ImportError:
-    # Fallback for type checking
-    from typing import Protocol
-    class FileProvider(Protocol):
-        def list_files(self, prefix: str = "") -> List[str]: ...
-        def read_text(self, path: str) -> Optional[str]: ...
+import pandas as pd
+
+from .providers import FileProvider, LocalFileProvider
 
 
 @dataclass
@@ -44,6 +37,10 @@ class DatasetSummary:
     events_summary: str | None
     extra_docs_text: str | None        # concatenated extra README-like docs from code/, stimuli/
     tasks_detailed_text: str | None    # combined detailed task descriptions
+
+    # Generic JSON metadata (new)
+    json_metadata_text: str | None     # aggregated summary of all discovered JSON files
+    json_metadata_files: list[str]     # list of JSON file paths that contributed (internal only)
 
     # Raw structured bits (for debugging / future use)
     task_names: list[str]
@@ -160,6 +157,12 @@ class DatasetSummary:
         if self.extra_docs_text:
             result["extra_docs"] = _truncate_text(self.extra_docs_text, 4000)
 
+        # JSON metadata summary (generic JSON files)
+        if self.json_metadata_text:
+            result["json_metadata_summary"] = _truncate_text(self.json_metadata_text, 4000)
+
+        # Note: json_metadata_files list is NOT exposed to LLM (internal only)
+
         return result
 
 
@@ -226,6 +229,258 @@ def glob_files(provider: FileProvider, pattern: str, max_files: Optional[int] = 
         return sorted(matched)
     except Exception:
         return []
+
+
+def discover_candidate_json_files(provider: FileProvider, max_subjects: int = 5) -> List[str]:
+    """
+    Discover all candidate JSON files for generic metadata extraction.
+
+    Excludes already-parsed files (dataset_description.json, task-*.json),
+    large files (>500KB), and files in excluded directories.
+
+    Args:
+        provider: FileProvider instance
+        max_subjects: Maximum number of subjects to sample for subject-level files
+
+    Returns:
+        List of relative paths to candidate JSON files
+    """
+    MAX_FILE_SIZE = 500 * 1024  # 500 KB
+
+    # Patterns to exclude (already parsed explicitly)
+    exclude_patterns = [
+        "dataset_description.json",
+        "task-*_eeg.json",
+        "task-*_bold.json",
+        "task-*_meg.json",
+    ]
+
+    # Directories to exclude
+    exclude_dirs = ["derivatives/", "sourcedata/", ".git/", "__pycache__/", "node_modules/"]
+
+    try:
+        all_files = provider.list_files()
+        candidates = []
+        subject_files = {}  # Track files by subject for sampling
+
+        for file_path in all_files:
+            # Must be JSON
+            if not file_path.endswith(".json"):
+                continue
+
+            # Skip excluded directories
+            if any(file_path.startswith(exclude_dir) for exclude_dir in exclude_dirs):
+                continue
+
+            # Skip excluded patterns
+            filename = file_path.split("/")[-1]
+            skip = False
+            for pattern in exclude_patterns:
+                if fnmatch.fnmatch(filename, pattern) or fnmatch.fnmatch(file_path, f"**/{pattern}"):
+                    skip = True
+                    break
+            if skip:
+                continue
+
+            # Check file size (if provider supports it)
+            try:
+                content = provider.read_text(file_path)
+                if content is None:
+                    continue
+
+                # Skip if too large
+                if len(content) > MAX_FILE_SIZE:
+                    continue
+
+                # Skip if appears binary
+                if '\x00' in content[:1000]:
+                    continue
+
+                # Subject-level sampling: only include first N subjects
+                if "/sub-" in file_path:
+                    # Extract subject ID (e.g., "sub-01" from "sub-01/eeg/sub-01_task-rest_eeg.json")
+                    parts = file_path.split("/")
+                    subject_id = None
+                    for part in parts:
+                        if part.startswith("sub-"):
+                            subject_id = part
+                            break
+
+                    if subject_id:
+                        if subject_id not in subject_files:
+                            subject_files[subject_id] = []
+                        subject_files[subject_id].append(file_path)
+                else:
+                    # Dataset-level file (not subject-specific)
+                    candidates.append(file_path)
+
+            except Exception:
+                # Skip files that can't be read
+                continue
+
+        # Add sampled subject files (first max_subjects subjects only)
+        sampled_subjects = sorted(subject_files.keys())[:max_subjects]
+        for subject_id in sampled_subjects:
+            candidates.extend(subject_files[subject_id])
+
+        return sorted(candidates)
+
+    except Exception:
+        return []
+
+
+def summarize_json_file(file_path: str, json_data: dict, max_summary_chars: int = 800) -> Optional[str]:
+    """
+    Create a human-readable summary of a single JSON file.
+
+    Focuses on metadata-like content (descriptive fields, configs, labels).
+    Skips or minimally summarizes data-heavy JSON (large arrays).
+
+    Args:
+        file_path: Relative path to the JSON file (for context)
+        json_data: Parsed JSON data
+        max_summary_chars: Maximum characters for this file's summary
+
+    Returns:
+        Formatted text summary, or None if file should be skipped
+    """
+    if not isinstance(json_data, dict):
+        # Skip non-dict JSON (likely data arrays)
+        return None
+
+    # Fields to prioritize for metadata extraction
+    metadata_fields = [
+        # Descriptive fields
+        "Description", "TaskDescription", "CognitiveDescription", "Instructions",
+        "Name", "TaskName", "Manufacturer", "ManufacturersModelName",
+        # Configuration fields
+        "SamplingFrequency", "PowerLineFrequency", "EEGReference", "EEGGround",
+        "RecordingDuration", "RecordingType", "EEGChannelCount", "EOGChannelCount",
+        "EEGPlacementScheme", "CapManufacturer", "CapManufacturersModelName",
+        # Event/condition fields
+        "trial_type", "event_type", "condition", "stim_type",
+        "HED", "onset", "duration", "response_time",
+        # Units and reference info
+        "SoftwareFilters", "HardwareFilters", "SubjectArtefactDescription",
+    ]
+
+    summary_parts = []
+    summary_parts.append(f"=== {file_path} ===")
+
+    items_added = 0
+    max_items = 20  # Limit number of fields to include
+
+    for key, value in json_data.items():
+        if items_added >= max_items:
+            break
+
+        # Skip very large values (likely data arrays)
+        if isinstance(value, list) and len(value) > 100:
+            summary_parts.append(f"{key}: [array with {len(value)} items]")
+            items_added += 1
+            continue
+        elif isinstance(value, dict) and len(value) > 50:
+            summary_parts.append(f"{key}: [object with {len(value)} fields]")
+            items_added += 1
+            continue
+
+        # Include metadata-like fields
+        if key in metadata_fields or isinstance(value, (str, int, float, bool)):
+            if isinstance(value, str):
+                # Truncate long strings
+                value_str = _truncate_text(value, 200) if len(value) > 200 else value
+                summary_parts.append(f"{key}: {value_str}")
+                items_added += 1
+            elif isinstance(value, (int, float, bool)):
+                summary_parts.append(f"{key}: {value}")
+                items_added += 1
+            elif isinstance(value, list) and len(value) <= 20:
+                # Small lists - show first few items
+                if all(isinstance(item, (str, int, float)) for item in value[:5]):
+                    items_str = ", ".join(str(item) for item in value[:5])
+                    if len(value) > 5:
+                        items_str += f" ... ({len(value)} total)"
+                    summary_parts.append(f"{key}: [{items_str}]")
+                    items_added += 1
+            elif isinstance(value, dict) and len(value) <= 10:
+                # Small dicts - show structure
+                keys_str = ", ".join(list(value.keys())[:5])
+                if len(value) > 5:
+                    keys_str += f" ... ({len(value)} total fields)"
+                summary_parts.append(f"{key}: {{{keys_str}}}")
+                items_added += 1
+
+    if items_added == 0:
+        # No metadata extracted - likely data-heavy file
+        return None
+
+    summary = "\n".join(summary_parts)
+    return _truncate_text(summary, max_summary_chars)
+
+
+def collect_json_metadata(provider: FileProvider, max_total_chars: int = 10_000) -> tuple[Optional[str], List[str]]:
+    """
+    Collect and aggregate metadata summaries from all discovered JSON files.
+
+    Args:
+        provider: FileProvider instance
+        max_total_chars: Maximum total characters for aggregated summary
+
+    Returns:
+        Tuple of (aggregated_text, list_of_file_paths):
+        - aggregated_text: Combined summaries (or None if no files found)
+        - list_of_file_paths: List of JSON files that contributed (internal only)
+    """
+    candidate_files = discover_candidate_json_files(provider, max_subjects=5)
+
+    if not candidate_files:
+        return None, []
+
+    summaries = []
+    contributing_files = []
+    current_length = 0
+
+    # Prioritize dataset-level files over subject-level
+    dataset_level = [f for f in candidate_files if "/sub-" not in f]
+    subject_level = [f for f in candidate_files if "/sub-" in f]
+    prioritized_files = dataset_level + subject_level
+
+    for file_path in prioritized_files:
+        # Check if we've exceeded length limit
+        if current_length >= max_total_chars:
+            break
+
+        try:
+            content = provider.read_text(file_path)
+            if content is None:
+                continue
+
+            # Parse JSON
+            json_data = json.loads(content)
+
+            # Summarize
+            summary = summarize_json_file(file_path, json_data, max_summary_chars=800)
+
+            if summary:
+                summaries.append(summary)
+                contributing_files.append(file_path)
+                current_length += len(summary)
+
+        except (json.JSONDecodeError, Exception):
+            # Skip malformed or unreadable JSON files
+            continue
+
+    if not summaries:
+        return None, []
+
+    # Aggregate all summaries
+    aggregated = "\n\n".join(summaries)
+
+    # Final truncation if needed
+    if len(aggregated) > max_total_chars:
+        aggregated = _truncate_text(aggregated, max_total_chars)
+
+    return aggregated, contributing_files
 
 
 def _truncate_text(text: str, max_chars: int) -> str:
@@ -691,6 +946,9 @@ def build_dataset_summary(provider: FileProvider, dataset_id: Optional[str] = No
     # detailed task information
     tasks_detailed_text = collect_detailed_task_info(provider, task_files, task_names, task_descriptions)
 
+    # generic JSON metadata collection (new)
+    json_metadata_text, json_metadata_files = collect_json_metadata(provider)
+
     return DatasetSummary(
         dataset_id=dataset_id,
         title=dd_info["title"],
@@ -703,6 +961,8 @@ def build_dataset_summary(provider: FileProvider, dataset_id: Optional[str] = No
         events_summary=events_summary,
         extra_docs_text=extra_docs_text,
         tasks_detailed_text=tasks_detailed_text,
+        json_metadata_text=json_metadata_text,
+        json_metadata_files=json_metadata_files,
         task_names=task_names,
         task_descriptions=task_descriptions,
         participants_columns=participants_columns,
@@ -726,9 +986,6 @@ def build_dataset_summary_from_path(root: Union[str, Path]) -> DatasetSummary:
         >>> summary = build_dataset_summary_from_path("/path/to/ds001971")
         >>> print(summary.to_llm_json())
     """
-    # Import LocalFileProvider here to avoid circular dependency
-    from file_providers import LocalFileProvider
-
     root_path = Path(root).resolve()
     dataset_id = root_path.name
 
