@@ -30,3 +30,7 @@ build/
 *.log
 tmp/
 temp/
+
+## Environment variables
+.env
+.env.local
