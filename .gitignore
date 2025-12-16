@@ -10,6 +10,9 @@ __pycache__/
 
 ## Data files
 data/
+# Exception: Allow few-shot examples (needed for LLM tagging)
+!data/processed/
+!data/processed/few_shot_examples.json
 *.DS_Store
 
 ## Virtual environment
