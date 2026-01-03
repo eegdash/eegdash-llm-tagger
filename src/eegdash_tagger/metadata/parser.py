@@ -112,18 +112,20 @@ class DatasetSummary:
         result = {}
 
         # Dataset ID
-        if self.dataset_id:
-            result["dataset_id"] = self.dataset_id
+        # TODO: Remove this field permanently later
+        # if self.dataset_id:
+        #     result["dataset_id"] = self.dataset_id
 
         # Title
         if self.title:
             result["title"] = self.title
 
         # Recording modality (join multiple modalities with +)
-        if self.modalities:
-            result["recording_modality"] = "+".join(self.modalities)
-        else:
-            result["recording_modality"] = None
+        # TODO: Remove this field permanently later
+        # if self.modalities:
+        #     result["recording_modality"] = "+".join(self.modalities)
+        # else:
+        #     result["recording_modality"] = None
 
         # Dataset description (truncate if needed)
         if self.dataset_description:

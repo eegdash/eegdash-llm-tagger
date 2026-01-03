@@ -37,7 +37,8 @@ class OpenRouterTagger:
         api_key: Optional[str] = None,
         model: str = "openai/gpt-4",
         verbose: bool = False,
-        few_shot_path: Optional[Path] = None
+        few_shot_path: Optional[Path] = None,
+        max_tokens: int = 4000
     ):
         """
         Initialize OpenRouterTagger.
@@ -47,6 +48,7 @@ class OpenRouterTagger:
             model: Model identifier (default: "openai/gpt-4")
             verbose: Enable verbose output
             few_shot_path: Path to few_shot_examples.json. If None, uses default location
+            max_tokens: Maximum tokens for LLM response (default: 4000)
 
         Raises:
             ValueError: If API key is not provided and OPENROUTER_API_KEY env var is not set
@@ -61,6 +63,7 @@ class OpenRouterTagger:
 
         self.model = model
         self.verbose = verbose
+        self.max_tokens = max_tokens
 
         # Load few-shot examples
         if few_shot_path is None:
@@ -71,11 +74,14 @@ class OpenRouterTagger:
             raise FileNotFoundError(f"Few-shot examples not found at: {few_shot_path}")
 
         with open(few_shot_path, 'r', encoding='utf-8') as f:
-            self.few_shot_examples = json.load(f)
+            data = json.load(f)
+            # Extract the array from the file structure
+            self.few_shot_examples = data['few_shot_examples']
 
         if self.verbose:
             print(f"Loaded {len(self.few_shot_examples)} few-shot examples")
             print(f"Using model: {self.model}")
+            print(f"Max tokens: {self.max_tokens}")
 
     def tag(self, meta: ParsedMetadata) -> TaggingResult:
         """
@@ -158,17 +164,11 @@ Return strict JSON format only."""
         Returns:
             JSON string with few_shot_examples and test dataset
         """
-        # Format test dataset
+        # Format test dataset - include ALL metadata fields
+        # This ensures the LLM has access to all available information
         test_dataset = {
             "dataset_id": "test",
-            "metadata": {
-                "title": meta.get("title", ""),
-                "dataset_description": meta.get("dataset_description", ""),
-                "readme": meta.get("readme", ""),
-                "participants_overview": meta.get("participants_overview", ""),
-                "tasks": meta.get("tasks", []),
-                "events": meta.get("events", []),
-            }
+            "metadata": dict(meta)  # Include all fields from metadata
         }
 
         # Build message
@@ -205,11 +205,16 @@ Return strict JSON format only."""
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_message}
             ],
+            # Limit max_tokens to control costs and fit within credit limits
+            # The response should be a relatively small JSON object
+            "max_tokens": self.max_tokens,
         }
 
-        # Add response_format for models that support it
-        if "gpt-4" in self.model.lower() or "gpt-3.5" in self.model.lower():
-            payload["response_format"] = {"type": "json_object"}
+        # Enforce JSON mode for all models
+        # OpenRouter supports response_format for many models
+        # If a model doesn't support it, the API will ignore it gracefully
+        # and the prompt instructions will still enforce JSON output
+        payload["response_format"] = {"type": "json_object"}
 
         try:
             response = requests.post(
@@ -228,6 +233,33 @@ Return strict JSON format only."""
                     print(f"Response status: {e.response.status_code}", file=sys.stderr)
                     print(f"Response body: {e.response.text[:500]}", file=sys.stderr)
             raise
+
+    def _clean_json_response(self, content: str) -> str:
+        """
+        Clean LLM response to extract pure JSON.
+
+        Removes markdown code fences and leading/trailing whitespace.
+
+        Args:
+            content: Raw LLM response
+
+        Returns:
+            Cleaned JSON string
+        """
+        content = content.strip()
+
+        # Remove markdown code fences if present
+        if content.startswith("```"):
+            # Remove opening fence
+            lines = content.split('\n')
+            if lines[0].startswith("```"):
+                lines = lines[1:]
+            # Remove closing fence
+            if lines and lines[-1].strip() == "```":
+                lines = lines[:-1]
+            content = '\n'.join(lines).strip()
+
+        return content
 
     def _parse_response(self, response_data: Dict[str, Any], meta: ParsedMetadata) -> TaggingResult:
         """
@@ -250,8 +282,9 @@ Return strict JSON format only."""
             if self.verbose:
                 print(f"Raw response length: {len(content)} chars")
 
-            # Parse JSON content
-            llm_output = json.loads(content)
+            # Clean and parse JSON content
+            cleaned_content = self._clean_json_response(content)
+            llm_output = json.loads(cleaned_content)
 
             # Extract first result
             if "results" not in llm_output or not llm_output["results"]:
@@ -321,9 +354,10 @@ Return strict JSON format only."""
             user_message = self._build_user_message(meta)
             response_data = self._call_api(system_prompt, user_message)
 
-            # Extract full result
+            # Extract and clean full result
             content = response_data["choices"][0]["message"]["content"]
-            llm_output = json.loads(content)
+            cleaned_content = self._clean_json_response(content)
+            llm_output = json.loads(cleaned_content)
             first_result = llm_output["results"][0]
 
             # Add dataset_id

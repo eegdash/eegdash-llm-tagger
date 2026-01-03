@@ -111,7 +111,8 @@ def fetch_dataset_table() -> List[Dict[str, str]]:
             'pathology': cells[col_map.get('pathology', 0)].get_text(strip=True) if 'pathology' in col_map else '',
             'modality': cells[col_map.get('modality', 0)].get_text(strip=True) if 'modality' in col_map else '',
             'type': cells[col_map.get('type', 0)].get_text(strip=True) if 'type' in col_map else '',
-            'record_modality': cells[col_map.get('record_modality', 0)].get_text(strip=True) if 'record_modality' in col_map else '',
+            # TODO: Remove this field permanently later
+            # 'record_modality': cells[col_map.get('record_modality', 0)].get_text(strip=True) if 'record_modality' in col_map else '',
             'detail_url': f"{EEGDASH_BASE_URL}/api/dataset/eegdash.dataset.{dataset_id}.html"
         }
 

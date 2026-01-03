@@ -12,7 +12,17 @@ import os
 import sys
 import time
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
+
+# Load environment variables from .env file
+try:
+    from dotenv import load_dotenv
+    # Load from .env file in project root
+    env_path = Path(__file__).parent.parent / ".env"
+    load_dotenv(dotenv_path=env_path)
+except ImportError:
+    # python-dotenv not installed, rely on system environment
+    pass
 
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
@@ -57,7 +67,8 @@ def convert_to_parsed_metadata(metadata: Dict[str, Any]) -> ParsedMetadata:
         readme=metadata.get('readme', ''),
         participants_overview=metadata.get('participants_overview', ''),
         tasks=metadata.get('tasks', []),
-        events=metadata.get('events', [])
+        events=metadata.get('events', []),
+        paper_abstract=metadata.get('paper_abstract', '')
     )
 
 

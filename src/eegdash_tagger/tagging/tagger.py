@@ -75,6 +75,7 @@ class ParsedMetadata(TypedDict):
     participants_overview: str
     tasks: List[str]
     events: List[str]
+    paper_abstract: str
 
 
 class TaggingResult(TypedDict, total=False):

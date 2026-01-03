@@ -41,9 +41,10 @@ def enrich_with_metadata(
             metadata = dict(bids_meta)
 
             # Ensure recording_modality prefers EEGDash record_modality if available
-            rec_mod = row.get("record_modality") or metadata.get("recording_modality")
-            if rec_mod:
-                metadata["recording_modality"] = rec_mod
+            # TODO: Remove this field permanently later - record_modality is no longer scraped
+            # rec_mod = row.get("record_modality") or metadata.get("recording_modality")
+            # if rec_mod:
+            #     metadata["recording_modality"] = rec_mod
 
             # Fetch and attach OpenNeuro metadata (only in metadata object, not at parent level)
             if verbose:
@@ -53,16 +54,72 @@ def enrich_with_metadata(
             # Add OpenNeuro fields to metadata
             if openneuro_info.get("openneuro_name"):
                 metadata["openneuro_name"] = openneuro_info["openneuro_name"]
-            if openneuro_info.get("openneuro_authors"):
-                metadata["openneuro_authors"] = openneuro_info["openneuro_authors"]
+            # TODO: Remove these fields permanently later
+            # if openneuro_info.get("openneuro_authors"):
+            #     metadata["openneuro_authors"] = openneuro_info["openneuro_authors"]
             if openneuro_info.get("openneuro_doi"):
                 metadata["openneuro_doi"] = openneuro_info["openneuro_doi"]
-            if openneuro_info.get("openneuro_license"):
-                metadata["openneuro_license"] = openneuro_info["openneuro_license"]
+            # TODO: Remove these fields permanently later
+            # if openneuro_info.get("openneuro_license"):
+            #     metadata["openneuro_license"] = openneuro_info["openneuro_license"]
             if openneuro_info.get("openneuro_modalities"):
                 metadata["openneuro_modalities"] = openneuro_info["openneuro_modalities"]
-            if openneuro_info.get("openneuro_tasks"):
-                metadata["openneuro_tasks"] = openneuro_info["openneuro_tasks"]
+            # TODO: Remove these fields permanently later
+            # if openneuro_info.get("openneuro_tasks"):
+            #     metadata["openneuro_tasks"] = openneuro_info["openneuro_tasks"]
+
+            # Fetch paper abstract
+            if verbose:
+                print(f"  Fetching paper abstract...")
+
+            paper_abstract = ""
+            try:
+                from .abstract_fetcher import extract_dois_from_references, fetch_abstract_with_cache
+                from pathlib import Path
+
+                dataset_desc = metadata.get("dataset_description", "")
+                openneuro_doi = metadata.get("openneuro_doi")
+                dois = extract_dois_from_references(dataset_desc, openneuro_doi)
+
+                if dois:
+                    if verbose:
+                        print(f"    Found {len(dois)} DOI(s): {', '.join(dois)}")
+
+                    # Fetch abstracts from all referenced papers
+                    cache_path = Path(__file__).parent.parent.parent.parent / "data" / "processed" / "abstract_cache.json"
+                    abstracts = []
+
+                    for i, doi in enumerate(dois, 1):
+                        abstract = fetch_abstract_with_cache(doi, cache_path=cache_path, verbose=verbose)
+
+                        if abstract:
+                            abstracts.append(f"[Paper {i}/{len(dois)} - DOI: {doi}]\n{abstract}")
+                            if verbose:
+                                preview = abstract[:80] + "..." if len(abstract) > 80 else abstract
+                                print(f"    ✓ Paper {i}: {preview}")
+                        else:
+                            if verbose:
+                                print(f"    ⚠ Paper {i}: No abstract available")
+
+                    # Combine all abstracts with separators
+                    if abstracts:
+                        paper_abstract = "\n\n---\n\n".join(abstracts)
+                        if verbose:
+                            print(f"    ✓ Combined {len(abstracts)} abstract(s)")
+                    else:
+                        if verbose:
+                            print(f"    ⚠ No abstracts available for any DOI")
+                else:
+                    if verbose:
+                        print(f"    ℹ No paper DOI found in References field")
+
+            except Exception as e:
+                if verbose:
+                    print(f"    ⚠ Abstract fetch failed: {e}")
+                paper_abstract = ""
+
+            # Always add paper_abstract field (even if empty)
+            metadata["paper_abstract"] = paper_abstract
 
             # Attach EEGDash info to metadata (subjects count is useful)
             if row.get("eegdash_subjects") is not None:
