@@ -266,6 +266,7 @@ def fetch_abstract(doi: str, timeout: int = 30, verbose: bool = False) -> Option
     2. Semantic Scholar API (good for CS/AI papers)
     3. PubMed API (best for biomedical/IEEE papers)
 
+    TODO: Scrapper API , OpenAlex
     Args:
         doi: Normalized DOI (format: "10.XXXX/...")
         timeout: Request timeout in seconds (default: 30)
