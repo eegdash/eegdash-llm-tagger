@@ -6,7 +6,9 @@ Automatic tagging of EEG datasets using LLM-based predictions. This tool scrapes
 
 - **Dataset Scraping**: Automatically discovers datasets from EEGDash
 - **Metadata Extraction**: Parses BIDS-formatted datasets from GitHub/OpenNeuro
-- **LLM-based Tagging**: Uses language models to predict missing tags
+- **Paper Abstract Fetching**: Extracts DOIs from references and fetches abstracts from CrossRef, Semantic Scholar, and PubMed APIs with persistent caching
+- **Few-Shot Learning**: Uses labeled examples for in-context learning to improve classification accuracy
+- **LLM-based Tagging**: Uses language models (GPT-4, Claude) via OpenRouter.ai with structured reasoning
 - **CSV Updates**: Automatically updates dataset catalogs with predictions
 
 ## Installation
@@ -164,21 +166,85 @@ Based on ~9,500 tokens per dataset (8K input + 1.5K output):
 
 **Recommendation**: Start with `--limit 5` to verify results before processing all datasets.
 
+## Few-Shot Learning
+
+The LLM tagger uses in-context learning with curated labeled examples to improve classification accuracy.
+
+### How It Works
+
+1. **Few-shot examples** (`data/processed/few_shot_examples.json`) contain labeled datasets showing EEGDash's classification patterns
+2. When tagging a new dataset, these examples are included in the prompt as reference
+3. The LLM learns the labeling conventions from examples and applies them consistently
+
+### Structured Reasoning
+
+The LLM follows a priority-based reasoning process (defined in `prompt.md`):
+
+1. **Few-shot analysis**: Compare with similar labeled examples
+2. **Metadata analysis**: Extract relevant info from BIDS metadata fields
+3. **Paper abstract analysis**: Use paper abstracts to disambiguate unclear cases
+4. **Decision summary**: Justify final labels with confidence scores
+
+### Labels
+
+The tagger classifies datasets into three categories:
+
+- **Pathology**: Healthy, Epilepsy, Depression, Parkinson's Disease, etc.
+- **Modality**: Visual, Auditory, Motor, Resting State, Sleep, etc.
+- **Type**: Perception, Memory, Attention, Motor, Clinical/Intervention, etc.
+
+## Paper Abstract Fetching
+
+The tool automatically fetches paper abstracts to provide additional context for classification.
+
+### Data Sources
+
+Abstracts are fetched from multiple APIs (in order):
+
+1. **CrossRef API** - Best for general academic papers
+2. **Semantic Scholar API** - Good for CS/AI papers
+3. **PubMed API** - Best for biomedical papers
+
+### Caching
+
+- Abstracts are cached in `data/processed/abstract_cache.json`
+- Cache is persistent across runs to minimize API calls
+- Both successful fetches and failures are cached
+
+### DOI Extraction
+
+DOIs are automatically extracted from the `References` field in dataset descriptions. The tool filters out OpenNeuro dataset DOIs and only fetches paper abstracts.
+
 ## Project Structure
 
 ```
 eegdash-llm-tagger/
 ├── src/eegdash_tagger/      # Main package
 │   ├── metadata/            # BIDS metadata parsing
+│   │   ├── parser.py        # BIDS file parsing
+│   │   └── providers.py     # GitHub/OpenNeuro data providers
 │   ├── scraping/            # Web scraping and data collection
+│   │   ├── scraper.py       # EEGDash website scraper
+│   │   ├── enrichment.py    # Dataset metadata enrichment
+│   │   ├── abstract_fetcher.py  # Paper abstract fetching (CrossRef/Semantic Scholar/PubMed)
+│   │   └── dataset_filters.py   # Dataset filtering utilities
 │   ├── tagging/             # LLM-based tagging
+│   │   ├── tagger.py        # Tagger protocol and types
+│   │   └── llm_tagger.py    # OpenRouter.ai LLM implementation
 │   └── utils/               # CSV updates and helpers
+│       └── csv_updater.py   # CSV update utilities
 ├── scripts/                 # CLI entry points
+│   ├── fetch_incomplete_datasets.py
+│   ├── fetch_complete_datasets.py
+│   ├── tag_with_llm.py
+│   ├── test_llm_tagger.py
+│   └── update_csv.py
 ├── tests/                   # Test files
 ├── tools/                   # Utility scripts
 ├── data/                    # Data files (gitignored)
 │   ├── processed/           # Generated metadata
 │   └── test/                # Test datasets
+├── prompt.md                # LLM system prompt with reasoning framework
 ├── environment.yml          # Conda environment
 └── setup.py                 # Package configuration
 ```
@@ -188,10 +254,11 @@ eegdash-llm-tagger/
 The `data/` directory contains generated metadata files and is excluded from git:
 
 - **data/processed/**: Production metadata files
-  - `complete_metadata.json` - Datasets with full tags
+  - `complete_metadata.json` - Datasets with full tags (used for few-shot examples)
   - `incomplete_metadata.json` - Datasets needing tags
-  - `few_shot_examples.json` - LLM training examples
+  - `few_shot_examples.json` - Curated labeled examples for in-context learning
   - `llm_output.json` - LLM prediction results
+  - `abstract_cache.json` - Cached paper abstracts (auto-generated)
 
 - **data/test/**: Test datasets for development
 

@@ -32,6 +32,27 @@ class OpenRouterTagger:
 
     ENDPOINT = "https://openrouter.ai/api/v1/chat/completions"
 
+    # Metadata fields relevant for classification (whitelist)
+    # These are the only fields sent to the LLM to reduce noise and tokens
+    RELEVANT_METADATA_KEYS = {
+        "title",
+        "dataset_description",
+        "readme",
+        "participants_overview",
+        "tasks",
+        "events",
+        "task_details",
+        "paper_abstract",
+    }
+
+    # Fields to include from few-shot examples (labels + relevant metadata)
+    FEW_SHOT_KEYS = {
+        "pathology",
+        "modality",
+        "type",
+        "metadata",  # Will be filtered by RELEVANT_METADATA_KEYS
+    }
+
     def __init__(
         self,
         api_key: Optional[str] = None,
@@ -78,10 +99,53 @@ class OpenRouterTagger:
             # Extract the array from the file structure
             self.few_shot_examples = data['few_shot_examples']
 
+        # Filter few-shot examples to only include relevant fields
+        self.few_shot_examples = [
+            self._filter_few_shot_example(ex) for ex in self.few_shot_examples
+        ]
+
         if self.verbose:
             print(f"Loaded {len(self.few_shot_examples)} few-shot examples")
             print(f"Using model: {self.model}")
             print(f"Max tokens: {self.max_tokens}")
+
+    def _filter_metadata(self, metadata: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Filter metadata to only include relevant fields for classification.
+
+        Args:
+            metadata: Full metadata dictionary
+
+        Returns:
+            Filtered metadata with only classification-relevant fields
+        """
+        return {
+            k: v for k, v in metadata.items()
+            if k in self.RELEVANT_METADATA_KEYS and v
+        }
+
+    def _filter_few_shot_example(self, example: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Filter a few-shot example to only include relevant fields.
+
+        Args:
+            example: Full few-shot example
+
+        Returns:
+            Filtered example with labels and relevant metadata only
+        """
+        filtered = {}
+
+        # Include label fields
+        for key in ["pathology", "modality", "type"]:
+            if key in example:
+                filtered[key] = example[key]
+
+        # Filter nested metadata
+        if "metadata" in example:
+            filtered["metadata"] = self._filter_metadata(example["metadata"])
+
+        return filtered
 
     def tag(self, meta: ParsedMetadata) -> TaggingResult:
         """
@@ -156,25 +220,22 @@ Return strict JSON format only."""
 
     def _build_user_message(self, meta: ParsedMetadata) -> str:
         """
-        Build user message with few-shot examples and test dataset.
+        Build user message with few-shot examples and dataset to classify.
 
         Args:
             meta: Metadata to classify
 
         Returns:
-            JSON string with few_shot_examples and test dataset
+            JSON string with few_shot_examples and single dataset
         """
-        # Format test dataset - include ALL metadata fields
-        # This ensures the LLM has access to all available information
-        test_dataset = {
-            "dataset_id": "test",
-            "metadata": dict(meta)  # Include all fields from metadata
-        }
+        # Filter metadata to only include relevant fields
+        # Note: dataset_id is intentionally excluded to prevent bias
+        filtered_metadata = self._filter_metadata(dict(meta))
 
-        # Build message
+        # Build message with single dataset (not array)
         message = {
             "few_shot_examples": self.few_shot_examples,
-            "datasets": [test_dataset]  # Use "datasets" array as prompt.md expects
+            "dataset": filtered_metadata  # Single dataset, no dataset_id
         }
 
         return json.dumps(message, indent=2, ensure_ascii=False)
@@ -286,19 +347,14 @@ Return strict JSON format only."""
             cleaned_content = self._clean_json_response(content)
             llm_output = json.loads(cleaned_content)
 
-            # Extract first result
-            if "results" not in llm_output or not llm_output["results"]:
-                raise ValueError("No results in LLM output")
-
-            first_result = llm_output["results"][0]
-
+            # New format: flat object (no "results" array)
             # Extract labels (arrays)
-            pathology = first_result.get("pathology", ["Unknown"])
-            modality = first_result.get("modality", ["Unknown"])
-            exp_type = first_result.get("type", ["Unknown"])
+            pathology = llm_output.get("pathology", ["Unknown"])
+            modality = llm_output.get("modality", ["Unknown"])
+            exp_type = llm_output.get("type", ["Unknown"])
 
             # Extract confidence scores
-            confidence_scores = first_result.get("confidence", {})
+            confidence_scores = llm_output.get("confidence", {})
             avg_confidence = sum([
                 confidence_scores.get("pathology", 0.0),
                 confidence_scores.get("modality", 0.0),
@@ -306,7 +362,7 @@ Return strict JSON format only."""
             ]) / 3.0
 
             # Extract reasoning
-            reasoning = first_result.get("reasoning", {})
+            reasoning = llm_output.get("reasoning", {})
             rationale = (
                 f"Few-shot: {reasoning.get('few_shot_analysis', 'N/A')[:100]}... | "
                 f"Metadata: {reasoning.get('metadata_analysis', 'N/A')[:100]}..."
@@ -341,6 +397,9 @@ Return strict JSON format only."""
         This method returns the full LLM output including confidence breakdown
         and reasoning, which is useful for the llm_output.json format.
 
+        Note: dataset_id is NOT sent to the LLM (to prevent bias) but is
+        added back to the result after the API call.
+
         Args:
             meta: Parsed metadata from dataset
             dataset_id: Dataset identifier
@@ -354,16 +413,15 @@ Return strict JSON format only."""
             user_message = self._build_user_message(meta)
             response_data = self._call_api(system_prompt, user_message)
 
-            # Extract and clean full result
+            # Extract and clean full result (new flat format, no "results" array)
             content = response_data["choices"][0]["message"]["content"]
             cleaned_content = self._clean_json_response(content)
             llm_output = json.loads(cleaned_content)
-            first_result = llm_output["results"][0]
 
-            # Add dataset_id
-            first_result["dataset_id"] = dataset_id
+            # Add dataset_id back (it was masked when sending to LLM)
+            llm_output["dataset_id"] = dataset_id
 
-            return first_result
+            return llm_output
 
         except Exception as e:
             if self.verbose:
@@ -382,7 +440,7 @@ Return strict JSON format only."""
                 "reasoning": {
                     "few_shot_analysis": f"Error: {str(e)}",
                     "metadata_analysis": "N/A",
-                    "citation_analysis": "N/A",
+                    "paper_abstract_analysis": "N/A",
                     "decision_summary": "API call failed"
                 }
             }

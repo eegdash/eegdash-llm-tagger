@@ -106,13 +106,17 @@ def fetch_dataset_table() -> List[Dict[str, str]]:
             continue
 
         # Build dataset entry
+        # Extract label strings
+        pathology_str = cells[col_map.get('pathology', 0)].get_text(strip=True) if 'pathology' in col_map else ''
+        modality_str = cells[col_map.get('modality', 0)].get_text(strip=True) if 'modality' in col_map else ''
+        type_str = cells[col_map.get('type', 0)].get_text(strip=True) if 'type' in col_map else ''
+
+        # Convert labels to arrays (empty array if no label, single-element array otherwise)
         dataset = {
             'dataset_id': dataset_id,
-            'pathology': cells[col_map.get('pathology', 0)].get_text(strip=True) if 'pathology' in col_map else '',
-            'modality': cells[col_map.get('modality', 0)].get_text(strip=True) if 'modality' in col_map else '',
-            'type': cells[col_map.get('type', 0)].get_text(strip=True) if 'type' in col_map else '',
-            # TODO: Remove this field permanently later
-            # 'record_modality': cells[col_map.get('record_modality', 0)].get_text(strip=True) if 'record_modality' in col_map else '',
+            'pathology': [pathology_str] if pathology_str else [],
+            'modality': [modality_str] if modality_str else [],
+            'type': [type_str] if type_str else [],
             'detail_url': f"{EEGDASH_BASE_URL}/api/dataset/eegdash.dataset.{dataset_id}.html"
         }
 
