@@ -73,6 +73,7 @@ def enrich_with_metadata(
                 print(f"  Fetching paper abstract...")
 
             paper_abstract = ""
+            paper_links = []
             try:
                 from .abstract_fetcher import extract_dois_from_references, fetch_abstract_with_cache
                 from pathlib import Path
@@ -80,6 +81,9 @@ def enrich_with_metadata(
                 dataset_desc = metadata.get("dataset_description", "")
                 openneuro_doi = metadata.get("openneuro_doi")
                 dois = extract_dois_from_references(dataset_desc, openneuro_doi)
+
+                # Build paper links from DOIs
+                paper_links = [f"https://doi.org/{doi}" for doi in dois]
 
                 if dois:
                     if verbose:
@@ -118,8 +122,9 @@ def enrich_with_metadata(
                     print(f"    ⚠ Abstract fetch failed: {e}")
                 paper_abstract = ""
 
-            # Always add paper_abstract field (even if empty)
+            # Always add paper_abstract and paper_links fields (even if empty)
             metadata["paper_abstract"] = paper_abstract
+            metadata["paper_links"] = paper_links
 
             # Attach EEGDash info to metadata (subjects count is useful)
             if row.get("eegdash_subjects") is not None:
