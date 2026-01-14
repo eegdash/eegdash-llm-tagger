@@ -3,7 +3,7 @@
 from typing import Dict
 
 
-def check_tagging_status(row: Dict[str, str], complete: bool = False) -> bool:
+def check_tagging_status(row: Dict, complete: bool = False) -> bool:
     """
     Check if a dataset has complete or incomplete tagging.
 
@@ -12,6 +12,7 @@ def check_tagging_status(row: Dict[str, str], complete: bool = False) -> bool:
 
     Args:
         row: Dataset dict with pathology, modality, and type fields
+             (values can be strings or lists of strings)
         complete: If True, check if all tags are filled. If False, check if
                   any tag is missing (inverse logic).
 
@@ -20,7 +21,15 @@ def check_tagging_status(row: Dict[str, str], complete: bool = False) -> bool:
         - If complete=False: True if any tag is missing or 'unknown'
     """
     for key in ['pathology', 'modality', 'type']:
-        value = row.get(key, '').strip().lower()
+        raw_value = row.get(key, '')
+
+        # Handle both list and string formats
+        if isinstance(raw_value, list):
+            # For lists: check if non-empty and first element is not 'unknown'
+            value = raw_value[0].strip().lower() if raw_value else ''
+        else:
+            value = raw_value.strip().lower() if raw_value else ''
+
         is_filled = value and value != 'unknown'
 
         if complete and not is_filled:
@@ -36,7 +45,7 @@ def check_tagging_status(row: Dict[str, str], complete: bool = False) -> bool:
     return complete
 
 
-def needs_tagging(row: Dict[str, str]) -> bool:
+def needs_tagging(row: Dict) -> bool:
     """
     Return True if this dataset is missing any of the three key tags:
     pathology, modality, or type.
@@ -52,7 +61,7 @@ def needs_tagging(row: Dict[str, str]) -> bool:
     return check_tagging_status(row, complete=False)
 
 
-def has_complete_tagging(row: Dict[str, str]) -> bool:
+def has_complete_tagging(row: Dict) -> bool:
     """
     Return True if this dataset has ALL three key tags filled:
     pathology, modality, and type.

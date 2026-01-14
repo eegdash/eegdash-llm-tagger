@@ -1,0 +1,29 @@
+[project]
+name = "eegdash-tagger"
+version = "0.1.0"
+description = "Automatic tagging of EEG datasets using LLM-based predictions"
+authors = [{ name = "Kuntal Kokate" }]
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.0",
+    "requests",
+    "beautifulsoup4",
+    "python-dotenv",
+]
+
+[project.scripts]
+eegdash-fetch-incomplete = "scripts.fetch_incomplete_datasets:main"
+eegdash-fetch-complete = "scripts.fetch_complete_datasets:main"
+eegdash-update-csv = "scripts.update_csv:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/eegdash_tagger"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+]
