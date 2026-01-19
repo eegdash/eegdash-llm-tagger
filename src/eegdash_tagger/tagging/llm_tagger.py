@@ -53,12 +53,23 @@ class OpenRouterTagger:
         "metadata",  # Will be filtered by RELEVANT_METADATA_KEYS
     }
 
+    @classmethod
+    def get_default_few_shot_path(cls) -> Path:
+        """Get the default path to few_shot_examples.json bundled with the package."""
+        return Path(__file__).parent.parent.parent.parent / "data" / "processed" / "few_shot_examples.json"
+
+    @classmethod
+    def get_default_prompt_path(cls) -> Path:
+        """Get the default path to prompt.md bundled with the package."""
+        return Path(__file__).parent.parent.parent.parent / "prompt.md"
+
     def __init__(
         self,
         api_key: Optional[str] = None,
         model: str = "openai/gpt-4",
         verbose: bool = False,
         few_shot_path: Optional[Path] = None,
+        prompt_path: Optional[Path] = None,
         max_tokens: int = 4000
     ):
         """
@@ -68,12 +79,13 @@ class OpenRouterTagger:
             api_key: OpenRouter.ai API key. If None, reads from OPENROUTER_API_KEY env var
             model: Model identifier (default: "openai/gpt-4")
             verbose: Enable verbose output
-            few_shot_path: Path to few_shot_examples.json. If None, uses default location
+            few_shot_path: Path to few_shot_examples.json. If None, uses package default
+            prompt_path: Path to prompt.md. If None, uses package default
             max_tokens: Maximum tokens for LLM response (default: 4000)
 
         Raises:
             ValueError: If API key is not provided and OPENROUTER_API_KEY env var is not set
-            FileNotFoundError: If few-shot examples file cannot be found
+            FileNotFoundError: If few-shot examples or prompt file cannot be found
         """
         self.api_key = api_key or os.getenv('OPENROUTER_API_KEY')
         if not self.api_key:
@@ -86,10 +98,12 @@ class OpenRouterTagger:
         self.verbose = verbose
         self.max_tokens = max_tokens
 
+        # Store prompt path for later use
+        self.prompt_path = prompt_path if prompt_path else self.get_default_prompt_path()
+
         # Load few-shot examples
         if few_shot_path is None:
-            # Default path relative to project root
-            few_shot_path = Path(__file__).parent.parent.parent.parent / "data" / "processed" / "few_shot_examples.json"
+            few_shot_path = self.get_default_few_shot_path()
 
         if not few_shot_path.exists():
             raise FileNotFoundError(f"Few-shot examples not found at: {few_shot_path}")
@@ -107,6 +121,7 @@ class OpenRouterTagger:
         if self.verbose:
             print(f"Loaded {len(self.few_shot_examples)} few-shot examples")
             print(f"Using model: {self.model}")
+            print(f"Prompt path: {self.prompt_path}")
             print(f"Max tokens: {self.max_tokens}")
 
     def _filter_metadata(self, metadata: Dict[str, Any]) -> Dict[str, Any]:
@@ -198,10 +213,7 @@ class OpenRouterTagger:
         Returns:
             System message with full instructions
         """
-        # Load prompt.md
-        prompt_path = Path(__file__).parent.parent.parent.parent / "prompt.md"
-
-        if not prompt_path.exists():
+        if not self.prompt_path.exists():
             # Fallback to minimal instructions
             return """You are an expert EEG/MEG dataset curator for the EEGDash catalog.
 
@@ -215,7 +227,7 @@ Use few-shot examples as ground truth for labeling patterns.
 Base reasoning on actual metadata phrases.
 Return strict JSON format only."""
 
-        with open(prompt_path, 'r', encoding='utf-8') as f:
+        with open(self.prompt_path, 'r', encoding='utf-8') as f:
             return f.read()
 
     def _build_user_message(self, meta: ParsedMetadata) -> str:
