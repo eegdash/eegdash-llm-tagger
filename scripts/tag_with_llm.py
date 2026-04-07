@@ -3,7 +3,8 @@
 Batch LLM Tagging Script.
 
 This script processes all incomplete datasets using OpenRouter.ai LLM API
-and generates llm_output.json for CSV updating.
+and generates llm_output.json for CSV updating. Supports parallel requests
+via --workers for much faster throughput.
 """
 
 import argparse
@@ -11,17 +12,17 @@ import json
 import os
 import sys
 import time
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 
 # Load environment variables from .env file
 try:
     from dotenv import load_dotenv
-    # Load from .env file in project root
     env_path = Path(__file__).parent.parent / ".env"
     load_dotenv(dotenv_path=env_path)
 except ImportError:
-    # python-dotenv not installed, rely on system environment
     pass
 
 # Add src to path for imports
@@ -32,35 +33,14 @@ from eegdash_tagger.tagging.tagger import ParsedMetadata
 
 
 def load_datasets(input_path: Path, limit: Optional[int] = None) -> List[Dict[str, Any]]:
-    """
-    Load datasets from JSON file.
-
-    Args:
-        input_path: Path to incomplete_metadata.json
-        limit: Maximum number of datasets to process
-
-    Returns:
-        List of dataset dictionaries
-    """
     with open(input_path, 'r', encoding='utf-8') as f:
         datasets = json.load(f)
-
     if limit:
         datasets = datasets[:limit]
-
     return datasets
 
 
 def convert_to_parsed_metadata(metadata: Dict[str, Any]) -> ParsedMetadata:
-    """
-    Convert metadata dict to ParsedMetadata.
-
-    Args:
-        metadata: Raw metadata from dataset
-
-    Returns:
-        ParsedMetadata object
-    """
     return ParsedMetadata(
         title=metadata.get('title', ''),
         dataset_description=metadata.get('dataset_description', ''),
@@ -73,192 +53,180 @@ def convert_to_parsed_metadata(metadata: Dict[str, Any]) -> ParsedMetadata:
 
 
 def save_results(results: List[Dict[str, Any]], output_path: Path):
-    """
-    Save results to JSON file.
-
-    Args:
-        results: List of tagging results
-        output_path: Path to output file
-    """
     output_data = {"results": results}
-
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(output_data, f, indent=2, ensure_ascii=False)
 
 
+def tag_single_dataset(tagger: OpenRouterTagger, dataset: Dict[str, Any], index: int, total: int, verbose: bool) -> Dict[str, Any]:
+    """Tag a single dataset. Thread-safe — tagger._call_api is stateless."""
+    dataset_id = dataset.get('dataset_id', f'unknown_{index}')
+    metadata = dataset.get('metadata', {})
+
+    try:
+        parsed_meta = convert_to_parsed_metadata(metadata)
+        result = tagger.tag_with_details(parsed_meta, dataset_id=dataset_id)
+
+        if verbose:
+            conf = result.get('confidence', {})
+            print(f"  [{index}/{total}] ✓ {dataset_id}: "
+                  f"{result.get('pathology')} | {result.get('modality')} | {result.get('type')} "
+                  f"(P={conf.get('pathology', 0):.2f} M={conf.get('modality', 0):.2f} T={conf.get('type', 0):.2f})")
+
+        return result
+
+    except Exception as e:
+        print(f"  [{index}/{total}] ✗ {dataset_id}: {e}")
+        return {
+            "dataset_id": dataset_id,
+            "pathology": ["Unknown"],
+            "modality": ["Unknown"],
+            "type": ["Unknown"],
+            "confidence": {"pathology": 0.0, "modality": 0.0, "type": 0.0},
+            "reasoning": {
+                "few_shot_analysis": f"Error: {str(e)}",
+                "metadata_analysis": "N/A",
+                "citation_analysis": "N/A",
+                "decision_summary": "Processing failed"
+            }
+        }
+
+
 def main():
-    """CLI entry point for batch LLM tagging."""
     parser = argparse.ArgumentParser(
         description="Tag EEG datasets using OpenRouter.ai LLM API"
     )
     parser.add_argument(
-        "--input",
-        type=Path,
+        "--input", type=Path,
         default=Path("data/processed/incomplete_metadata.json"),
-        help="Path to incomplete_metadata.json (default: data/processed/incomplete_metadata.json)"
+        help="Path to incomplete_metadata.json"
     )
     parser.add_argument(
-        "--output",
-        type=Path,
+        "--output", type=Path,
         default=Path("data/processed/llm_output.json"),
-        help="Path to output JSON file (default: data/processed/llm_output.json)"
+        help="Path to output JSON file"
     )
     parser.add_argument(
-        "--model",
-        default="openai/gpt-4-turbo",
-        help="OpenRouter model identifier (default: openai/gpt-4-turbo)"
+        "--model", default="openai/gpt-5.2",
+        help="OpenRouter model identifier (default: openai/gpt-5.2)"
     )
     parser.add_argument(
-        "--limit",
-        type=int,
-        help="Limit number of datasets to process (for testing)"
+        "--limit", type=int,
+        help="Limit number of datasets to process"
     )
     parser.add_argument(
-        "--verbose",
-        action="store_true",
+        "--workers", type=int, default=10,
+        help="Number of parallel workers (default: 10)"
+    )
+    parser.add_argument(
+        "--verbose", action="store_true",
         help="Print detailed progress"
     )
     parser.add_argument(
-        "--save-interval",
-        type=int,
-        default=10,
-        help="Save partial results every N datasets (default: 10)"
+        "--save-interval", type=int, default=20,
+        help="Save partial results every N completed datasets (default: 20)"
     )
 
     args = parser.parse_args()
 
     print("=" * 60)
-    print("OpenRouter LLM Batch Tagging")
+    print("OpenRouter LLM Batch Tagging (Parallel)")
     print("=" * 60)
 
     # Check API key
     api_key = os.getenv('OPENROUTER_API_KEY')
     if not api_key:
-        print("\n❌ Error: OPENROUTER_API_KEY environment variable not set")
-        print("\nSet it with:")
-        print("  export OPENROUTER_API_KEY='sk-or-v1-...'")
+        print("\nError: OPENROUTER_API_KEY environment variable not set")
         return 1
 
     print(f"\n✓ API key found")
     print(f"✓ Model: {args.model}")
+    print(f"✓ Workers: {args.workers}")
 
     # Load datasets
     if not args.input.exists():
-        print(f"\n❌ Error: Input file not found: {args.input}")
+        print(f"\nError: Input file not found: {args.input}")
         return 1
 
-    print(f"✓ Loading datasets from: {args.input}")
     datasets = load_datasets(args.input, args.limit)
-
     print(f"✓ Loaded {len(datasets)} datasets")
 
-    if args.limit:
-        print(f"  (Limited to {args.limit} datasets)")
-
     # Initialize tagger
-    print("\n" + "=" * 60)
-    print("Initializing Tagger")
-    print("=" * 60)
-
     try:
         tagger = OpenRouterTagger(
             api_key=api_key,
             model=args.model,
-            verbose=args.verbose
+            verbose=False  # per-request verbosity handled in tag_single_dataset
         )
     except Exception as e:
-        print(f"\n❌ Error initializing tagger: {e}")
+        print(f"\nError initializing tagger: {e}")
         return 1
 
-    # Process datasets
-    print("\n" + "=" * 60)
-    print("Processing Datasets")
+    # Process datasets in parallel
+    print(f"\n{'=' * 60}")
+    print(f"Processing {len(datasets)} datasets with {args.workers} workers")
     print("=" * 60)
 
-    results = []
-    failed = []
+    results = [None] * len(datasets)  # Pre-allocate to preserve order
+    completed = 0
+    failed_count = 0
+    lock = threading.Lock()
     start_time = time.time()
 
-    for i, dataset in enumerate(datasets, 1):
-        dataset_id = dataset.get('dataset_id', f'unknown_{i}')
-        metadata = dataset.get('metadata', {})
+    with ThreadPoolExecutor(max_workers=args.workers) as executor:
+        future_to_idx = {
+            executor.submit(
+                tag_single_dataset, tagger, ds, i + 1, len(datasets), args.verbose
+            ): i
+            for i, ds in enumerate(datasets)
+        }
 
-        if args.verbose or i % 5 == 0:
-            elapsed = time.time() - start_time
-            avg_time = elapsed / i if i > 0 else 0
-            remaining = avg_time * (len(datasets) - i)
+        for future in as_completed(future_to_idx):
+            idx = future_to_idx[future]
+            result = future.result()
+            results[idx] = result
 
-            print(f"\n[{i}/{len(datasets)}] Processing {dataset_id}")
-            print(f"  Elapsed: {elapsed:.1f}s | Avg: {avg_time:.1f}s/dataset | Est. remaining: {remaining:.1f}s")
+            with lock:
+                completed += 1
+                if result.get("confidence", {}).get("pathology", 1) == 0.0:
+                    failed_count += 1
 
-        try:
-            # Convert to ParsedMetadata
-            parsed_meta = convert_to_parsed_metadata(metadata)
+                # Progress update
+                if completed % 5 == 0 or completed == len(datasets):
+                    elapsed = time.time() - start_time
+                    rate = completed / elapsed
+                    remaining = (len(datasets) - completed) / rate if rate > 0 else 0
+                    print(f"\n  Progress: {completed}/{len(datasets)} "
+                          f"({completed/len(datasets)*100:.0f}%) | "
+                          f"{rate:.1f} datasets/s | "
+                          f"ETA: {remaining:.0f}s")
 
-            # Tag dataset
-            result = tagger.tag_with_details(parsed_meta, dataset_id=dataset_id)
-            results.append(result)
-
-            if args.verbose:
-                print(f"  ✓ Tagged: {result.get('pathology')} | {result.get('modality')} | {result.get('type')}")
-                conf = result.get('confidence', {})
-                print(f"    Confidence: P={conf.get('pathology', 0):.2f} M={conf.get('modality', 0):.2f} T={conf.get('type', 0):.2f}")
-
-        except Exception as e:
-            print(f"  ✗ Error: {e}")
-            failed.append({"dataset_id": dataset_id, "error": str(e)})
-
-            # Add fallback result
-            results.append({
-                "dataset_id": dataset_id,
-                "pathology": ["Unknown"],
-                "modality": ["Unknown"],
-                "type": ["Unknown"],
-                "confidence": {"pathology": 0.0, "modality": 0.0, "type": 0.0},
-                "reasoning": {
-                    "few_shot_analysis": f"Error: {str(e)}",
-                    "metadata_analysis": "N/A",
-                    "citation_analysis": "N/A",
-                    "decision_summary": "Processing failed"
-                }
-            })
-
-        # Save partial results
-        if i % args.save_interval == 0:
-            if args.verbose:
-                print(f"  💾 Saving partial results ({i} datasets)...")
-            save_results(results, args.output)
+                # Save partial results
+                if completed % args.save_interval == 0:
+                    # Collect completed results (skip None entries)
+                    partial = [r for r in results if r is not None]
+                    save_results(partial, args.output)
+                    print(f"  Saved {len(partial)} partial results")
 
     # Save final results
-    print("\n" + "=" * 60)
-    print("Saving Results")
-    print("=" * 60)
-
     save_results(results, args.output)
 
-    # Print summary
     total_time = time.time() - start_time
-    successful = len(results) - len(failed)
+    successful = len(results) - failed_count
 
     print(f"\n{'=' * 60}")
     print("Summary")
     print("=" * 60)
     print(f"Total processed:  {len(datasets)}")
     print(f"Successful:       {successful}")
-    print(f"Failed:           {len(failed)}")
+    print(f"Failed:           {failed_count}")
     print(f"Total time:       {total_time:.1f}s")
-    print(f"Average time:     {total_time / len(datasets):.1f}s per dataset")
+    print(f"Throughput:       {len(datasets)/total_time:.1f} datasets/s")
+    print(f"Avg per dataset:  {total_time/len(datasets):.1f}s (wall clock: {total_time/len(datasets)*1:.1f}s)")
     print(f"\nOutput saved to:  {args.output}")
 
-    if failed:
-        print(f"\nFailed datasets:")
-        for fail in failed[:10]:  # Show first 10 failures
-            print(f"  - {fail['dataset_id']}: {fail['error']}")
-        if len(failed) > 10:
-            print(f"  ... and {len(failed) - 10} more")
-
     print("\nNext step:")
-    print(f"  python scripts/update_csv.py --llm-json {args.output} --csv dataset_summary.csv --dry-run --verbose")
+    print(f"  python scripts/update_csv.py --llm-json {args.output} --csv ground-truth-data/dataset_summary.csv --dry-run --verbose")
 
     return 0
 

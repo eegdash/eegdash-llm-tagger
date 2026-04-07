@@ -1,255 +1,726 @@
-,dataset,n_records,n_subjects,n_tasks,nchans_set,sampling_freqs,duration_hours_total,size,size_bytes,s3_item_count,DatasetID,Type Subject,10-20 system,modality of exp,type of exp,record_modality
-0,ds002718,18,18,1,74,250,14.844,4.31 GB,4624315408,0,ds002718,Healthy,other,Visual,Perception,"EEG, MRI"
-1,ds005505,1342,136,10,129,500,125.366,103.11 GB,110708824369,0,,,,,,EEG
-2,ds004745,6,6,1,,1000,0.0,242.08 MB,253839725,0,,,,,,EEG
-3,ds005514,2885,295,10,129,500,213.008,185.03 GB,198677728665,0,,,,,,EEG
-4,ds005512,2320,257,10,129,500,196.205,157.19 GB,168778507427,0,,,,,,EEG
-5,ds005510,1227,135,10,129,500,112.464,90.80 GB,97492961757,0,,,,,,EEG
-6,ds005511,3100,381,10,"6,129",500,285.629,244.83 GB,262883881898,0,,,,,,EEG
-7,ds005509,3326,330,10,129,500,274.559,224.17 GB,240701124393,0,,,,,,EEG
-8,ds005508,3342,324,10,129,500,269.281,229.81 GB,246753736933,0,,,,,,EEG
-9,ds005507,1812,184,10,129,500,168.649,139.37 GB,149646718160,0,,,,,,EEG
-10,ds005506,1405,150,10,129,500,127.896,111.88 GB,120126449650,0,,,,,,EEG
-12,ds004854,1,1,1,64,128,0.535,79.21 MB,83057080,0,,,,,,EEG
-13,ds004853,1,1,1,64,128,0.535,79.21 MB,83057080,0,,,,,,EEG
-14,ds004844,68,17,1,64,1024,21.252,22.33 GB,23976121966,0,ds004844,,,Multisensory,Decision-making,EEG
-15,ds004843,92,14,1,64,256,29.834,7.66 GB,8229205795,0,ds004843,,,Visual,Attention,EEG
-16,ds004842,102,14,1,64,256,20.102,5.21 GB,5589054270,0,ds004842,,,Multisensory,Attention,EEG
-17,ds004852,1,1,1,64,128,0.535,79.21 MB,83057106,0,,,,,,EEG
-18,ds004851,1,1,1,64,128,0.535,56.59 GB,60765064414,0,,,,,,EEG
-19,ds004850,1,1,1,64,128,0.535,79.21 MB,83057078,0,,,,,,EEG
-20,ds004855,1,1,1,64,128,0.535,79.21 MB,83057076,0,,,,,,EEG
-21,ds004849,1,1,1,64,128,0.535,79.21 MB,83057084,0,,,,,,EEG
-22,ds004841,147,20,1,64,256,29.054,7.31 GB,7846934401,0,ds004841,,10-20,Multisensory,Attention,EEG
-23,ds004661,17,17,1,64,128,10.137,1.40 GB,1505577392,0,ds004661,,10-20,Multisensory,Memory,EEG
-24,ds004660,42,21,1,32,"2048,512",23.962,7.25 GB,7782408710,0,ds004660,Healthy,10-20,Multisensory,Attention,EEG
-25,ds004657,119,24,1,64,"1024,8192",27.205,43.06 GB,46237302701,0,ds004657,,10-20,Motor,Decision-making,EEG
-26,ds004362,1526,109,1,64,"128,160",48.592,11.14 GB,11961862159,0,ds004362,Healthy,10-20,Visual,Motor,EEG
-27,ds004010,24,24,1,64,1000,26.457,23.14 GB,24844863976,0,ds004010,Healthy,other,Multisensory,Attention,EEG
-28,ds002181,226,226,1,125,500,7.676,150.89 MB,158222084,0,,,,,,"CHANNELS, EEG, EVENTS"
-29,ds004554,16,16,1,99,1000,0.024,8.79 GB,9432865762,0,ds004554,Healthy,10-20,Visual,Decision-making,EEG
-30,ds005697,50,50,1,"65,69",1000,77.689,66.58 GB,71486411402,0,,,,,,EEG
-31,ds004350,240,24,5,64,256,41.265,26.83 GB,28810754598,0,ds004350,Healthy,other,Visual,Memory,EEG
-32,ds004785,17,17,1,32,500,0.019,351.17 MB,368224136,0,ds004785,Healthy,,Motor,Motor,EEG
-33,ds004504,88,88,1,19,500,19.608,5.38 GB,5780997160,0,ds004504,Dementia,10-20,Resting State,Clinical/Intervention,EEG
-34,ds004635,55,55,1,129,1000,20.068,30.56 GB,32817659781,0,ds004635,Healthy,other,Multisensory,Attention,EEG
-35,ds005787,448,19,1,"64,66","1000,500",23.733,27.09 GB,29087512003,0,,,,,,EEG
-36,ds005079,60,1,15,65,500,3.25,1.68 GB,1809231997,0,ds005079,Healthy,,Multisensory,Affect,EEG
-37,ds005342,32,32,1,17,250,33.017,2.03 GB,2181610593,0,ds005342,Healthy,,Visual,Motor,EEG
-38,ds005034,100,25,2,129,1000,37.525,61.36 GB,65885315479,0,ds005034,Healthy,,Visual,Memory,EEG
-39,ds002680,350,14,1,31,1000,21.244,9.22 GB,9902152149,0,ds002680,Healthy,10-20,Visual,Motor,EEG
-40,ds003805,1,1,1,19,500,0.033,16.96 MB,17781347,0,ds003805,Healthy,10-20,Multisensory,Learning,EEG
-41,ds003838,130,65,2,63,1000,136.757,253.29 GB,271965704312,0,ds003838,Healthy,10-20,Auditory,Memory,EEG
-42,ds002691,20,20,1,32,250,6.721,776.76 MB,814491068,0,ds002691,Healthy,other,Visual,Attention,EEG
-43,ds003690,375,75,3,"64,66",500,46.771,21.46 GB,23043491552,0,ds003690,Healthy,10-20,Auditory,Decision-making,EEG
-44,ds004040,4,2,1,64,512,4.229,11.59 GB,12440304224,0,ds004040,Healthy,10-20,Auditory,Other,EEG
-45,ds003061,39,13,1,79,256,8.196,2.26 GB,2421951821,0,ds003061,,10-20,Auditory,Perception,EEG
-46,ds005672,3,3,1,"65,69",1000,4.585,4.23 GB,4545641306,0,,,,,,EEG
-47,ds005410,81,81,1,63,1000,22.976,19.76 GB,21213481224,0,,,,,,EEG
-48,ds003753,25,25,1,64,500,10.104,4.62 GB,4965253148,0,ds003753,Healthy,10-20,Visual,Learning,EEG
-49,ds005565,24,24,1,,500,11.436,2.62 GB,2816607296,0,,,,,,EEG
-50,ds002893,52,49,1,33,"250,250.0293378038558",36.114,7.70 GB,8263047991,0,ds002893,Healthy,10-20,Multisensory,Attention,EEG
-51,ds002578,2,2,1,256,256,1.455,1.33 GB,1429254677,0,ds002578,Healthy,10-20,Visual,Attention,"EEG, MRI"
-52,ds005089,36,36,1,63,1000,68.82,68.01 GB,73021312961,0,ds005089,Healthy,,Visual,Attention,EEG
-53,ds003822,25,25,1,64,500,12.877,5.82 GB,6248744522,0,ds003822,Healthy,10-20,Visual,Affect,EEG
-54,ds003670,62,25,1,32,2000,72.772,97.53 GB,104721234854,0,ds003670,,10-20,Visual,Attention,EEG
-55,ds005048,35,35,1,,250,5.203,355.91 MB,373200880,0,ds005048,Dementia,,Auditory,Attention,EEG
-56,ds004574,146,146,1,"63,64,66",500,31.043,13.48 GB,14470034208,0,ds004574,Parkinson's,10-20,Multisensory,Clinical/Intervention,EEG
-57,ds004519,40,40,1,62,250,0.067,12.56 GB,13486848019,0,ds004519,,10-20,Visual,Attention,EEG
-58,ds004602,546,182,3,128,"250,500",87.11,73.91 GB,79364456958,0,ds004602,Healthy,other,Visual,Perception,EEG
-59,ds004784,6,1,6,128,512,0.518,10.82 GB,11621460277,0,ds004784,Healthy,,Motor,Attention,EEG
-60,ds004771,61,61,1,34,256,0.022,1.36 GB,1462195517,0,ds004771,Healthy,10-20,Visual,Decision-making,EEG
-61,ds003518,137,110,1,64,500,89.888,39.51 GB,42423490194,0,ds003518,Healthy,10-20,Visual,Clinical/Intervention,EEG
-62,ds005207,39,20,1,"6,10,12,14,15,16,17,18","128,250",422.881,69.12 GB,74214619739,0,ds005207,Healthy,,Sleep,Sleep,EEG
-63,ds005866,60,60,1,,500,15.976,3.57 GB,3837211623,0,,,,,,EEG
-64,ds003523,221,91,1,64,500,84.586,37.54 GB,40304852370,0,ds003523,TBI,10-20,Visual,Memory,EEG
-65,ds004347,48,24,1,64,"128,512",6.389,2.69 GB,2890549319,0,ds004347,Healthy,10-20,Visual,Perception,EEG
-66,ds004588,42,42,1,24,300,4.957,601.76 MB,630994652,0,ds004588,Healthy,10-20,Visual,Decision-making,EEG
-67,ds005811,448,19,1,62,"1000,500",23.733,24.12 GB,25902600444,0,,,,,,EEG
-68,ds003987,69,23,1,64,500.0930232558139,52.076,26.41 GB,28362707915,0,ds003987,Healthy,10-20,Visual,Attention,EEG
-69,ds004317,50,50,1,60,500,37.767,18.29 GB,19639199743,0,ds004317,Healthy,10-20,Multisensory,Affect,EEG
-70,ds004033,36,18,2,64,500,42.645,19.81 GB,21270391452,0,ds004033,,10-20,Motor,Motor,EEG
-71,ds004315,50,50,1,60,500,21.104,9.81 GB,10532856899,0,ds004315,Healthy,10-20,Multisensory,Affect,EEG
-72,ds003474,122,122,1,64,500,36.61,16.64 GB,17867805967,0,ds003474,Healthy,10-20,Visual,Decision-making,EEG
-73,ds003509,84,56,1,64,500,48.535,22.34 GB,23988721823,0,ds003509,Parkinson's,10-20,Visual,Learning,EEG
-74,ds005868,48,48,1,,500,13.094,2.93 GB,3146417813,0,,,,,,EEG
-75,ds003516,25,25,1,47,500,22.57,13.46 GB,14451393616,0,ds003516,Healthy,other,Auditory,Attention,EEG
-76,ds004942,62,62,1,65,1000,28.282,25.05 GB,26899933549,0,ds004942,Healthy,,Visual,Memory,EEG
-77,ds004348,18,9,2,34,200,35.056,12.30 GB,13210476025,0,ds004348,Healthy,other,Sleep,Sleep,EEG
-78,ds004625,543,32,9,120,500,28.397,62.46 GB,67069111978,0,ds004625,,,Motor,Attention,EEG
-79,ds003517,34,17,1,64,500,13.273,6.48 GB,6952992399,0,ds003517,Healthy,10-20,Visual,Learning,EEG
-80,ds004368,40,39,1,63,128,0.033,997.14 MB,1045574811,0,ds004368,Schizophrenia/Psychosis,10-20,Visual,Perception,EEG
-81,ds004584,149,149,1,"63,64,66",500,6.641,2.87 GB,3078216874,0,ds004584,Parkinson's,10-20,Resting State,Clinical/Intervention,EEG
-82,ds003506,84,56,1,64,500,35.381,16.21 GB,17400039992,0,ds003506,Parkinson's,10-20,Visual,Decision-making,EEG
-83,ds003570,40,40,1,64,2048,26.208,36.12 GB,38783075272,0,ds003570,Healthy,10-20,Auditory,Decision-making,EEG
-84,ds003490,75,50,1,64,500,12.76,5.85 GB,6276775630,0,ds003490,Parkinson's,10-20,Auditory,Attention,EEG
-85,ds004117,85,23,1,69,"1000,250,500,500.059",15.941,5.80 GB,6230776574,0,ds004117,Healthy,10-20,Visual,Memory,EEG
-86,ds004505,25,25,1,120,250,30.398,522.56 GB,561092363916,0,ds004505,Healthy,10-20,Motor,Motor,"EEG, MRI"
-87,ds004580,147,147,1,"63,64,66",500,36.514,15.84 GB,17008438640,0,ds004580,Parkinson's,10-20,Visual,Decision-making,EEG
-88,ds004532,137,110,1,64,500,49.651,22.09 GB,23719572304,0,ds004532,Healthy,10-20,Visual,Learning,EEG
-89,ds004902,218,71,2,61,"500,5000",18.118,8.29 GB,8898600609,0,ds004902,Healthy,,Resting State,Resting state,"EEG, BEH"
-90,ds004295,26,26,1,66,"1024,512",34.313,31.51 GB,33831372141,0,ds004295,Healthy,10-20,Multisensory,Learning,EEG
-91,ds003519,54,27,1,64,500,20.504,8.96 GB,9623156762,0,ds003519,Healthy,10-20,Visual,Clinical/Intervention,EEG
-92,ds003458,23,23,1,64,500,10.447,4.72 GB,5065250805,0,ds003458,Healthy,10-20,Visual,Affect,EEG
-93,ds003004,34,34,1,"134,180,189,196,201,206,207,208,209,211,212,213,214,215,218,219,220,221,222,223,224,226,227,229,231,232,235",256,49.072,35.63 GB,38255333087,0,ds003004,Healthy,10-20,Auditory,Affect,EEG
-94,ds004200,20,20,1,37,1000,14.123,7.21 GB,7740555648,0,ds004200,Healthy,10-20,Multisensory,Attention,EEG
-95,ds004015,36,36,1,18,500,47.29,6.03 GB,6475870225,0,ds004015,Healthy,other,Auditory,Attention,EEG
-96,ds004595,53,53,1,64,500,17.078,7.89 GB,8470863296,0,ds004595,Other,10-20,Visual,Decision-making,EEG
-97,ds004626,52,52,1,68,1000,21.359,19.87 GB,21336341431,0,ds004626,Other,10-20,Visual,Attention,EEG
-98,ds004475,30,30,1,"113,115,118,119,120,122,123,124,125,126,127,128",512,26.899,112.74 GB,121053900746,0,ds004475,Healthy,other,Motor,Motor,"EEG, MRI"
-99,ds004515,54,54,1,64,500,20.61,9.48 GB,10177384081,0,ds004515,Other,10-20,Visual,Affect,EEG
-100,ds004883,516,172,3,128,500,137.855,122.80 GB,131858855599,0,ds004883,Healthy,,Visual,Decision-making,EEG
-101,ds003739,120,30,4,128,256,20.574,10.94 GB,11742611182,0,ds003739,Healthy,10-20,Motor,Perception,EEG
-102,ds004389,260,26,4,42,10000,30.932,376.50 GB,404264486093,0,,,,,,EEG
-103,ds004367,40,40,1,68,1200,24.81,27.98 GB,30039343808,0,ds004367,Schizophrenia/Psychosis,10-20,Visual,Perception,EEG
-104,ds004369,41,41,1,4,500,37.333,8.01 GB,8596739356,0,ds004369,Healthy,other,Auditory,Perception,EEG
-105,ds004579,139,139,1,"63,64,66",500,55.703,24.12 GB,25896737812,0,ds004579,Parkinson's,10-20,Visual,Decision-making,EEG
-106,ds005416,23,23,1,64,1000,24.68,21.30 GB,22869325264,0,,,,,,EEG
-107,ds001785,54,18,3,63,"1000,1024",14.644,27.86 GB,29915397068,0,ds001785,Healthy,10-20,Tactile,Perception,EEG
-108,ds001971,273,20,1,108,512,46.183,31.98 GB,34339201543,0,ds001971,Healthy,10-20,Auditory,Motor,EEG
-109,ds004388,399,40,3,67,10000,43.327,682.54 GB,732876226489,0,,,,,,EEG
-110,ds003478,243,122,1,64,500,23.57,10.65 GB,11430531312,0,ds003478,Healthy,10-20,Resting State,Resting state,EEG
-111,ds004306,15,12,1,124,1024,18.183,79.11 GB,84945921180,0,ds004306,Healthy,other,Multisensory,Perception,EEG
-112,ds005305,165,165,1,64,"2048,512",14.136,6.41 GB,6887595053,0,ds005305,Healthy,,Visual,Decision-making,EEG
-113,ds005114,223,91,1,64,500,125.701,56.47 GB,60630838923,0,ds005114,TBI,,Visual,Attention,EEG
-114,ds003039,16,16,1,64,500,14.82,7.82 GB,8401240820,0,ds003039,Healthy,10-20,Motor,Motor,EEG
-115,ds003602,699,118,6,35,1000,159.35,73.21 GB,78609742568,0,ds003602,Other,other,Visual,Decision-making,EEG
-116,ds003655,156,156,1,19,500,130.923,20.26 GB,21756905870,0,ds003655,Healthy,10-20,Visual,Memory,EEG
-117,ds003522,200,96,1,64,500,57.079,25.36 GB,27225424004,0,ds003522,TBI,10-20,Auditory,Decision-making,EEG
-118,ds003801,20,20,1,24,250,13.689,1.15 GB,1233075452,0,ds003801,Healthy,10-20,Auditory,Attention,EEG
-119,ds005296,62,62,1,,500,37.205,8.53 GB,9154623627,0,ds005296,Healthy,,Multisensory,Decision-making,EEG
-120,ds004561,23,23,1,62,10000,11.379,97.96 GB,105188606283,0,ds004561,Healthy,10-20,Motor,Perception,EEG
-121,ds005131,63,58,2,64,500,52.035,22.35 GB,23996524256,0,ds005131,Healthy,other,Auditory,Attention/Memory,EEG
-122,ds005028,66,11,3,,,0.0,1.46 GB,1563795662,0,ds005028,,other,Visual,Motor,EEG
-123,ds005170,225,5,1,,,0.0,261.77 GB,281068716313,0,ds005170,,10-20,Visual,other,EEG
-124,ds004840,51,9,3,8,"1024,256,512",11.306,1.75 GB,1876219715,0,ds004840,Other,10-20,Auditory,Clinical/Intervention,EEG
-125,ds004718,51,51,1,64,1000,21.836,108.98 GB,117013849037,0,ds004718,Healthy,,Auditory,Learning,"MRI, EEG"
-126,ds002725,105,21,5,30,1000,0.0,15.32 GB,16447829856,0,ds002725,Healthy,10-20,Auditory,Affect,"T1W, CHANNELS, EEG, EVENTS, BOLD"
-127,ds004408,380,19,1,128,512,20.026,18.70 GB,20083249915,0,ds004408,Healthy,other,Auditory,Other,EEG
-128,ds004796,235,79,3,,1000,0.0,240.21 GB,257923739221,0,ds004796,Other,,Visual/Resting State,Memory/Resting state,"MRI, EEG"
-129,ds004511,134,45,3,139,3000,48.922,202.28 GB,217194709208,0,,,,,,EEG
-130,ds004817,20,20,1,63,1000,0.0,25.34 GB,27207910489,0,ds004817,Healthy,,Visual,Attention,EEG
-131,ds003190,280,19,1,0,256,29.891,1.27 GB,1361816737,0,ds003190,,10-20,Visual,Perception,"CHANNELS, EEG, EVENTS"
-132,ds004917,24,24,1,,,0.0,36.47 GB,39162637090,0,ds004917,Healthy,other,Multisensory,Decision-making,"MRI, EEG"
-133,ds004357,16,16,1,63,1000,0.0,69.56 GB,74685825960,0,ds004357,Healthy,10-20,Visual,Perception,EEG
-134,ds005397,26,26,1,64,500,27.923,12.10 GB,12993735747,0,,,,,,EEG
-135,ds003846,60,19,1,64,500,24.574,11.36 GB,12193814091,0,ds003846,Healthy,other,Multisensory,Decision-making,EEG
-136,ds004024,497,13,3,64,20000,55.503,1021.22 GB,1096522006089,0,ds004024,Healthy,10-20,Visual,Clinical/Intervention,"EEG, MRI"
-137,ds005815,137,26,4,30,"1000,500",38.618,9.91 GB,10642000219,0,,,,,,EEG
-138,ds005429,61,15,3,64,"2500,5000",14.474,16.47 GB,17685373747,0,,,,,,EEG
-139,ds003702,47,47,1,61,500,0.0,60.93 GB,65421860496,0,ds003702,Healthy,10-20,Visual,Memory,EEG
-140,ds004577,130,103,1,"19,21,24",200,22.974,652.76 MB,684471843,0,ds004577,Healthy,10-20,Sleep,Clinical/Intervention,EEG
-141,ds003574,18,18,1,64,500,0.0,14.79 GB,15876358782,0,ds003574,Healthy,10-20,Visual,Affect,"MRI, EEG"
-142,ds005779,250,19,16,"64,67,70",5000,16.65,88.67 GB,95206991747,0,,,,,,EEG
-143,ds005185,356,20,3,8,500,0.0,783.25 GB,841005525524,0,,,,,,EEG
-144,ds001787,40,24,1,64,256,27.607,5.69 GB,6112379157,0,ds001787,Healthy,10-20,Auditory,Attention,EEG
-145,ds003505,37,19,2,128,2048,0.0,90.13 GB,96777780296,0,ds003505,Healthy,10-20,Visual,Perception,"EEG, MRI"
-146,ds005340,15,15,1,2,10000,35.297,19.14 GB,20556600898,0,,,,,,EEG
-147,ds005363,43,43,1,64,1000,43.085,17.71 GB,19011101429,0,,,,,,EEG
-148,ds005121,39,34,1,58,512,41.498,9.04 GB,9711092185,0,ds005121,Healthy,,Sleep,Memory,EEG
-149,ds004256,53,53,2,64,500,42.337,18.18 GB,19516271706,0,,,,,,EEG
-150,ds005420,72,37,2,20,500,5.485,372.11 MB,390189484,0,,,,,,EEG
-151,ds002034,167,14,4,64,512,37.248,10.10 GB,10842685551,0,ds002034,Healthy,10-20,Visual,Attention,EEG
-152,ds003825,50,50,1,"63,128",1000,0.0,55.34 GB,59421076202,0,ds003825,Healthy,10-20,Visual,Perception,EEG
-153,ds004587,114,103,1,59,10000,25.491,219.34 GB,235517890780,0,ds004587,Healthy,,Visual,Decision-making,EEG
-154,ds004598,20,9,1,,10000,0.0,26.66 GB,28629940214,0,,,,,,EEG
-155,ds005383,240,30,1,30,200,8.327,17.43 GB,18712238212,0,,,,,,EEG
-156,ds003195,20,10,2,19,200,4.654,121.08 MB,126957549,0,ds003195,Parkinson's,10-20,Resting State,Clinical/Intervention,EEG
-157,ds005403,32,32,1,62,10000,13.383,135.65 GB,145656630881,0,,,,,,EEG
-158,ds004621,167,42,4,,1000,0.0,77.39 GB,83096459121,0,ds004621,Healthy,,Visual,Decision-making,EEG
-159,ds005863,357,127,4,27,500,0.0,10.59 GB,11371790189,0,,,,,,EEG
-160,ds005594,16,16,1,64,1000,12.934,10.89 GB,11695589464,0,,,,,,EEG
-161,ds002336,54,10,6,,5000,0.0,17.98 GB,19300632853,0,ds002336,Healthy,other,Visual,Motor,"EEG, MRI"
-162,ds004043,20,20,1,63,1000,0.0,30.44 GB,32685724275,0,ds004043,Healthy,10-20,Visual,Attention,EEG
-163,ds005106,42,42,1,32,500,0.012,12.62 GB,13547440607,0,ds005106,Healthy,,Visual,Attention,EEG
-164,ds004284,18,18,1,129,1000,9.454,16.49 GB,17703523636,0,ds004284,Healthy,other,Visual,Decision-making,EEG
-165,ds005620,202,21,3,"64,65",5000,21.811,77.30 GB,83002663223,0,,,,,,EEG
-166,ds002720,165,18,10,19,1000,0.0,2.39 GB,2566221024,0,ds002720,Healthy,10-20,Auditory,Affect,EEG
-167,ds005307,73,7,1,"72,104",10000,1.335,18.59 GB,19956343711,0,,,,,,EEG
-168,ds002094,43,20,3,30,5000,18.593,39.45 GB,42356287674,0,ds002094,,10-20,Resting State,Resting state,"CHANNELS, EEG, EVENTS"
-169,ds002833,80,20,1,257,1000,11.604,39.77 GB,42698182133,0,ds002833,,10-20,Auditory,Decision-making,"CHANNELS, EEG, ELECTRODES, EVENTS"
-170,ds002218,18,18,1,0,256,16.52,1.95 GB,2089183870,0,ds002218,Healthy,10-20,Multisensory,Perception,EEG
-171,ds005021,36,36,1,64,1024,0.0,83.20 GB,89337424472,0,ds005021,Healthy,,Visual,Attention,EEG
-172,ds004264,21,21,1,31,1000,0.0,3.30 GB,3546307489,0,ds004264,Healthy,10-20,Visual,Learning,EEG
-173,ds004446,237,30,1,129,1000,33.486,29.23 GB,31382984441,0,ds004446,Healthy,other,Visual,Motor,EEG
-174,ds004980,17,17,1,64,"499.9911824,499.9912809,499.991385,499.9914353,499.9914553,499.9915179,499.9917272,499.9917286,499.9917378,499.9919292,499.9919367,499.9923017,499.9923795,500",36.846,15.82 GB,16989514798,0,ds004980,Healthy,,Visual,Perception,EEG
-175,ds002722,94,19,5,32,1000,0.0,6.10 GB,6545819602,0,ds002722,Healthy,10-20,Auditory,Affect,"CHANNELS, EEG, EVENTS"
-176,ds003944,82,82,1,61,"1000,3000.00030000003",6.999,6.15 GB,6606397067,0,ds003944,Schizophrenia/Psychosis,10-20,Resting State,Clinical/Intervention,EEG
-177,ds004279,60,56,1,64,1000,53.729,25.22 GB,27082275780,0,ds004279,Healthy,10-20,Auditory,Perception,EEG
-178,ds005876,29,29,1,32,1000,16.017,7.61 GB,8170007441,0,,,,,,"EEG, BEH"
-179,ds003816,1077,48,8,127,1000,159.313,53.97 GB,57953346429,0,ds003816,Healthy,10-20,Other,Affect,EEG
-180,ds005385,3264,608,2,64,1000,169.62,74.07 GB,79529430923,0,,,,,,EEG
-181,ds004572,516,52,10,58,1000,52.624,43.56 GB,46777273840,0,ds004572,,10-20,Auditory,Perception,EEG
-182,ds005095,48,48,1,63,1000,16.901,14.28 GB,15336165645,0,ds005095,Healthy,,Visual,Memory,EEG
-183,ds004460,40,20,1,160,1000,27.494,61.36 GB,65881325046,0,ds004460,Healthy,other,Visual,Perception,EEG
-184,ds005189,30,30,1,61,1000,0.0,17.03 GB,18283103870,0,ds005189,Healthy,,Visual,Memory,EEG
-185,ds005274,22,22,1,6,500,0.0,71.91 MB,75400374,0,ds005274,Healthy,,,,EEG
-186,ds004075,116,29,4,,1000,0.0,7.39 GB,7936060172,0,ds004075,,10-20,,,EEG
-187,ds004447,418,22,1,"128,129",1000,23.554,20.73 GB,22253514308,0,ds004447,Healthy,other,Visual,Motor,EEG
-188,ds004952,245,10,1,128,1000,123.411,696.72 GB,748095804444,0,ds004952,Healthy,,Visual,Attention,EEG
-189,ds002724,96,10,4,32,1000,0.0,8.52 GB,9150248444,0,ds002724,Healthy,10-20,Auditory,Affect,"CHANNELS, EEG, EVENTS"
-190,ds005571,45,24,2,64,5000,0.0,62.77 GB,67394456730,0,,,,,,"MRI, EEG"
-191,ds004262,21,21,1,31,1000,0.0,3.48 GB,3731654700,0,ds004262,Healthy,10-20,Visual,Learning,EEG
-192,ds005273,33,33,1,63,1000,58.055,44.42 GB,47690882240,0,ds005273,Healthy,,Visual,Decision-making,EEG
-193,ds004520,33,33,1,62,250,0.055,10.41 GB,11175908145,0,ds004520,,10-20,Visual,Memory,EEG
-194,ds004444,465,30,1,129,1000,55.687,48.62 GB,52204973958,0,ds004444,Healthy,other,Visual,Motor,EEG
-195,ds004582,73,73,1,59,10000,34.244,294.22 GB,315915939478,0,ds004582,Healthy,,Visual,Affect,EEG
-196,ds002723,44,8,6,32,1000,0.0,2.60 GB,2791985215,0,ds002723,Healthy,10-20,Auditory,Affect,"CHANNELS, EEG, EVENTS"
-197,ds003751,38,38,1,128,250,19.95,4.71 GB,5057922307,0,ds003751,Healthy,other,Multisensory,Affect,EEG
-198,ds003421,80,20,1,257,1000,11.604,76.77 GB,82433418198,0,ds003421,Healthy,10-20,Multisensory,Decision-making,EEG
-199,ds002158,117,20,1,,,0.0,428.59 GB,460190030981,0,ds002158,Healthy,10-20,Visual,Affect,"MRI, EEG"
-200,ds004951,23,11,1,63,1000,29.563,22.00 GB,23627352274,0,ds004951,,,Tactile,Learning,EEG
-201,ds004802,38,38,1,65,"2048,512",0.0,29.34 GB,31504070800,0,ds004802,Other,,Visual,Affect,EEG
-202,ds004816,20,20,1,63,1000,0.0,23.31 GB,25028989553,0,ds004816,Healthy,,Visual,Attention,EEG
-203,ds005873,2850,125,1,2,256,11935.09,117.21 GB,125851664268,0,,,,,,EEG
-204,ds003194,29,15,2,"19,21",200,7.178,189.15 MB,198333904,0,ds003194,Parkinson's,10-20,Resting State,Clinical/Intervention,EEG
-205,ds004356,24,22,1,34,10000,0.0,213.08 GB,228796286136,0,ds004356,Healthy,10-20,Auditory,Perception,EEG
-206,ds004381,437,18,1,"4,5,7,8,10",20000,11.965,12.36 GB,13275540742,0,ds004381,Surgery,10-20,Other,Other,EEG
-207,ds004196,4,4,1,64,512,1.511,9.33 GB,10022898106,0,ds004196,Healthy,10-20,Visual,Clinical/Intervention,"MRI, EEG"
-208,ds005692,59,30,1,24,5000,112.206,92.81 GB,99649237201,0,,,,,,EEG
-209,ds002338,85,17,4,,5000,0.0,25.89 GB,27802574037,0,ds002338,Healthy,other,Visual,Motor,"EEG, MRI"
-210,ds004022,21,7,1,"16,18",500,0.0,634.93 MB,665774359,0,ds004022,Other,10-20,Visual,Motor,EEG
-211,ds004603,37,37,1,64,1024,30.653,39.13 GB,42020115207,0,ds004603,Healthy,10-20,Visual,Perception,EEG
-212,ds004752,136,15,1,"0,8,10,19,20,21,23","200,2000,4000,4096",0.302,11.95 GB,12829882725,0,ds004752,Epilepsy,10-20,Auditory,Memory,"IEEG, EEG"
-213,ds003768,255,33,2,,,0.0,89.24 GB,95819107191,0,ds003768,Healthy,10-20,Sleep,Sleep,"EEG, MRI"
-214,ds003947,61,61,1,61,"1000,3000.00030000003",5.266,12.54 GB,13466591394,0,ds003947,Schizophrenia/Psychosis,10-20,Resting State,Clinical/Intervention,EEG
-215,ds005530,21,17,1,10,500,154.833,6.47 GB,6949642931,0,,,,,,"MRI, EEG, BEH"
-216,ds005555,256,128,1,"2,8,9,11,12,13",256,2002.592,33.45 GB,35921410419,0,,,,,,EEG
-217,ds004477,9,9,1,79,2048,13.557,22.34 GB,23990303639,0,ds004477,Healthy,10-20,Multisensory,Decision-making,EEG
-218,ds005688,89,20,5,4,"10000,20000",2.502,8.42 GB,9036021093,0,,,,,,EEG
-219,ds003766,124,31,4,129,1000,39.973,152.77 GB,164033759919,0,ds003766,Healthy,other,Visual,Decision-making,EEG
-220,ds005540,103,59,1,64,"1200,600",0.0,70.40 GB,75594345013,0,,,,,,"EEG, BEH"
-221,ds004152,21,21,1,31,1000,0.0,4.77 GB,5118976537,0,ds004152,Healthy,10-20,Multisensory,Learning,EEG
-222,ds003626,30,10,1,,,0.0,24.99 GB,26828585815,0,ds003626,Healthy,10-20,Visual,Motor,EEG
-223,ds002814,168,21,1,68,1200,0.0,48.57 GB,52151006842,0,ds002814,Healthy,10-20,Visual,Perception,"MRI, EEG"
-224,ds003645,108,18,1,,,0.0,105.89 GB,113698969765,0,ds003645,Healthy,other,Visual,Perception,"EEG, MEG, MRI"
-225,ds005586,23,23,1,60,1000,33.529,28.68 GB,30791089319,0,,,,,,EEG
-226,ds003810,50,10,1,15,125,0.0,69.31 MB,72674251,0,ds003810,Healthy,10-20,Motor,Clinical/Intervention,EEG
-227,ds003969,392,98,4,64,"1024,2048",66.512,54.46 GB,58479195149,0,ds003969,Healthy,10-20,Auditory,Attention,EEG
-228,ds004000,86,43,2,128,2048,0.0,22.50 GB,24161100810,0,ds004000,Schizophrenia/Psychosis,10-20,Multisensory,Decision-making,EEG
-229,ds004995,20,20,1,,,0.0,27.60 GB,29637643188,0,ds004995,,,Visual,Attention,EEG
-230,ds003638,57,57,1,64,512,40.597,16.31 GB,17516109722,0,ds003638,Healthy,10-20,Visual,Decision-making,EEG
-231,ds004521,34,34,1,62,250,0.057,10.68 GB,11470006201,0,ds004521,,10-20,Visual,Motor,EEG
-232,ds001849,120,20,1,30,5000,0.0,44.51 GB,47790431085,0,ds001849,Healthy,10-20,Multisensory,Clinical/Intervention,EEG
-233,ds004252,1,1,1,,,0.0,4.31 GB,4630172409,0,ds004252,Healthy,10-20,Visual,Perception,EEG
-234,ds004448,280,56,1,129,1000,43.732,38.17 GB,40980948240,0,ds004448,Healthy,other,Visual,Motor,EEG
-235,ds005795,39,34,2,72,500,0.0,6.43 GB,6902188541,0,,,,,,"EEG, MRI"
-236,ds004018,32,16,1,63,1000,0.0,10.56 GB,11334174765,0,ds004018,Healthy,10-20,Visual,Learning,EEG
-237,ds004324,26,26,1,28,500,19.216,2.46 GB,2637689107,0,ds004324,Healthy,10-20,Multisensory,Affect,EEG
-238,ds003887,24,24,1,128,1000,0.0,80.10 GB,86007307086,0,ds003887,Healthy,10-20,Visual,Perception,EEG
-239,ds004860,31,31,1,32,"2048,512",0.0,3.79 GB,4065632222,0,ds004860,Healthy,,Auditory,Decision-making,EEG
-240,ds002721,185,31,6,19,1000,0.0,3.35 GB,3598851749,0,ds002721,Healthy,10-20,Auditory,Affect,EEG
-241,ds003555,30,30,1,,1024,0.0,28.27 GB,30359240949,0,ds003555,Epilepsy,10-20,Resting State,Clinical/Intervention,EEG
-242,ds005486,445,159,1,,"25000,5000",0.0,371.04 GB,398401152773,0,,,,,,EEG
-243,ds005520,69,23,3,67,1000,60.73,275.98 GB,296326427308,0,,,,,,EEG
-244,ds005262,186,12,1,,,0.0,688.75 MB,722211079,0,ds005262,Healthy,,Visual,other,EEG
-245,ds002778,46,31,1,40,512,2.518,545.00 MB,571471228,0,ds002778,Parkinson's,10-20,Resting State,Resting state,EEG
-246,ds003885,24,24,1,128,1000,0.0,82.21 GB,88277188455,0,ds003885,Healthy,10-20,Visual,Perception,EEG
-247,ds005406,29,29,1,63,1000,15.452,13.26 GB,14241905076,0,,,,,,EEG
-248,ds003710,48,13,1,32,5000,9.165,10.18 GB,10934708022,0,ds003710,Healthy,10-20,Multisensory,Perception,EEG
-249,ds003343,59,20,1,16,500,6.551,663.50 MB,695729345,0,ds003343,Healthy,10-20,Tactile,Perception,EEG
-250,ds005345,26,26,1,64,500,0.0,405.13 GB,435000970369,0,,,,,,"MRI, EEG"
-251,ds004067,84,80,1,63,2000,0.0,100.79 GB,108218050644,0,ds004067,Healthy,10-20,Visual,Affect,EEG
-252,ds001810,263,47,1,64,512,91.205,109.70 GB,117790096766,0,ds001810,Healthy,10-20,Visual,Attention,"CHANNELS, EEG, EVENTS"
-253,ds005515,2516,533,8,129,500,198.849,160.55 GB,172385741878,0,,,,,,EEG
-254,ds005516,3397,430,8,129,500,256.932,219.39 GB,235564761634,0,,,,,,EEG
+Unnamed: 0,dataset,n_records,n_subjects,n_tasks,nchans_set,sampling_freqs,duration_hours_total,size,size_bytes,source,DatasetID,Type Subject,modality of exp,type of exp,record_modality,dataset_title,license,doi,nemar_citation_count
+0,EEG2025r1,1342,136,10,129,100,,0B,0,nemar,EEG2025r1,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 1 (BDF Converted),CC-BY-SA 4.0,10.18112/openneuro.ds005505.v1.0.1,
+1,EEG2025r10,2516,533,8,129,100,,0B,0,nemar,EEG2025r10,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 10 (BDF Converted),CC-BY-SA 4.0,,
+2,EEG2025r10mini,220,20,8,129,100,,0B,0,nemar,EEG2025r10mini,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 10 (BDF Converted),CC-BY-SA 4.0,,
+3,EEG2025r11,3397,430,8,129,100,,0B,0,nemar,EEG2025r11,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 11 (BDF Converted),CC-BY-SA 4.0,,
+4,EEG2025r11mini,220,20,8,129,100,,0B,0,nemar,EEG2025r11mini,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 11 (BDF Converted),CC-BY-SA 4.0,,
+5,EEG2025r1mini,239,20,10,129,100,,0B,0,nemar,EEG2025r1mini,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 1 (BDF Converted),CC-BY-SA 4.0,10.18112/openneuro.ds005505.v1.0.1,
+6,EEG2025r2,1405,150,10,129,100,,0B,0,nemar,EEG2025r2,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 2 (BDF Converted),CC-BY-SA 4.0,10.18112/openneuro.ds005506.v1.0.1,
+7,EEG2025r2mini,240,20,10,129,100,,0B,0,nemar,EEG2025r2mini,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 2 (BDF Converted),CC-BY-SA 4.0,10.18112/openneuro.ds005506.v1.0.1,
+8,EEG2025r3,1812,184,10,129,100,,0B,0,nemar,EEG2025r3,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 3 (BDF Converted),CC-BY-SA 4.0,10.18112/openneuro.ds005507.v1.0.1,
+9,EEG2025r3mini,240,20,10,129,100,,0B,0,nemar,EEG2025r3mini,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 3 (BDF Converted),CC-BY-SA 4.0,10.18112/openneuro.ds005507.v1.0.1,
+10,EEG2025r4,3342,324,10,129,100,,0B,0,nemar,EEG2025r4,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 4 (BDF Converted),CC-BY-SA 4.0,10.18112/openneuro.ds005508.v1.0.1,
+11,EEG2025r4mini,240,20,10,129,100,,0B,0,nemar,EEG2025r4mini,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 4 (BDF Converted),CC-BY-SA 4.0,10.18112/openneuro.ds005508.v1.0.1,
+12,EEG2025r5,3326,330,10,129,100,,0B,0,nemar,EEG2025r5,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 5 (BDF Converted),CC-BY-SA 4.0,10.18112/openneuro.ds005509.v1.0.1,
+13,EEG2025r5mini,240,20,10,129,100,,0B,0,nemar,EEG2025r5mini,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 5 (BDF Converted),CC-BY-SA 4.0,10.18112/openneuro.ds005509.v1.0.1,
+14,EEG2025r6,1227,135,10,129,100,,0B,0,nemar,EEG2025r6,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 6 (BDF Converted),CC-BY-SA 4.0,10.18112/openneuro.ds005510.v1.0.1,
+15,EEG2025r6mini,237,20,10,129,100,,0B,0,nemar,EEG2025r6mini,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 6 (BDF Converted),CC-BY-SA 4.0,10.18112/openneuro.ds005510.v1.0.1,
+16,EEG2025r7,3100,381,10,129*,100,,0B,0,nemar,EEG2025r7,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 7 (BDF Converted),CC-BY-SA 4.0,10.18112/openneuro.ds005511.v1.0.1,
+17,EEG2025r7mini,239,20,10,129,100,,0B,0,nemar,EEG2025r7mini,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 7 (BDF Converted),CC-BY-SA 4.0,10.18112/openneuro.ds005511.v1.0.1,
+18,EEG2025r8,2320,257,10,129,100,,0B,0,nemar,EEG2025r8,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 8 (BDF Converted),CC-BY-SA 4.0,10.18112/openneuro.ds005512.v1.0.1,
+19,EEG2025r8mini,238,20,10,129,100,,0B,0,nemar,EEG2025r8mini,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 8 (BDF Converted),CC-BY-SA 4.0,10.18112/openneuro.ds005512.v1.0.1,
+20,EEG2025r9,2885,295,10,129,100,,0B,0,nemar,EEG2025r9,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 9 (BDF Converted),CC-BY-SA 4.0,10.18112/openneuro.ds005514.v1.0.1,
+21,EEG2025r9mini,237,20,10,129,100,,0B,0,nemar,EEG2025r9mini,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 9 (BDF Converted),CC-BY-SA 4.0,10.18112/openneuro.ds005514.v1.0.1,
+22,ds000117,104,17,2,394,1100,,87.65 GB,94108833435,openneuro,ds000117,Healthy,Visual,Perception,meg,"Multisubject, multimodal face processing",CC0,doi:10.18112/openneuro.ds000117.v1.1.0,77.0
+23,ds000246,3,2,2,340*,2400,0.2083333333333333,2.29 GB,2457671893,openneuro,ds000246,Healthy,Auditory,Perception,meg,MEG-BIDS Brainstorm data sample,CC0,doi:10.18112/openneuro.ds000246.v1.0.1,1.0
+24,ds000247,10,6,2,297*,2400,1.0158333333333334,10.27 GB,11024087953,openneuro,ds000247,Healthy,Resting State,Resting-state,meg,MEG-BIDS OMEGA RestingState_sample,CC0,doi:10.18112/openneuro.ds000247.v1.0.2,3.0
+25,ds000248,3,2,2,376*,600,0.1076979446929193,177.59 MB,186216741,openneuro,ds000248,Healthy,Multisensory,Attention,meg,MNE-Sample-Data,CC0,10.18112/openneuro.ds000248.v1.2.4,3.0
+26,ds001785,54,18,3,71,1024*,25.714475,24.87 GB,26701806128,openneuro,ds001785,Healthy,Tactile,Perception,eeg,Evidence accumulation relates to perceptual consciousness and monitoring,CC0,10.18112/openneuro.ds001785.v1.1.1,2.0
+27,ds001787,40,24,1,79,256,27.607222222222223,5.69 GB,6112012191,openneuro,ds001787,Healthy,Auditory,Attention,eeg,EEG meditation study,CC0,doi:10.18112/openneuro.ds001787.v1.1.1,6.0
+28,ds001810,263,47,1,73,512,91.205,45.74 GB,49117378796,openneuro,ds001810,Healthy,Visual,Attention,eeg,"EEG study of the attentional blink; before, during, and after transcranial Direct Current Stimulation (tDCS)",CC0,10.18112/openneuro.ds001810.v1.1.0,6.0
+29,ds001849,120,20,1,30,5000,,44.51 GB,47790430570,openneuro,ds001849,Healthy,Multisensory,Clinical/Intervention,eeg,RS_TMSEEG_Data,CC0,10.18112/openneuro.ds001849.v1.0.2,1.0
+30,ds001971,273,20,1,115*,512,39.845172526041665,31.98 GB,34339201028,openneuro,ds001971,Healthy,Auditory,Motor,eeg,Audiocue walking study,Creative commons,10.18112/openneuro.ds001971.v1.1.1,2.0
+31,ds002001,69,11,2,[],2400,,81.67 GB,87694131395,openneuro,ds002001,Unknown,Unknown,Unknown,meg,Rivalry_Tagging,PD,10.18112/openneuro.ds002001.v1.0.0,3.0
+32,ds002034,167,14,4,81,512,35.84861111111111,10.1 GB,10842685064,openneuro,ds002034,Healthy,Visual,Attention,eeg,Real-time EEG feedback on alpha power lateralization leads to behavioral improvements in a covert attention task,CC0,doi:10.18112/openneuro.ds002034.v1.0.3,7.0
+33,ds002094,43,20,3,30,5000,19.60131094444445,39.43 GB,42339775606,openneuro,ds002094,,Resting State,Resting state,eeg,Single-pulse open-loop TMS-EEG dataset,CC0,,30.0
+34,ds002158,117,20,1,64,5000,17.080816666666667,76.54 GB,82185122527,openneuro,ds002158,Healthy,Visual,Affect,eeg,Disentangling the origins of confidence in speeded perceptual judgments through multimodal imaging,CC0,10.18112/openneuro.ds002158.v1.0.2,1.0
+35,ds002181,226,226,1,125,500,7.675835,150.89 MB,158221569,openneuro,ds002181,Development,Visual,Resting-state,eeg,CRYPTO and PROVIDE EEG Baseline Data,CC0,mockDOI,1.0
+36,ds002218,18,18,1,32,256,16.52023003472222,1.95 GB,2089143297,openneuro,ds002218,Healthy,Multisensory,Perception,eeg,Auditory and Visual Rhythm Omission EEG,CC0,mockDOI,1.0
+37,ds002312,23,19,1,257,1000,7.096010277777777,34.09 GB,36600686939,openneuro,ds002312,Unknown,Unknown,Unknown,meg,OcularLDT,CC0,10.18112/openneuro.ds002312.v1.0.0,
+38,ds002336,54,10,6,64,5000,11.043072222222222,16.81 GB,18046628207,openneuro,ds002336,Healthy,Visual,Motor,eeg,A multi-modal human neuroimaging dataset for data integration: simultaneous EEG and fMRI acquisition during a motor imagery neurofeedback task: XP1,CC0,10.18112/openneuro.ds002336.v2.0.2,4.0
+39,ds002338,85,17,4,64,5000,15.745905555555556,24.24 GB,26024158019,openneuro,ds002338,Healthy,Visual,Motor,eeg,A multi-modal human neuroimaging dataset for data integration: simultaneous EEG and fMRI acquisition during a motor imagery neurofeedback task: XP2,CC0,10.18112/openneuro.ds002338.v2.0.1,11.0
+40,ds002550,377,22,2,308*,1200*,30.509356643518515,167.5 GB,179848999649,openneuro,ds002550,Healthy,Visual,Memory,meg,Differential brain mechanisms of selection and maintenance of information during working memory (MEG data),CC0,10.18112/openneuro.ds002550.v1.0.1,0.0
+41,ds002578,2,2,1,256,256,1.455,1.33 GB,1429242343,openneuro,ds002578,Healthy,Visual,Attention,eeg,Visual Oddball Task (256 channels),CC0,10.18112/openneuro.ds002578.v1.1.0,1.0
+42,ds002680,350,14,1,31,1000,20.808333333333337,9.22 GB,9902131689,openneuro,ds002680,Healthy,Visual,Motor,eeg,Go-nogo categorization and detection task,CC0,10.18112/openneuro.ds002680.v1.2.0,5.0
+43,ds002691,20,20,1,32,250,6.721111111111111,776.75 MB,814480634,openneuro,ds002691,Healthy,Visual,Attention,eeg,Internal attention study,CC0,10.18112/openneuro.ds002691.v1.1.0,2.0
+44,ds002712,82,25,1,312*,1000,24.06388888888889,101.77 GB,109278657976,openneuro,ds002712,Healthy,Visual,Perception,meg,Numbers and Letters,CC0,10.18112/openneuro.ds002712.v1.0.1,1.0
+45,ds002718,18,18,1,74,250,14.844166666666666,4.31 GB,4623904945,openneuro,ds002718,Healthy,Visual,Perception,eeg,Face processing EEG dataset for EEGLAB,CC0,doi:10.18112/openneuro.ds002718.v1.1.0,11.0
+46,ds002720,165,18,0,19,1000,18.774722222222223,2.39 GB,2563670728,openneuro,ds002720,Healthy,Auditory,Affect,eeg,A  dataset  recorded  during  development  of a  tempo-based  brain-computer  music  interface,CC0,10.18112/openneuro.ds002720.v1.0.1,1.0
+47,ds002721,185,31,0,19,1000,26.282777777777778,3.35 GB,3598850279,openneuro,ds002721,Healthy,Auditory,Affect,eeg,An EEG dataset recorded during affective music listening,CC0,10.18112/openneuro.ds002721.v1.0.2,10.0
+48,ds002722,94,19,0,37,1000,22.889444444444443,6.1 GB,6545791966,openneuro,ds002722,Healthy,Auditory,Affect,eeg,A dataset recorded during development of an affective brain-computer music interface: calibration session,CC0,10.18112/openneuro.ds002722.v1.0.1,2.0
+49,ds002723,44,8,0,37,1000,10.46888888888889,2.6 GB,2789434877,openneuro,ds002723,Healthy,Auditory,Affect,eeg,A dataset recorded during development of an affective brain-computer music interface: testing session,CC0,10.18112/openneuro.ds002723.v1.1.0,1.0
+50,ds002724,96,10,0,37,1000,28.610555555555557,8.52 GB,9147071936,openneuro,ds002724,Healthy,Auditory,Affect,eeg,A dataset recorded during development of an affective brain-computer music interface: training sessions,CC0,10.18112/openneuro.ds002724.v1.0.1,1.0
+51,ds002725,105,21,5,46,1000,22.538611111111113,15.32 GB,16445696685,openneuro,ds002725,Healthy,Auditory,Affect,eeg,A dataset recording joint EEG-fMRI during affective music listening,CC0,10.18112/openneuro.ds002725.v1.0.0,2.0
+52,ds002761,249,25,2,306,600,,1.68 MB,1758242,openneuro,ds002761,Healthy,Visual,Memory,meg,memoryreplay,CC0,doi:10.18112/openneuro.ds002761.v1.1.2,1.0
+53,ds002778,46,31,1,41,512,2.517752821180556,545.0 MB,571470906,openneuro,ds002778,Parkinson's,Resting State,Resting state,eeg,UC San Diego Resting State EEG Data from Patients with Parkinson's Disease,CC0,doi:10.18112/openneuro.ds002778.v1.0.5,42.0
+54,ds002791,92,23,0,256*,1000,13.535969444444444,47.09 GB,50562457196,openneuro,ds002791,Unknown,Unknown,Unknown,eeg,DataSet1,CC0,10.18112/openneuro.ds002791.v1.0.0,0.0
+55,ds002799,16824,27,2,[],[],,0B,0,openneuro,ds002799,Epilepsy,Other,Clinical/Intervention,ieeg,Human es-fMRI Resource: Concurrent deep-brain stimulation and whole-brain functional MRI,CC0,10.18112/openneuro.ds002799.v1.0.4,
+56,ds002814,168,21,1,72,1200,,27.73 GB,29779119341,openneuro,ds002814,Healthy,Visual,Perception,eeg,A Multimodal Neuroimaging Dataset to Study Spatiotemporal Dynamics of Visual Processing in Humans,CC0,doi:10.18112/openneuro.ds002814.v1.3.0,4.0
+57,ds002833,80,20,1,257,1000,11.603826666666668,39.77 GB,42698181625,openneuro,ds002833,Healthy,Auditory,Decision-making,eeg,DataSet2,CC0,10.18112/openneuro.ds002833.v1.0.0,0.0
+58,ds002885,7,2,4,306*,19200*,0.3995833333333333,20.06 GB,21543178912,openneuro,ds002885,Other,Other,Other,meg,DBS Phantom Recordings,CC0,10.18112/openneuro.ds002885.v1.0.1,1.0
+59,ds002893,52,49,1,36,250,37.7789260473112,7.7 GB,8262777491,openneuro,ds002893,Healthy,Multisensory,Attention,eeg,Auditory-Visual Shift Study,CC0,doi:10.18112/openneuro.ds002893.v2.0.0,1.0
+60,ds002908,53,13,1,299,2400,5.105833333333333,59.79 GB,64199908375,openneuro,ds002908,Unknown,Unknown,Unknown,meg,Human MEG recordings during sequential conflict task,CC0,10.18112/openneuro.ds002908.v1.0.0,1.0
+61,ds003004,34,34,1,219*,256,49.07222222222222,36.05 GB,38704522994,openneuro,ds003004,Healthy,Auditory,Affect,eeg,Imagined Emotion Study,CC0,doi:10.18112/openneuro.ds003004.v1.1.1,7.0
+62,ds003029,106,35,1,129*,1000*,8.208814574268422,10.32 GB,11083752416,openneuro,ds003029,Epilepsy,Other,Clinical/Intervention,ieeg,Epilepsy-iEEG-Multicenter-Dataset,CC0,doi:10.18112/openneuro.ds003029.v1.0.5,19.0
+63,ds003039,19,19,1,67,500,17.507142777777776,7.82 GB,8401128487,openneuro,ds003039,Healthy,Motor,Motor,eeg,free walking study,CC0,doi:10.18112/openneuro.ds003039.v1.0.2,2.0
+64,ds003061,39,13,1,79,256,8.206666666666667,2.26 GB,2421802195,openneuro,ds003061,Healthy,Auditory,Perception,eeg,EEG data from an auditory oddball task,CC0,doi:10.18112/openneuro.ds003061.v1.1.0,4.0
+65,ds003078,72,6,1,[],[],,10.95 GB,11761361020,openneuro,ds003078,Surgery,Unknown,Clinical/Intervention,ieeg,PROBE iEEG,CC0,10.18112/openneuro.ds003078.v1.0.0,1.0
+66,ds003082,3,2,2,300*,12000*,0.2955555555555555,13.24 GB,14215257908,openneuro,ds003082,Unknown,Unknown,Unknown,meg,Auditory Cortex Mapping Dataset,CC0,10.18112/openneuro.ds003082.v1.0.0,5.0
+67,ds003104,1,1,1,316,300,0.2491881047669284,333.73 MB,349944649,openneuro,ds003104,Unknown,Tactile,Perception,meg,MNE-somato-data-bids (anonymized),CC0,doi:10.18112/openneuro.ds003104.v1.0.1,0.0
+68,ds003190,384,19,2,9*,256,39.74703125,1.01 GB,1079425010,openneuro,ds003190,Healthy,Visual,Perception,eeg,Assesment of the visual stimuli properties in P300 paradigm,CC0,10.18112/openneuro.ds003190.v1.0.1,4.0
+69,ds003194,29,15,2,19*,200,7.177747222222222,189.15 MB,198333437,openneuro,ds003194,Parkinson's,Resting State,Clinical/Intervention,eeg,Neuroepo multisession,CC0,10.18112/openneuro.ds003194.v1.0.3,3.0
+70,ds003195,20,10,2,19,200,4.653659722222222,121.08 MB,126957087,openneuro,ds003195,Parkinson's,Resting State,Clinical/Intervention,eeg,Placebo Neuroepo multisession,CC0,10.18112/openneuro.ds003195.v1.0.3,3.0
+71,ds003343,59,20,1,20,500,6.434444444444445,663.36 MB,695587039,openneuro,ds003343,Healthy,Tactile,Perception,eeg,Disentangling the percepts of illusory movement and sensory stimulation during tendon vibration in the EEG,CC0,10.18112/openneuro.ds003343.v2.0.1,1.0
+72,ds003352,138,18,1,323,1000,52.308295,214.29 GB,230092820068,openneuro,ds003352,Unknown,Visual,Perception,meg,1 - Light Pink Spiral,CC0,10.18112/openneuro.ds003352.v1.0.0,4.0
+73,ds003374,18,9,1,4*,2000,2.61,167.33 MB,175461388,openneuro,ds003374,Epilepsy,Visual,Affect,ieeg,Dataset of neurons and intracranial EEG from human amygdala during aversive dynamic visual stimulation,CC0,10.18112/openneuro.ds003374.v1.1.1,4.0
+74,ds003380,5,1,0,[],[],0.0894444444444444,19.66 MB,20614209,openneuro,ds003380,Other,Anesthesia,Clinical/Intervention,eeg,"Corticothalamic communication under analgesia, sedation and gradual ischemia: a multimodal model of controlled gradual cerebral ischemia in pig",CC0,10.18112/openneuro.ds003380.v1.0.0,
+75,ds003392,33,12,2,320,2000,1.232496944444445,10.08 GB,10818491467,openneuro,ds003392,Healthy,Visual,Perception,meg,NeuroSpin hMT+ Localizer DATA (MEG & aMRI),CC0,10.18112/openneuro.ds003392.v1.0.4,0.0
+76,ds003420,92,23,0,256*,1000,13.535969444444444,47.09 GB,50565140405,openneuro,ds003420,Healthy,Visual,Other,eeg,HD-EEGtask(Dataset 1),CC0,10.18112/openneuro.ds003420.v1.0.2,1.0
+77,ds003421,80,20,1,257,1000,11.603826666666668,39.58 GB,42498451545,openneuro,ds003421,Healthy,Multisensory,Decision-making,eeg,HD-EEGtask(Dataset 2),CC0,10.18112/openneuro.ds003421.v1.0.2,3.0
+78,ds003458,23,23,1,66*,500,10.447388888888888,4.72 GB,5065148524,openneuro,ds003458,Healthy,Visual,Affect,eeg,EEG: Three armed bandit gambling task,CC0,10.18112/openneuro.ds003458.v1.1.0,0.0
+79,ds003474,122,122,1,66*,500,36.61049388888889,16.64 GB,17867698098,openneuro,ds003474,Healthy,Visual,Decision-making,eeg,EEG: Probabilistic Selection and Depression,CC0,10.18112/openneuro.ds003474.v1.1.0,9.0
+80,ds003478,243,122,1,66*,500,23.35965722222222,10.65 GB,11430503904,openneuro,ds003478,Healthy,Resting State,Resting state,eeg,EEG: Depression rest,CC0,10.18112/openneuro.ds003478.v1.1.0,22.0
+81,ds003483,41,21,2,320,1000,11.018888888888888,24.48 GB,26285775768,openneuro,ds003483,Unknown,Unknown,Unknown,meg,Logical reasoning study,CC0,10.18112/openneuro.ds003483.v1.0.2,3.0
+82,ds003490,75,50,1,67,500,12.759916666666664,5.85 GB,6276604033,openneuro,ds003490,Parkinson's,Auditory,Attention,eeg,EEG: 3-Stim Auditory Oddball and Rest in Parkinson's,CC0,10.18112/openneuro.ds003490.v1.1.0,13.0
+83,ds003498,385,20,0,64*,2000,32.344113194444446,44.73 GB,48030875385,openneuro,ds003498,Epilepsy,Resting State,Clinical/Intervention,ieeg,interictal iEEG during slow-wave sleep with HFO markings,CC0,10.18112/openneuro.ds003498.v1.0.1,3.0
+84,ds003505,37,19,2,128,2048,,28.97 GB,31105987628,openneuro,ds003505,Healthy,Visual,Perception,eeg,VEPCON: Source imaging of high-density visual evoked potentials with multi-scale brain parcellations and connectomes,CC0,doi:10.18112/openneuro.ds003505.v1.1.1,5.0
+85,ds003506,84,56,1,67,500,35.38127777777778,16.2 GB,17399670602,openneuro,ds003506,Parkinson's,Visual,Decision-making,eeg,EEG: Reinforcement Learning in Parkinson's,CC0,10.18112/openneuro.ds003506.v1.1.0,4.0
+86,ds003509,84,56,1,67,500,48.53486111111111,22.34 GB,23987498608,openneuro,ds003509,Parkinson's,Visual,Learning,eeg,EEG: Simon Conflict in Parkinson's,CC0,10.18112/openneuro.ds003509.v1.1.0,5.0
+87,ds003516,25,25,1,49,500,22.56954166666667,7.59 GB,8152002419,openneuro,ds003516,Healthy,Auditory,Attention,eeg,EEG: Attended Speaker Paradigm (Own Name in Ignored Stream),CC0,10.18112/openneuro.ds003516.v1.1.1,3.0
+88,ds003517,34,17,1,65,500,13.00626388888889,5.83 GB,6262665570,openneuro,ds003517,Healthy,Visual,Learning,eeg,EEG: Continuous gameplay of an 8-bit style video game,CC0,10.18112/openneuro.ds003517.v1.1.0,5.0
+89,ds003518,137,110,1,64,500,89.88768666666667,39.51 GB,42423396129,openneuro,ds003518,Healthy,Visual,Clinical/Intervention,eeg,EEG: Simon Conflict w/ Reinforcement + Cabergoline Challenge,CC0,10.18112/openneuro.ds003518.v1.1.0,0.0
+90,ds003519,54,27,1,64,500,20.50396111111111,8.96 GB,9623063888,openneuro,ds003519,Healthy,Visual,Clinical/Intervention,eeg,EEG: Visual Working Memory + Cabergoline Challenge,CC0,10.18112/openneuro.ds003519.v1.1.0,3.0
+91,ds003522,200,96,1,65*,500,57.07904611111111,25.36 GB,27224783220,openneuro,ds003522,TBI,Auditory,Decision-making,eeg,EEG: Three-Stim Auditory Oddball and Rest in Acute and Chronic TBI,CC0,10.18112/openneuro.ds003522.v1.1.0,5.0
+92,ds003523,221,91,1,65*,500,84.58588777777777,37.54 GB,40304005269,openneuro,ds003523,TBI,Visual,Memory,eeg,EEG: Visual Working Memory in Acute TBI,CC0,10.18112/openneuro.ds003523.v1.1.0,3.0
+93,ds003555,30,30,1,23*,1024,107.92361111111111,15.07 GB,16177352613,openneuro,ds003555,Epilepsy,Resting State,Clinical/Intervention,eeg,Dataset of EEG recordings of pediatric patients with epilepsy based on the 10-20 system,CC0,10.18112/openneuro.ds003555.v1.0.1,8.0
+94,ds003568,118,51,2,340*,1200,22.541666666666668,123.42 GB,132520000612,openneuro,ds003568,Healthy,Visual,Affect,meg,Mood induction in MDD and healthy adolescents,CC0,10.18112/openneuro.ds003568.v1.0.2,4.0
+95,ds003570,40,40,1,64,2048,26.208055555555557,47.62 GB,51133422324,openneuro,ds003570,Healthy,Auditory,Decision-making,eeg,EEG: Improvisation and Musical Structures,CC0,10.18112/openneuro.ds003570.v1.0.0,1.0
+96,ds003574,18,18,1,69,500,30.093788888888888,17.95 GB,19277929546,openneuro,ds003574,Healthy,Visual,Affect,eeg,Reward biases spontaneous neural reactivation during sleep,CC0,10.18112/openneuro.ds003574.v1.0.2,1.0
+97,ds003602,699,118,6,35,1000,152.53169944444446,73.21 GB,78609742101,openneuro,ds003602,Other,Visual,Decision-making,eeg,Childhood Sexual Abuse and problem drinking in women: Neurobehavioral mechanisms,CC0,10.18112/openneuro.ds003602.v1.0.0,0.0
+98,ds003620,100,44,1,35,500,59.53691277777778,17.04 GB,18299512036,openneuro,ds003620,Healthy,Auditory,Attention,eeg,Runabout: A mobile EEG study of auditory oddball processing in laboratory and real-world conditions,CC0,doi:10.18112/openneuro.ds003620.v1.1.1,4.0
+99,ds003626,30,10,1,[],[],12.951944444444443,18.28 GB,19624686464,openneuro,ds003626,Healthy,Visual,Motor,eeg,Inner Speech,CC0,10.18112/openneuro.ds003626.v2.0.0,6.0
+100,ds003633,96,12,2,409*,600*,21.97826087962963,73.51 GB,78926559646,openneuro,ds003633,Healthy,Multisensory,Perception,meg,ForrestGump-MEG,CC0,doi:10.18112/openneuro.ds003633.v1.0.3,1.0
+101,ds003638,57,57,1,72,512,40.5975,15.27 GB,16397669261,openneuro,ds003638,Healthy,Visual,Decision-making,eeg,"EEG: Electrophysiological biomarkers of behavioral dimensions 
+from cross-species paradigms",CC0,10.18112/openneuro.ds003638.v1.0.0,1.0
+102,ds003645,224,19,2,404*,1100,,106.32 GB,114157254734,openneuro,ds003645,Healthy,Visual,Perception,"eeg, meg",Face processing MEEG dataset with HED annotation,CC0,doi:10.18112/openneuro.ds003645.v2.0.2,3.0
+103,ds003655,156,156,1,21,500,130.92305555555555,20.26 GB,21756907235,openneuro,ds003655,Healthy,Visual,Memory,eeg,VerbalWorkingMemory,CC0,10.18112/openneuro.ds003655.v1.0.0,4.0
+104,ds003670,62,25,1,35,2000,72.77206638888889,72.22 GB,77549594582,openneuro,ds003670,Healthy,Visual,Attention,eeg,"Dataset of Concurrent EEG, ECG, and Behavior with Multiple Doses of transcranial Electrical Stimulation - BIDS",CC0,10.18112/openneuro.ds003670.v1.1.0,6.0
+105,ds003682,336,28,1,414,1200,31.7550625,211.62 GB,227225155192,openneuro,ds003682,Healthy,Unknown,Learning,meg,Model-based aversive learning in humans is supported by preferential task state reactivation,CC0,10.18112/openneuro.ds003682.v1.0.0,1.0
+106,ds003688,107,51,2,74*,512*,9.20130295247396,15.21 GB,16334721863,openneuro,ds003688,Epilepsy,Multisensory,Perception,ieeg,Open multimodal iEEG-fMRI dataset from naturalistic stimulation with a short audiovisual film,CC0,doi:10.18112/openneuro.ds003688.v1.0.7,9.0
+107,ds003690,375,75,3,66*,500,47.65696944444444,21.46 GB,23043388712,openneuro,ds003690,Healthy,Auditory,Decision-making,eeg,"EEG, ECG and pupil data from young and older adults: rest and auditory cued reaction time tasks",CC0,10.18112/openneuro.ds003690.v1.0.0,5.0
+108,ds003694,132,28,1,327*,1000,,218.47 GB,234581975924,openneuro,ds003694,Unknown,Unknown,Unknown,meg,MEGMEM,CC0,10.18112/openneuro.ds003694.v1.0.0,1.0
+109,ds003702,47,47,1,59,500,40.459041666666664,17.49 GB,18784103504,openneuro,ds003702,Healthy,Visual,Memory,eeg,Social Memory cuing,CC0,10.18112/openneuro.ds003702.v1.0.1,3.0
+110,ds003703,102,34,2,314,1000,21.81608277777778,92.35 GB,99158117602,openneuro,ds003703,Unknown,Unknown,Unknown,meg,Frequency Tagging of Syntactic Structure or Lexical Properties,CC0,10.18112/openneuro.ds003703.v1.0.0,1.0
+111,ds003708,1,1,1,89,2048,1.1047416178385416,620.15 MB,650274380,openneuro,ds003708,Unknown,Other,Clinical/Intervention,ieeg,Basis profile curve identification to understand electrical stimulation effects in human brain networks,CC0,10.18112/openneuro.ds003708.v1.0.0,1.0
+112,ds003710,48,13,1,32,5000,9.1654915,10.18 GB,10934705875,openneuro,ds003710,Healthy,Multisensory,Perception,eeg,APPLESEED Example Dataset,CC0,doi:10.18112/openneuro.ds003710.v1.0.2,1.0
+113,ds003739,120,30,4,149,256,20.57443576388889,10.94 GB,11742611120,openneuro,ds003739,Healthy,Motor,Perception,eeg,Perturbed beam-walking task,CC0,10.18112/openneuro.ds003739.v1.0.2,5.0
+114,ds003751,38,38,1,131,250,19.94988888888889,4.71 GB,5057922854,openneuro,ds003751,Healthy,Multisensory,Affect,eeg,Dataset on Emotion with Naturalistic Stimuli (DENS),CC0,10.18112/openneuro.ds003751.v1.0.2,7.0
+115,ds003753,25,25,1,66,500,10.10425,4.62 GB,4965119239,openneuro,ds003753,Healthy,Visual,Learning,eeg,EEG: Probabilistic Learning with Affective Feedback: Exp #2,CC0,10.18112/openneuro.ds003753.v1.1.0,0.0
+116,ds003766,124,31,4,129,1000,40.77816472222222,71.31 GB,76565985366,openneuro,ds003766,Healthy,Visual,Decision-making,eeg,A resource for assessing dynamic binary choices in the adult brain using EEG and mouse-tracking,CC0,doi:10.18112/openneuro.ds003766.v2.0.3,1.0
+117,ds003768,255,33,2,32,5000,60.597566666666665,86.56 GB,92938507671,openneuro,ds003768,Healthy,Sleep,Sleep,eeg,Simultaneous EEG and fMRI signals during sleep from humans,CC0,10.18112/openneuro.ds003768.v1.0.0,21.0
+118,ds003774,240,20,1,129,1000*,8.63974111111111,10.12 GB,10863711359,openneuro,ds003774,Healthy,Auditory,Affect,eeg,Music Listening- Genre EEG dataset (MUSIN-G),CC0,10.18112/openneuro.ds003774.v1.0.0,8.0
+119,ds003775,153,111,1,64,1024,10.2,4.49 GB,4815795862,openneuro,ds003775,Healthy,Resting State,Resting-state,eeg,SRM Resting-state EEG,CC0,doi:10.18112/openneuro.ds003775.v1.2.1,8.0
+120,ds003800,24,13,2,19,250,1.4111111111111112,189.25 MB,198443567,openneuro,ds003800,Dementia,Auditory,Clinical/Intervention,eeg,Auditory Gamma Entrainment,CC0,10.18112/openneuro.ds003800.v1.0.0,4.0
+121,ds003801,20,20,1,24,250,13.688888888888888,1.15 GB,1233075132,openneuro,ds003801,Healthy,Auditory,Attention,eeg,Neural Tracking to go,CC0,doi:10.18112/openneuro.ds003801.v1.0.0,2.0
+122,ds003805,1,1,1,19,500,0.0333333333333333,8.8 MB,9223975,openneuro,ds003805,Healthy,Multisensory,Learning,eeg,Multisensory Gamma Entrainment,CC0,10.18112/openneuro.ds003805.v1.0.0,3.0
+123,ds003810,50,10,1,15,125,5.188611111111111,69.01 MB,72366316,openneuro,ds003810,Healthy,Motor,Clinical/Intervention,eeg,Motor Imagery vs Rest - Low-Cost EEG System,CC0,doi:10.18112/openneuro.ds003810.v2.0.2,2.0
+124,ds003816,1077,48,8,128,1000,161.7142777777778,53.97 GB,57954833842,openneuro,ds003816,Healthy,Other,Affect,eeg,The Effect of Buddhism Derived Loving Kindness Meditation on Modulating EEG: Long-term and Short-term Effect,CC0,10.18112/openneuro.ds003816.v1.0.1,
+125,ds003822,25,25,1,66,500,12.87734722222222,5.82 GB,6248471793,openneuro,ds003822,Healthy,Visual,Affect,eeg,EEG: Probabilistic Learning with Affective Feedback: Exp #1,CC0,10.18112/openneuro.ds003822.v1.1.0,0.0
+126,ds003825,50,50,1,63*,1000,46.32270555555555,41.22 GB,44258973478,openneuro,ds003825,Healthy,Visual,Perception,eeg,"Human electroencephalography recordings from 50 subjects for 22,248 images from 1,854 object concepts",CC0,10.18112/openneuro.ds003825.v1.1.0,2.0
+127,ds003838,130,65,2,63,1000,142.7015113888889,100.21 GB,107600042705,openneuro,ds003838,Healthy,Auditory,Memory,eeg,"EEG, pupillometry, ECG and photoplethysmography, and behavioral data in the digit span task and rest",CC0,doi:10.18112/openneuro.ds003838.v1.0.6,7.0
+128,ds003844,38,6,1,33*,2048*,2.779091118706597,2.6 GB,2795794610,openneuro,ds003844,Epilepsy,Resting State,Clinical/Intervention,ieeg,Dataset Clinical Epilepsy iEEG to BIDS -RESPect_intraoperative_iEEG,CC0,10.18112/openneuro.ds003844.v1.0.1,0.0
+129,ds003846,50,19,1,64,500,22.727667222222223,9.76 GB,10480325277,openneuro,ds003846,Healthy,Multisensory,Decision-making,eeg,Prediction Error,CC0,doi:10.18112/openneuro.ds003846.v2.0.2,5.0
+130,ds003848,22,6,6,133*,2048*,20.275720486111112,64.98 GB,69773848040,openneuro,ds003848,Epilepsy,Other,Clinical/Intervention,ieeg,Dataset Clinical Epilepsy iEEG to BIDS - RESPect_longterm_iEEG,CC0,10.18112/openneuro.ds003848.v1.0.3,1.0
+131,ds003876,54,39,3,128*,1000*,5.757709854501917,5.0 GB,5368598177,openneuro,ds003876,Epilepsy,Resting State,Clinical/Intervention,ieeg,Epilepsy-iEEG-Interictal-Multicenter-Dataset,CC0,doi:10.18112/openneuro.ds003876.v1.0.2,3.0
+132,ds003885,24,24,1,128,1000,27.061438888888887,46.15 GB,49551741596,openneuro,ds003885,Healthy,Visual,Perception,eeg,Capacity for movement is an organisational principle in object representations: EEG data from Experiment 1,CC0,doi:10.18112/openneuro.ds003885.v1.0.7,2.0
+133,ds003887,24,24,1,128,1000,26.815155555555556,45.73 GB,49100681711,openneuro,ds003887,Healthy,Visual,Perception,eeg,Capacity for movement is an organisational principle in object representations: EEG data from Experiment 2,CC0,doi:10.18112/openneuro.ds003887.v1.2.2,3.0
+134,ds003922,164,14,3,342*,1000,16.487458055555557,75.7 GB,81285134094,openneuro,ds003922,Healthy,Multisensory,Perception,meg,Multisensory Correlation Detector,CC0,doi:10.18112/openneuro.ds003922.v1.0.1,1.0
+135,ds003944,82,82,1,64,1000*,6.999305547125,6.15 GB,6606397463,openneuro,ds003944,Schizophrenia/Psychosis,Resting State,Clinical/Intervention,eeg,EEG: First Episode Psychosis vs. Control Resting Task 1,CC0,doi:10.18112/openneuro.ds003944.v1.0.1,7.0
+136,ds003947,61,61,1,64,3000*,5.265971754930556,12.54 GB,13466591790,openneuro,ds003947,Schizophrenia/Psychosis,Resting State,Clinical/Intervention,eeg,EEG: First Episode Psychosis vs. Control Resting Task 2,CC0,doi:10.18112/openneuro.ds003947.v1.0.1,8.0
+137,ds003969,392,98,4,79*,1024*,66.53361111111111,54.46 GB,58478045346,openneuro,ds003969,Healthy,Auditory,Attention,eeg,Meditation vs thinking task,CC0,doi:10.18112/openneuro.ds003969.v1.0.0,7.0
+138,ds003987,69,23,1,71,500,52.076385814525466,25.57 GB,27451677701,openneuro,ds003987,Healthy,Visual,Attention,eeg,EEG: Amphetamine trials 5CCPT and Probabilistic Learning,CC0,doi:10.18112/openneuro.ds003987.v1.0.0,1.0
+139,ds004000,86,43,2,132,2048,12.335,22.5 GB,24161100490,openneuro,ds004000,Schizophrenia/Psychosis,Multisensory,Decision-making,eeg,Fribourg Ultimatum Game in Schizophrenia Study,CC0,doi:10.18112/openneuro.ds004000.v1.0.0,6.0
+140,ds004010,24,24,1,64,1000,26.45728861111111,23.14 GB,24844863656,openneuro,ds004010,Healthy,Multisensory,Attention,eeg,MAVIS,CC0,doi:10.18112/openneuro.ds004010.v1.0.0,0.0
+141,ds004011,132,22,1,309,1200,39.53718888888889,198.12 GB,212729784057,openneuro,ds004011,Healthy,Visual,Perception,meg,The nature of neural object representations during dynamic occlusion,CC0,doi:10.18112/openneuro.ds004011.v1.0.3,1.0
+142,ds004012,294,30,10,383,1000,15.016307222222222,78.33 GB,84108428161,openneuro,ds004012,Unknown,Unknown,Unknown,meg,BRAR_NQ,CC0,doi:10.18112/openneuro.ds004012.v1.0.0,1.0
+143,ds004015,36,36,1,18,500,47.28973222222222,6.03 GB,6475869232,openneuro,ds004015,Healthy,Auditory,Attention,eeg,Attended speaker paradigm (cEEGrid data),CC0,doi:10.18112/openneuro.ds004015.v1.0.2,3.0
+144,ds004017,63,21,0,65,2048,7.723333333333334,20.93 GB,22471485461,openneuro,ds004017,Healthy,Visual,Learning,eeg,Embodied Learning for Literacy EEG,CC0,doi:10.18112/openneuro.ds004017.v1.0.3,1.0
+145,ds004018,32,16,1,63,1000,0.7925055555555556,10.56 GB,11334174445,openneuro,ds004018,Healthy,Visual,Learning,eeg,EEG recordings for 200 object images presented in RSVP sequences at 5Hz or 20Hz,CC0,doi:10.18112/openneuro.ds004018.v2.0.0,0.0
+146,ds004019,62,62,1,128,500,,17.28 GB,18550696170,openneuro,ds004019,Obese,Visual,Other,eeg,Effect of obesity on arithmetic processing in preteens with high and low math skills. An event-related potentials study,CC0,doi:10.18112/openneuro.ds004019.v1.0.0,1.0
+147,ds004022,21,7,1,18*,500,,616.57 MB,646522651,openneuro,ds004022,Other,Visual,Motor,eeg,Multimodal EEG and fNIRS Biosignal Acquisition during Motor Imagery Tasks in Patients with Orthopedic Impairment,CC0,doi:10.18112/openneuro.ds004022.v1.0.0,1.0
+148,ds004024,497,13,3,69,20000,54.50040104166667,1021.22 GB,1096522005938,openneuro,ds004024,Healthy,Visual,Clinical/Intervention,eeg,"TMS-EEG-MRI-fMRI-DWI data on paired associative stimulation and connectivity (Shirley Ryan AbilityLab, Chicago, IL)",CC0,doi:10.18112/openneuro.ds004024.v1.0.1,1.0
+149,ds004033,36,18,2,67,500,42.64460166666667,19.81 GB,21270391132,openneuro,ds004033,Healthy,Motor,Motor,eeg,Electrode walking study,CC0,doi:10.18112/openneuro.ds004033.v1.0.0,2.0
+150,ds004040,26,13,1,64,512,25.56194444444445,11.59 GB,12440254661,openneuro,ds004040,Healthy,Auditory,Other,eeg,Trance channeling EEG study,CC0,doi:10.18112/openneuro.ds004040.v1.0.0,1.0
+151,ds004043,20,20,1,63,1000,18.234355555555553,15.44 GB,16582819425,openneuro,ds004043,Healthy,Visual,Attention,eeg,The time-course of feature-based attention effects dissociated from temporal expectation and target-related processes,CC0,doi:10.18112/openneuro.ds004043.v1.1.0,1.0
+152,ds004067,84,80,1,63,2000,59.642625,100.79 GB,108218050324,openneuro,ds004067,Healthy,Visual,Affect,eeg,Moral conviction and metacognitive ability shape multiple stages of information processing,CC0,doi:10.18112/openneuro.ds004067.v1.0.1,1.0
+153,ds004075,116,29,4,64,1000,12.554977777777776,7.39 GB,7936059852,openneuro,ds004075,Unknown,Unknown,Unknown,eeg,what_are_we_talking_about,CC0,doi:10.18112/openneuro.ds004075.v1.0.0,1.0
+154,ds004078,720,12,1,328,1000,68.09214861111111,631.1 GB,677637752173,openneuro,ds004078,Healthy,Auditory,Other,meg,A synchronized multimodal neuroimaging dataset to study brain language processing,CC0,doi:10.18112/openneuro.ds004078.v1.0.4,4.0
+155,ds004080,117,74,1,133*,2048*,89.39102945963542,269.11 GB,288953106451,openneuro,ds004080,Epilepsy,Other,Clinical/Intervention,ieeg,CCEP ECoG dataset across age 4-51,CC0,doi:10.18112/openneuro.ds004080.v1.2.4,2.0
+156,ds004100,319,57,2,122*,512*,25.717898949652778,13.22 GB,14196260504,openneuro,ds004100,Epilepsy,Other,Clinical/Intervention,ieeg,HUP iEEG Epilepsy Dataset,CC0,doi:10.18112/openneuro.ds004100.v1.1.3,21.0
+157,ds004105,34,17,1,74,1024,,20.37 GB,21876513335,openneuro,ds004105,Healthy,Multisensory,Attention,eeg,BCIT Auditory Cueing,CC0,doi:10.18112/openneuro.ds004105.v1.0.0,0.0
+158,ds004106,29,27,1,262,1024,,67.61 GB,72590770632,openneuro,ds004106,Healthy,Visual,Attention,eeg,BCIT Advanced Guard Duty,CC0,doi:10.18112/openneuro.ds004106.v1.0.0,0.0
+159,ds004107,89,9,6,318*,1792*,23.117616255933115,77.21 GB,82901417999,openneuro,ds004107,Unknown,Unknown,Unknown,meg,MIND DATA,CC0,doi:10.18112/openneuro.ds004107.v1.0.0,1.0
+160,ds004117,85,23,1,71,250*,15.464153618985735,5.8 GB,6229874415,openneuro,ds004117,Healthy,Visual,Memory,eeg,Sternberg Working Memory,CC0,doi:10.18112/openneuro.ds004117.v1.0.1,2.0
+161,ds004118,247,156,1,266*,1024*,,124.34 GB,133504200631,openneuro,ds004118,Unknown,Unknown,Unknown,eeg,BCIT Calibration Driving,CC0,doi:10.18112/openneuro.ds004118.v1.0.1,0.0
+162,ds004119,22,21,1,262,1024,,55.14 GB,59203206625,openneuro,ds004119,Healthy,Visual,Attention,eeg,BCIT Basic Guard Duty,CC0,doi:10.18112/openneuro.ds004119.v1.0.0,0.0
+163,ds004120,131,109,1,266*,1024*,,302.49 GB,324791400217,openneuro,ds004120,Healthy,Visual,Attention,eeg,BCIT Baseline Driving,CC0,doi:10.18112/openneuro.ds004120.v1.0.0,0.0
+164,ds004121,60,21,1,74,1024,,23.91 GB,25671365743,openneuro,ds004121,Healthy,Multisensory,Attention,eeg,BCIT Mind Wandering,CC0,doi:10.18112/openneuro.ds004121.v1.0.0,0.0
+165,ds004122,63,32,1,74,1024,,36.16 GB,38826707124,openneuro,ds004122,Healthy,Visual,Attention,eeg,BCIT Speed Control,CC0,doi:10.18112/openneuro.ds004122.v1.0.0,0.0
+166,ds004123,30,29,1,74,1024,,17.52 GB,18814102906,openneuro,ds004123,Healthy,Visual,Attention,eeg,BCIT Traffic Complexity,CC0,doi:10.18112/openneuro.ds004123.v1.0.0,0.0
+167,ds004127,73,8,11,128*,20000,6.083819444444444,187.52 GB,201353276068,openneuro,ds004127,Other,Tactile,Other,ieeg,Somatosensory Cortex Rat DISC Data,CC0,doi:10.18112/openneuro.ds004127.v3.0.0,1.0
+168,ds004147,12,12,1,31,1000,9.60806111111111,4.0 GB,4291179548,openneuro,ds004147,Healthy,Visual,Learning,eeg,Average Task Value,CC0,doi:10.18112/openneuro.ds004147.v1.0.2,2.0
+169,ds004148,900,60,5,61,500,75.0,30.67 GB,32936811897,openneuro,ds004148,Healthy,Other,Other,eeg,A test-retest resting and cognitive state EEG dataset,CC0,doi:10.18112/openneuro.ds004148.v1.0.0,12.0
+170,ds004151,57,57,1,128,500,,23.14 GB,24845636935,openneuro,ds004151,Obese,Visual,Attention,eeg,"Effect of obesity on inhibitory control in preadolescents during stop-signal 
+task. An event-related potentials study",CC0,doi:10.18112/openneuro.ds004151.v1.0.0,1.0
+171,ds004152,21,21,1,31,1000,11.451405555555557,4.77 GB,5118532675,openneuro,ds004152,Healthy,Multisensory,Learning,eeg,Drum Trainer,CC0,doi:10.18112/openneuro.ds004152.v1.1.2,1.0
+172,ds004166,213,71,1,[],[],,77.37 GB,83074443348,openneuro,ds004166,Healthy,Visual,Learning,eeg,"Effects of Forward and Backward Span Trainings on Working Memory: Evidence from a Randomized, Controlled Trial",CC0,doi:10.18112/openneuro.ds004166.v1.0.0,1.0
+173,ds004194,209,14,7,265*,512*,6.3436859809027775,7.83 GB,8405758704,openneuro,ds004194,Epilepsy,Visual,Perception,ieeg,Visual ECoG dataset,CC0,doi:10.18112/openneuro.ds004194.v3.0.0,4.0
+174,ds004196,4,4,1,64,512,1.511111111111111,9.33 GB,10022897658,openneuro,ds004196,Healthy,Visual,Clinical/Intervention,eeg,Bimodal dataset on Inner speech,CC0,doi:10.18112/openneuro.ds004196.v2.0.2,1.0
+175,ds004200,20,20,1,37,1000,14.122722222222222,7.21 GB,7740008000,openneuro,ds004200,Healthy,Multisensory,Attention,eeg,Temporal Scaling,CC0,doi:10.18112/openneuro.ds004200.v1.0.1,1.0
+176,ds004212,500,5,1,310,1200,45.239891666666665,237.69 GB,255218599475,openneuro,ds004212,Unknown,Unknown,Unknown,meg,THINGS-MEG,CC0,doi:10.18112/openneuro.ds004212.v3.0.0,3.0
+177,ds004229,3,2,2,332,1200,0.3313884259259259,1.78 GB,1908935731,openneuro,ds004229,Dyslexia,Auditory,Perception,meg,amnoise,CC0,doi:10.18112/openneuro.ds004229.v1.0.3,0.0
+178,ds004252,1,1,1,127,1000,0.7596333333333333,1.3 GB,1392179512,openneuro,ds004252,Healthy,Visual,Perception,eeg,Rotation-tolerant representations elucidate the time course of high-level object processing,CC0,doi:10.18112/openneuro.ds004252.v1.0.2,1.0
+179,ds004256,53,53,2,64,500,42.33703611111111,18.18 GB,19516271222,openneuro,ds004256,Healthy,Auditory,Perception,eeg,Encoding of Sound Source Elevation in Human Cortex,CC0,doi:10.18112/openneuro.ds004256.v1.0.5,0.0
+180,ds004262,21,21,1,31,1000,8.347866666666667,3.47 GB,3728371669,openneuro,ds004262,Healthy,Visual,Learning,eeg,Continuous Feedback Processing,CC0,doi:10.18112/openneuro.ds004262.v1.0.0,1.0
+181,ds004264,21,21,1,31,1000,7.460555555555556,3.3 GB,3546002190,openneuro,ds004264,Healthy,Visual,Learning,eeg,Steer the Ship,CC0,doi:10.18112/openneuro.ds004264.v1.1.0,0.0
+182,ds004276,19,19,2,193,1000,5.2202725,11.61 GB,12467037085,openneuro,ds004276,Unknown,Unknown,Unknown,meg,Auditory single word recognition in MEG,CC0,doi:10.18112/openneuro.ds004276.v1.0.0,2.0
+183,ds004278,30,30,1,306,1200,15.533326388888888,76.7 GB,82360041747,openneuro,ds004278,Unknown,Unknown,Unknown,meg,Sustained Neural Representations of Personally Familiar People and Places During Cued Recall,CC0,doi:10.18112/openneuro.ds004278.v1.0.1,0.0
+184,ds004279,60,56,1,69,1000,53.728649999999995,25.22 GB,27082275332,openneuro,ds004279,Healthy,Auditory,Perception,eeg,Large Spanish EEG,CC0,doi:10.18112/openneuro.ds004279.v1.1.2,1.0
+185,ds004284,18,18,1,129,1000,9.454245,16.36 GB,17562665263,openneuro,ds004284,Healthy,Visual,Decision-making,eeg,eeg-neuroforecasting,CC0,doi:10.18112/openneuro.ds004284.v1.0.0,1.0
+186,ds004295,26,26,1,66,1024*,34.312777777777775,31.51 GB,33829431825,openneuro,ds004295,Healthy,Multisensory,Learning,eeg,Reward gain and punishment avoidance reversal learning,CC0,doi:10.18112/openneuro.ds004295.v1.0.0,1.0
+187,ds004306,15,12,1,128,1024,18.18320014105903,654.95 MB,686761341,openneuro,ds004306,Healthy,Multisensory,Perception,eeg,EEG Semantic Imagination and Perception Dataset,CC0,doi:10.18112/openneuro.ds004306.v1.0.2,1.0
+188,ds004315,50,50,1,66,500,21.10388888888889,9.81 GB,10532286604,openneuro,ds004315,Healthy,Multisensory,Affect,eeg,"Mood Manipulation and PST, Experiment 1",CC0,doi:10.18112/openneuro.ds004315.v1.0.0,1.0
+189,ds004317,50,50,1,66,500,37.76679166666667,18.29 GB,19639199295,openneuro,ds004317,Healthy,Multisensory,Affect,eeg,"Mood Manipulation and PST, Experiment 2",CC0,doi:10.18112/openneuro.ds004317.v1.0.3,1.0
+190,ds004324,26,26,1,38,500,19.21581888888889,2.46 GB,2637688659,openneuro,ds004324,Healthy,Multisensory,Affect,eeg,ToonFaces,CC0,doi:10.18112/openneuro.ds004324.v1.0.0,0.0
+191,ds004330,270,30,1,310,1000,36.68270277777778,153.69 GB,165027293648,openneuro,ds004330,Healthy,Visual,Perception,meg,The spatiotemporal neural dynamics of object recognition for natural images and line drawings (MEG),CC0,doi:10.18112/openneuro.ds004330.v1.0.0,1.0
+192,ds004346,3,1,1,343,1000,0.803055,3.59 GB,3857854581,openneuro,ds004346,Unknown,Unknown,Unknown,meg,FLUX: A pipeline for MEG analysis,CC0,doi:10.18112/openneuro.ds004346.v1.0.8,0.0
+193,ds004347,24,24,1,72,512,6.375555555555556,2.4 GB,2574266001,openneuro,ds004347,Healthy,Visual,Perception,eeg,Symmetry perception and affective responses: a combined EEG/EMG study,CC0,doi:10.18112/openneuro.ds004347.v1.0.0,0.0
+194,ds004348,18,9,2,34,200,17.527765277777778,8.19 GB,8793613791,openneuro,ds004348,Healthy,Sleep,Sleep,eeg,Ear-EEG Sleep Monitoring 2017 (EESM17),CC0,doi:10.18112/openneuro.ds004348.v1.0.5,0.0
+195,ds004350,240,24,5,64,256,41.21611111111111,9.44 GB,10139679269,openneuro,ds004350,Healthy,Visual,Memory,eeg,Executive Functionning Study for Assessing the Effect of Neurofeedback,CC0,doi:10.18112/openneuro.ds004350.v2.0.0,1.0
+196,ds004356,24,22,1,34,10000,46.26655555555555,213.08 GB,228796285688,openneuro,ds004356,Healthy,Auditory,Perception,eeg,Subcortical responses to music and speech are alike while cortical responses diverge,CC0,doi:10.18112/openneuro.ds004356.v2.2.1,2.0
+197,ds004357,16,16,1,63,1000,11.307033333333331,19.34 GB,20769757800,openneuro,ds004357,Healthy,Visual,Perception,eeg,Features-EEG,CC0,doi:10.18112/openneuro.ds004357.v1.0.1,2.0
+198,ds004362,1526,109,1,64,160*,48.534444444444446,7.77 GB,8347280653,openneuro,ds004362,Healthy,Visual,Motor,eeg,EEG Motor Movement/Imagery Dataset,CC0,doi:10.18112/openneuro.ds004362.v1.0.0,2.0
+199,ds004367,40,40,1,68,1200,24.809597685185185,27.98 GB,30039343360,openneuro,ds004367,Schizophrenia/Psychosis,Visual,Perception,eeg,Meta-rdk: Raw EEG data,CC0,doi:10.18112/openneuro.ds004367.v1.0.2,1.0
+200,ds004368,40,39,1,63,128,0.0333333333333333,997.14 MB,1045574363,openneuro,ds004368,Schizophrenia/Psychosis,Visual,Perception,eeg,Meta-rdk: Preprocessed EEG data,CC0,doi:10.18112/openneuro.ds004368.v1.0.2,0.0
+201,ds004369,41,41,1,7,500,37.333333333333336,2.03 GB,2182344547,openneuro,ds004369,Healthy,Auditory,Perception,eeg,Blink-Pause-Relation (Competing Speaker Paradigm),CC0,doi:10.18112/openneuro.ds004369.v1.0.1,1.0
+202,ds004370,15,7,2,133*,2048,10.201727430555556,27.55 GB,29584367694,openneuro,ds004370,Surgery,Anesthesia,Clinical/Intervention,ieeg,PRIOS,CC0,doi:10.18112/openneuro.ds004370.v1.0.2,1.0
+203,ds004381,437,18,1,4*,20000,11.815105777777775,7.73 GB,8296777421,openneuro,ds004381,Surgery,Other,Other,eeg,Intraoperative EEG dataset during medianus-tibialis stimulation with 8 different rates,CC0,doi:10.18112/openneuro.ds004381.v1.0.2,2.0
+204,ds004388,399,40,3,115*,10000,43.48990325,682.54 GB,732876216370,openneuro,ds004388,Healthy,Tactile,Perception,eeg,Somatosensory evoked potentials in the human spinal cord to mixed nerve stimulation,CC0,doi:10.18112/openneuro.ds004388.v1.0.0,3.0
+205,ds004389,260,26,4,90,10000,30.655941527777777,376.5 GB,404264478546,openneuro,ds004389,Healthy,Tactile,Perception,eeg,Somatosensory evoked potentials in the human spinal cord to mixed and sensory nerve stimulation,CC0,doi:10.18112/openneuro.ds004389.v1.0.0,2.0
+206,ds004395,6483,364,3,129*,500*,9115.806919930556,8.72 TB,9583322399138,openneuro,ds004395,Healthy,Unknown,Memory,eeg,Penn Electrophysiology of Encoding and Retrieval Study (PEERS),CC0,doi:10.18112/openneuro.ds004395.v2.0.0,6.0
+207,ds004398,1,1,1,305,600,,1.28 GB,1373056065,openneuro,ds004398,Unknown,Unknown,Unknown,meg,planmemreplay,CC0,doi:10.18112/openneuro.ds004398.v1.0.0,1.0
+208,ds004408,380,19,1,128,512,20.59452419704861,18.7 GB,20083249467,openneuro,ds004408,Healthy,Auditory,Other,eeg,EEG responses to continuous naturalistic speech,CC0,doi:10.18112/openneuro.ds004408.v1.0.8,1.0
+209,ds004444,465,30,1,129,1000,55.68745555555555,48.62 GB,52204973510,openneuro,ds004444,Healthy,Visual,Motor,eeg,The BMI-HDEEG dataset 1,CC0,doi:10.18112/openneuro.ds004444.v1.0.1,1.0
+210,ds004446,237,30,1,129,1000,33.486105555555554,29.23 GB,31382983993,openneuro,ds004446,Healthy,Visual,Motor,eeg,The BMI-HDEEG dataset 2,CC0,doi:10.18112/openneuro.ds004446.v1.0.1,1.0
+211,ds004447,418,22,1,129,1000,23.55436055555556,20.73 GB,22253513860,openneuro,ds004447,Healthy,Visual,Motor,eeg,The BMI-HDEEG dataset 3,CC0,doi:10.18112/openneuro.ds004447.v1.0.1,1.0
+212,ds004448,280,56,1,129,1000,43.732013888888886,38.17 GB,40980947792,openneuro,ds004448,Healthy,Visual,Motor,eeg,The BMI-HDEEG dataset 4,CC0,doi:10.18112/openneuro.ds004448.v1.0.2,1.0
+213,ds004457,5,5,1,206*,2048,5.6259163411458335,10.9 GB,11705318065,openneuro,ds004457,Unknown,Other,Clinical/Intervention,ieeg,Electrical stimulation of temporal and limbic circuitry produces distinct responses in human ventral temporal cortex,CC0,doi:10.18112/openneuro.ds004457.v1.0.1,3.0
+214,ds004460,40,20,1,160,1000,27.49372888888889,59.07 GB,63428693430,openneuro,ds004460,Healthy,Visual,Perception,eeg,EEG and motion capture data set for a full-body/joystick rotation task,CC0,doi:10.18112/openneuro.ds004460.v1.1.0,1.0
+215,ds004473,8,8,1,129,999,6.9854377764705875,6.3 GB,6767566336,openneuro,ds004473,Epilepsy,Unknown,Motor,ieeg,sEEG Forced Two-Choice Task,CC0,doi:10.18112/openneuro.ds004473.v1.0.1,1.0
+216,ds004475,30,30,1,260*,512,26.898611111111112,48.54 GB,52115324993,openneuro,ds004475,Healthy,Motor,Motor,eeg,Mobile EEG split-belt walking study,CC0,doi:10.18112/openneuro.ds004475.v1.0.3,2.0
+217,ds004477,9,9,1,80,2048,13.557221001519098,22.34 GB,23989925051,openneuro,ds004477,Healthy,Multisensory,Decision-making,eeg,PES - Pandemic Emergency Scenario,CC0,doi:10.18112/openneuro.ds004477.v1.0.2,0.0
+218,ds004483,282,19,1,396,250,16.683036666666666,23.42 GB,25146610011,openneuro,ds004483,Healthy,Auditory,Memory,meg,ABSeqMEG,CC0,doi:10.18112/openneuro.ds004483.v1.0.0,2.0
+219,ds004502,48,48,1,63*,1000*,92.62319444444444,59.44 GB,63828222669,openneuro,ds004502,Unknown,Unknown,Unknown,eeg,Anticipatory differences between Attention and Expectation,CC0,doi:10.18112/openneuro.ds004502.v1.0.1,3.0
+220,ds004504,88,88,1,19,500,19.608416666666667,2.64 GB,2829897024,openneuro,ds004504,Dementia,Resting State,Clinical/Intervention,eeg,"A dataset of EEG recordings from: Alzheimer's disease, Frontotemporal dementia and Healthy subjects",CC0,doi:10.18112/openneuro.ds004504.v1.0.8,55.0
+221,ds004505,25,25,1,313*,250,30.398184444444443,34.57 GB,37123164373,openneuro,ds004505,Healthy,Motor,Motor,eeg,Real World Table Tennis,CC0,doi:10.18112/openneuro.ds004505.v1.0.4,5.0
+222,ds004511,134,45,3,139,3000,64.14129787037037,202.28 GB,217194708760,openneuro,ds004511,Healthy,Visual,Decision-making,eeg,Deception_data,CC0,doi:10.18112/openneuro.ds004511.v1.0.2,2.0
+223,ds004514,24,12,2,80*,2048*,29.3083050390625,24.15 GB,25930603322,openneuro,ds004514,Healthy,Multisensory,Other,"eeg, fnirs",Simultaneous EEG and fNIRS recordings for semantic decoding of imagined animals and tools,CC0,doi:10.18112/openneuro.ds004514.v1.1.2,
+224,ds004515,54,54,1,66,500,20.609680555555556,9.48 GB,10177195129,openneuro,ds004515,Other,Visual,Affect,eeg,EEG: Alcohol imagery reinforcement learning task with light and heavy drinker participants,CC0,doi:10.18112/openneuro.ds004515.v1.0.0,4.0
+225,ds004517,7,7,1,80,2048,7.691110161675347,12.68 GB,13610005494,openneuro,ds004517,Healthy,Visual,Other,eeg,EEG recordings for semantic decoding of imagined animals and tools during auditory imagery task,CC0,doi:10.18112/openneuro.ds004517.v1.0.2,
+226,ds004519,40,40,1,62,250,0.0666666666666666,12.56 GB,13486847571,openneuro,ds004519,Healthy,Visual,Attention,eeg,Internal selective attention is delayed by competition between endogenous and exogenous factors,CC0,doi:10.18112/openneuro.ds004519.v1.0.1,3.0
+227,ds004520,33,33,1,62,250,0.055,10.41 GB,11175907697,openneuro,ds004520,Healthy,Visual,Memory,eeg,Changes in behavioral priority influence the accessibility of working memory content - Experiment 2,CC0,doi:10.18112/openneuro.ds004520.v1.0.1,3.0
+228,ds004521,34,34,1,62,250,0.0566666666666666,10.68 GB,11470005753,openneuro,ds004521,Healthy,Visual,Motor,eeg,Changes in behavioral priority influence the accessibility of working memory content - Experiment 1,CC0,doi:10.18112/openneuro.ds004521.v1.0.1,3.0
+229,ds004532,137,110,1,64,500,49.65127888888889,21.76 GB,23367840317,openneuro,ds004532,Healthy,Visual,Learning,eeg,EEG: Probabilistic Selection Task (PST) + PST with Cabergoline Challenge,CC0,doi:10.18112/openneuro.ds004532.v1.2.0,0.0
+230,ds004541,18,8,1,59*,1000*,12.130006388888887,2.9 GB,3112226120,openneuro,ds004541,Surgery,Anesthesia,Clinical/Intervention,"eeg, fnirs",Multimodal EEG-fNIRS data from patients undergoing general anesthesia,CC0,doi:10.18112/openneuro.ds004541.v1.0.0,
+231,ds004551,125,114,1,128*,1000,1.0367611111111112,68.93 GB,74017379206,openneuro,ds004551,Unknown,Sleep,Sleep,ieeg,iEEG on children during slow wave sleep,CC0,doi:10.18112/openneuro.ds004551.v1.0.6,3.0
+232,ds004554,16,16,1,99,1000,0.0244488888888888,8.78 GB,9432071415,openneuro,ds004554,Healthy,Visual,Decision-making,eeg,Forced Picture Naming Task,CC0,doi:10.18112/openneuro.ds004554.v1.0.4,0.0
+233,ds004561,23,23,1,64,10000,11.379221527777778,97.67 GB,104871731022,openneuro,ds004561,Healthy,Motor,Perception,eeg,Illusion of Agency over Electrically-Actuated Movements,CC0,doi:10.18112/openneuro.ds004561.v1.0.0,2.0
+234,ds004563,119,40,1,64,2048,64.68555555555555,100.89 GB,108333359388,openneuro,ds004563,Other,Multisensory,Perception,eeg,Vicarious touch: overlapping neural patterns between seeing and feeling touch,CC0,doi:10.18112/openneuro.ds004563.v1.0.1,1.0
+235,ds004572,516,52,10,61,1000,53.24708222222222,43.56 GB,46776268551,openneuro,ds004572,Healthy,Auditory,Perception,eeg,The effects of sham hypnosis techniques,CC0,doi:10.18112/openneuro.ds004572.v1.3.2,2.0
+236,ds004574,146,146,1,63*,500,31.04288888888889,13.48 GB,14469987580,openneuro,ds004574,Parkinson's,Multisensory,Clinical/Intervention,eeg,Cross-modal Oddball Task.,CC0,doi:10.18112/openneuro.ds004574.v1.0.0,1.0
+237,ds004577,130,103,1,19*,200,22.973859722222223,652.67 MB,684369909,openneuro,ds004577,Healthy,Sleep,Clinical/Intervention,eeg,Dataset containing resting EEG for a sample of 103 normal infants in the first year of life,CC0,doi:10.18112/openneuro.ds004577.v1.0.1,3.0
+238,ds004579,139,139,1,63*,500,55.70307777777777,24.12 GB,25896737364,openneuro,ds004579,Parkinson's,Visual,Decision-making,eeg,Interval Timing Task,CC0,doi:10.18112/openneuro.ds004579.v1.0.0,1.0
+239,ds004580,147,147,1,63*,500,36.514361111111114,15.84 GB,17008438192,openneuro,ds004580,Parkinson's,Visual,Decision-making,eeg,Simon-conflict Task.,CC0,doi:10.18112/openneuro.ds004580.v1.0.0,1.0
+240,ds004582,73,73,1,64,10000,34.243775722222225,294.22 GB,315915939030,openneuro,ds004582,Healthy,Visual,Affect,eeg,FakeFaceEmo_data,CC0,doi:10.18112/openneuro.ds004582.v1.0.0,0.0
+241,ds004584,149,149,1,63*,500,6.641037222222223,2.87 GB,3078216426,openneuro,ds004584,Parkinson's,Resting State,Clinical/Intervention,eeg,Rest eyes open,CC0,doi:10.18112/openneuro.ds004584.v1.0.0,2.0
+242,ds004587,114,103,1,64,10000,25.51370786111111,219.34 GB,235517890332,openneuro,ds004587,Healthy,Visual,Decision-making,eeg,IllusionGameEEG_data,CC0,doi:10.18112/openneuro.ds004587.v1.0.0,0.0
+243,ds004588,42,42,1,24,300,4.957289814814814,534.06 MB,560003959,openneuro,ds004588,Healthy,Visual,Decision-making,eeg,Neuma,CC0,doi:10.18112/openneuro.ds004588.v1.2.0,1.0
+244,ds004595,53,53,1,66,500,17.077527777777778,7.81 GB,8390886212,openneuro,ds004595,Other,Visual,Decision-making,eeg,EEG: RL Task (3-Armed Bandit) with alcohol cues in hazardous drinkers and ctls,CC0,doi:10.18112/openneuro.ds004595.v1.0.0,1.0
+245,ds004598,20,9,1,16,10000,8.2455,9.94 GB,10673023391,openneuro,ds004598,Unknown,Unknown,Unknown,eeg,LFP during linear track in 6-month old TgF344-AD rats,CC0,doi:10.18112/openneuro.ds004598.v1.0.0,0.0
+246,ds004602,546,182,3,129,500*,87.17373944444445,73.91 GB,79364456510,openneuro,ds004602,Healthy,Visual,Perception,eeg,Registered Replication Report of ERN/Pe Psychometrics,CC0,doi:10.18112/openneuro.ds004602.v1.0.1,5.0
+247,ds004603,37,37,1,65,1024,30.653045518663195,27.37 GB,29391618186,openneuro,ds004603,Healthy,Visual,Perception,eeg,Visual Attribute-Specific Contextual Trajectory Paradigm,CC0,doi:10.18112/openneuro.ds004603.v1.1.0,1.0
+248,ds004621,167,42,4,127,1000,45.42930277777778,77.38 GB,83086874697,openneuro,ds004621,Healthy,Visual,Decision-making,eeg,The Nencki-Symfonia EEG/ERP dataset,CC0,doi:10.18112/openneuro.ds004621.v1.0.4,1.0
+249,ds004624,614,3,28,36*,1000,,19.31 GB,20739089774,openneuro,ds004624,Unknown,Unknown,Clinical/Intervention,ieeg,Intracranial recordings using BCI2000 and the CorTec BrainInterchange,CC0,doi:10.18112/openneuro.ds004624.v2.0.0,0.0
+250,ds004625,543,32,9,284*,500,28.581393888888886,62.46 GB,67068941232,openneuro,ds004625,Healthy,Motor,Attention,eeg,Mind in Motion Young Adults Walking Over Uneven Terrain,CC0,doi:10.18112/openneuro.ds004625.v1.0.2,0.0
+251,ds004626,52,52,1,68,1000,21.358625555555555,19.87 GB,21336340983,openneuro,ds004626,Other,Visual,Attention,eeg,Can we dissociate hypervigilance to social threats from altered perceptual decision-making processes in lonely individuals? An exploration with Drift Diffusion Modelling and event-related potentials.,CC0,doi:10.18112/openneuro.ds004626.v1.0.2,1.0
+252,ds004635,48,48,1,129,1000,16.849317222222222,26.05 GB,27971375388,openneuro,ds004635,Healthy,Multisensory,Attention,eeg,Gaffrey Lab Infant Microstates Reliability,CC0,doi:10.18112/openneuro.ds004635.v3.1.0,2.0
+253,ds004642,10,10,1,8*,20000,1.069361111111111,1.2 GB,1292805561,openneuro,ds004642,Surgery,Other,Other,ieeg,Intraoperative recordings of medianus stimulation with low and high impedance ECoG,CC0,doi:10.18112/openneuro.ds004642.v1.0.1,2.0
+254,ds004657,119,24,1,74,1024*,27.205277777777777,43.06 GB,46237302253,openneuro,ds004657,Healthy,Motor,Decision-making,eeg,Driving with Autonomous Aids,CC0,doi:10.18112/openneuro.ds004657.v1.0.3,1.0
+255,ds004660,42,21,1,38,512*,23.79277777777778,7.25 GB,7782408262,openneuro,ds004660,Healthy,Multisensory,Attention,eeg,TNO,CC0,doi:10.18112/openneuro.ds004660.v1.0.2,1.0
+256,ds004661,17,17,1,64,128,10.13709201388889,1.4 GB,1505576944,openneuro,ds004661,Healthy,Multisensory,Memory,eeg,ANDI,CC0,doi:10.18112/openneuro.ds004661.v1.1.0,0.0
+257,ds004696,8,8,1,226*,2048,9.122338324652778,14.17 GB,15212997823,openneuro,ds004696,Epilepsy,Other,Clinical/Intervention,ieeg,HAPwave_bids,CC0,doi:10.18112/openneuro.ds004696.v1.0.1,1.0
+258,ds004703,11,10,1,148*,1024*,9.091059027777778,12.37 GB,13278807157,openneuro,ds004703,Surgery,Auditory,Memory,ieeg,sEEG Passive listening to natural speech,CC0,doi:10.18112/openneuro.ds004703.v1.1.0,2.0
+259,ds004706,298,34,2,137,2048,470.60607069227433,1.3 TB,1426144562699,openneuro,ds004706,Healthy,Visual,Memory,eeg,Spatial memory and non-invasive closed-loop stimulus timing,CC0,doi:10.18112/openneuro.ds004706.v1.0.0,3.0
+260,ds004718,51,51,1,64,1000,21.836041388888887,37.03 GB,39765512028,openneuro,ds004718,Healthy,Auditory,Learning,eeg,Le Petit Prince Hong Kong: Naturalistic fMRI and EEG dataset from older Cantonese speakers,CC0,doi:10.18112/openneuro.ds004718.v1.1.2,1.0
+261,ds004738,25,4,2,323*,5000,0.4349166666666667,6.13 GB,6587104869,openneuro,ds004738,Other,Other,Other,meg,sfb_meg_phantom (B04/C01),CC0,doi:10.18112/openneuro.ds004738.v1.0.1,1.0
+262,ds004745,6,6,1,8,1000,1.7556605555555556,242.08 MB,253839277,openneuro,ds004745,Healthy,Visual,Other,eeg,8-Channel SSVEP EEG Dataset with Artifact Trials,CC0,doi:10.18112/openneuro.ds004745.v1.0.1,0.0
+263,ds004752,136,15,1,64*,2000*,0.3022222222222222,10.23 GB,10984448479,openneuro,ds004752,Epilepsy,Auditory,Memory,"eeg, ieeg","Dataset of intracranial EEG, scalp EEG and beamforming sources from epilepsy patients performing a verbal working memory task",CC0,doi:10.18112/openneuro.ds004752.v1.0.1,4.0
+264,ds004770,22,10,1,128*,1000,2.0000166666666668,8.69 GB,9325612810,openneuro,ds004770,Epilepsy,Visual,Memory,ieeg,iEEG on children during gameplay,CC0,doi:10.18112/openneuro.ds004770.v1.0.0,2.0
+265,ds004771,61,61,1,34,256,0.0221072048611111,1.36 GB,1462175616,openneuro,ds004771,Healthy,Visual,Decision-making,eeg,EEG/ERP data from a Python Reading Task,CC0,doi:10.18112/openneuro.ds004771.v1.0.0,1.0
+266,ds004774,14,14,2,133*,2048,11.947781982421876,24.78 GB,26608945134,openneuro,ds004774,Unknown,Unknown,Unknown,ieeg,Automatic Evoked Response Detection (ER-Detect) dataset,CC0,doi:10.18112/openneuro.ds004774.v1.0.0,
+267,ds004784,6,1,6,264,512,0.5408333333333334,1.01 GB,1084178641,openneuro,ds004784,Healthy,Motor,Attention,eeg,"Phantom EEG Dataset with Motion, Muscle, and Eye Artifacts and Example Scripts",CC0,doi:10.18112/openneuro.ds004784.v1.0.4,1.0
+268,ds004785,17,17,1,32,500,0.0188888888888888,351.17 MB,368223688,openneuro,ds004785,Healthy,Motor,Motor,eeg,EEG data for paper titled - Precise cortical contributions to feedback sensorimotor control during reactive balance,CC0,doi:10.18112/openneuro.ds004785.v1.0.1,1.0
+269,ds004789,983,273,1,126*,1000*,776.4940177977268,576.31 GB,618808962711,openneuro,ds004789,Unknown,Visual,Memory,ieeg,Delayed Free Recall of Word Lists,CC0,doi:10.18112/openneuro.ds004789.v3.1.0,3.0
+270,ds004796,235,79,3,127,1000,43.99488333333333,240.19 GB,257896989782,openneuro,ds004796,Other,Visual/Resting State,Memory/Resting state,eeg,"A Polish Electroencephalography, Alzheimer’s Risk-genes, Lifestyle and Neuroimaging (PEARL-Neuro) Database",CC0,doi:10.18112/openneuro.ds004796.v1.1.0,1.0
+271,ds004802,79,39,1,69,512*,40.855,10.07 GB,10810016249,openneuro,ds004802,Other,Visual,Affect,eeg,Pilot data for Loneliness in the Brain: Distinguishing Between Hypersensitivity and Hyperalertness,CC0,doi:10.18112/openneuro.ds004802.v1.0.0,1.0
+272,ds004809,889,252,1,126*,1000*,575.3024328526149,477.18 GB,512365835522,openneuro,ds004809,Unknown,Unknown,Unknown,ieeg,Categorized Free Recall: Delayed Free Recall of Word Lists Organized by Semantic Categories,CC0,doi:10.18112/openneuro.ds004809.v2.2.0,1.0
+273,ds004816,20,20,1,63,1000,10.713711111111111,9.06 GB,9731821453,openneuro,ds004816,Healthy,Visual,Attention,eeg,EEG-attention-rsvp-exp1,CC0,doi:10.18112/openneuro.ds004816.v1.0.0,0.0
+274,ds004817,20,20,1,63,1000,11.900994444444445,10.07 GB,10808487309,openneuro,ds004817,Healthy,Visual,Attention,eeg,EEG-attention-rsvp-exp2,CC0,doi:10.18112/openneuro.ds004817.v1.0.0,0.0
+275,ds004819,8,1,1,64,30000,0.0522222222222222,688.67 MB,722127657,openneuro,ds004819,Unknown,Unknown,Unknown,ieeg,"Flexible, Scalable, High Channel Count Stereo-Electrode for Recording in the Human Brain",CC0,doi:10.18112/openneuro.ds004819.v1.0.0,1.0
+276,ds004830,14,12,1,72*,50,,1.23 GB,1321472833,openneuro,ds004830,Unknown,Unknown,Unknown,fnirs,Spatial Attention Decoding using fNIRS During Complex Scene Analysis,CC0,doi:10.18112/openneuro.ds004830.v2.0.0,
+277,ds004837,106,60,1,[],3000*,,119.94 GB,128779377455,openneuro,ds004837,Schizophrenia/Psychosis,Auditory,Perception,meg,Magnetoencephalographic (MEG) Pitch and Duration Mismatch Negativity (MMN) in First-Episode Psychosis,CC0,doi:10.18112/openneuro.ds004837.v1.0.2,0.0
+278,ds004840,51,9,3,10*,1024*,10.935833333333331,599.5 MB,628618633,openneuro,ds004840,Other,Auditory,Clinical/Intervention,eeg,"Dataset of electrophysiological signals (EEG, ECG, EMG) during Music therapy with adult burn patients in the Intensive Care Unit.",CC0,doi:10.18112/openneuro.ds004840.v1.0.1,1.0
+279,ds004841,147,20,1,70,256,28.44555555555555,7.31 GB,7846933953,openneuro,ds004841,Healthy,Multisensory,Attention,eeg,TX14,CC0,doi:10.18112/openneuro.ds004841.v1.0.1,0.0
+280,ds004842,102,14,1,70*,256,20.165277777777774,5.21 GB,5589053822,openneuro,ds004842,,Multisensory,Attention,eeg,TX15,CC0,doi:10.18112/openneuro.ds004842.v1.0.0,0.0
+281,ds004843,92,14,1,70,256,28.9975,7.66 GB,8229205347,openneuro,ds004843,Healthy,Visual,Attention,eeg,T16,CC0,doi:10.18112/openneuro.ds004843.v1.0.0,0.0
+282,ds004844,68,17,1,72,1024,21.252222222222223,22.33 GB,23976121518,openneuro,ds004844,Healthy,Multisensory,Decision-making,eeg,T22,CC0,doi:10.18112/openneuro.ds004844.v1.0.0,0.0
+283,ds004849,1,1,1,64,128,0.5350499131944444,79.21 MB,83056636,openneuro,ds004849,Unknown,Unknown,Unknown,eeg,STRONG,CC0,doi:10.18112/openneuro.ds004849.v1.0.0,0.0
+284,ds004850,1,1,1,64,128,0.5350499131944444,79.21 MB,83056630,openneuro,ds004850,Unknown,Unknown,Unknown,eeg,ODE,CC0,doi:10.18112/openneuro.ds004850.v1.0.0,0.0
+285,ds004851,66,66,1,72,2048,18.58285617404514,55.93 GB,60057550495,openneuro,ds004851,Unknown,Unknown,Unknown,eeg,HID,CC0,doi:10.18112/openneuro.ds004851.v2.1.0,0.0
+286,ds004852,1,1,1,64,128,0.5350499131944444,79.21 MB,83056658,openneuro,ds004852,Unknown,Unknown,Unknown,eeg,InsurgentCivilian,CC0,doi:10.18112/openneuro.ds004852.v1.0.0,0.0
+287,ds004853,1,1,1,64,128,0.5350499131944444,79.21 MB,83056632,openneuro,ds004853,Unknown,Unknown,Unknown,eeg,TX17,CC0,doi:10.18112/openneuro.ds004853.v1.0.0,0.0
+288,ds004854,1,1,1,64,128,0.5350499131944444,79.21 MB,83056632,openneuro,ds004854,Unknown,Unknown,Unknown,eeg,TX18,CC0,doi:10.18112/openneuro.ds004854.v1.0.0,0.0
+289,ds004855,1,1,1,64,128,0.5350499131944444,79.21 MB,83056628,openneuro,ds004855,Unknown,Unknown,Unknown,eeg,FT,CC0,doi:10.18112/openneuro.ds004855.v1.0.0,0.0
+290,ds004859,9,7,1,128*,1000,2.669722222222222,2.27 GB,2435511071,openneuro,ds004859,Unknown,Unknown,Unknown,ieeg,iEEG on children during Stroop task,CC0,doi:10.18112/openneuro.ds004859.v1.0.0,0.0
+291,ds004860,31,31,1,36,512*,16.364166666666666,3.79 GB,4065631774,openneuro,ds004860,Healthy,Auditory,Decision-making,eeg,Investigating the cognitive conflict triggered by moral judgment of accidental harm : an event-related potentials study,CC0,doi:10.18112/openneuro.ds004860.v1.0.0,1.0
+292,ds004865,172,42,1,100*,1000*,180.6291955494362,97.79 GB,104999471870,openneuro,ds004865,Surgery,Visual,Memory,ieeg,"pyFR: Delayed Free Recall of Word Lists, Preliminary Cognitive Electrophysiology Study",CC0,doi:10.18112/openneuro.ds004865.v2.0.1,0.0
+293,ds004883,516,172,3,129,500,139.97186555555555,122.8 GB,131858855109,openneuro,ds004883,Healthy,Visual,Decision-making,eeg,Registerd Report of ERN During Three Versions of a Flanker Task,CC0,doi:10.18112/openneuro.ds004883.v1.0.0,3.0
+294,ds004902,218,71,2,61,500*,18.118427777777775,8.29 GB,8898598868,openneuro,ds004902,Healthy,Resting State,Resting state,eeg,A Resting-state EEG Dataset for Sleep Deprivation,CC0,doi:10.18112/openneuro.ds004902.v1.0.8,3.0
+295,ds004917,24,24,1,66,5000,14.579594444444444,37.45 GB,40213447001,openneuro,ds004917,Healthy,Multisensory,Decision-making,eeg,Probability Decision-making Task with ambiguity,CC0,doi:10.18112/openneuro.ds004917.v1.0.1,0.0
+296,ds004929,36,12,1,200,8,,302.45 MB,317141546,openneuro,ds004929,Unknown,Unknown,Unknown,fnirs,BallSqueezingHD,CC0,doi:10.18112/openneuro.ds004929.v1.0.0,
+297,ds004940,48,22,2,128,512,36.86361111111111,118.51 GB,127252523354,openneuro,ds004940,Healthy,Auditory,Attention,eeg,Neurophysiological measures of covert semantic processing in neurotypical adolescents actively ignoring spoken sentence inputs: A high-density event-related potential (ERP) study.,CC0,doi:10.18112/openneuro.ds004940.v1.0.1,
+298,ds004942,62,62,1,65,1000,28.282224444444445,25.05 GB,26899933059,openneuro,ds004942,Healthy,Visual,Memory,eeg,SpatialMemory,CC0,doi:10.18112/openneuro.ds004942.v1.0.0,1.0
+299,ds004944,44,22,1,3*,2000,3.0518518055555552,451.15 MB,473061643,openneuro,ds004944,Epilepsy,Other,Clinical/Intervention,ieeg,Dataset of BCI2000-compatible intraoperative ECoG with neuromorphic encoding,CC0,doi:10.18112/openneuro.ds004944.v1.1.0,1.0
+300,ds004951,23,11,1,64*,1000,25.926832500000003,22.0 GB,23627351784,openneuro,ds004951,Other,Tactile,Learning,eeg,Braille letters - EEG,CC0,doi:10.18112/openneuro.ds004951.v1.0.0,1.0
+301,ds004952,245,10,1,128,1000,121.74074361111111,207.12 GB,222393779876,openneuro,ds004952,Healthy,Visual,Attention,eeg,ChineseEEG: A Chinese Linguistic Corpora EEG Dataset for Semantic Alignment and Neural Decoding,CC0,doi:10.18112/openneuro.ds004952.v1.2.2,2.0
+302,ds004973,222,20,12,16,50,50.14391111111111,2.32 GB,2486210305,openneuro,ds004973,Healthy,Visual,Attention,fnirs,An fNIRS dataset for driving risk cognition of passengers in highly automated driving scenarios,CC0,doi:10.18112/openneuro.ds004973.v1.0.1,
+303,ds004977,6,4,1,273*,4800,0.8750833333333332,1.49 GB,1604950022,openneuro,ds004977,Epilepsy,Other,Other,ieeg,CARLA: Adjusted common average referencing for cortico-cortical evoked potential data,CC0,doi:10.18112/openneuro.ds004977.v1.2.0,2.0
+304,ds004980,17,17,1,64,499*,36.846338890955984,15.82 GB,16989514308,openneuro,ds004980,Healthy,Visual,Perception,eeg,EEG data set for a architectural affordances task,CC0,doi:10.18112/openneuro.ds004980.v1.0.0,1.0
+305,ds004993,3,3,3,148*,512*,0.2299173990885416,305.11 MB,319927247,openneuro,ds004993,Epilepsy,Auditory,Perception,ieeg,"WIRED ICM Sample Dataset - Workshop on Intracranial Recordings in Humans, Epilepsy, DBS",CC0,doi:10.18112/openneuro.ds004993.v1.1.2,0.0
+306,ds004995,20,20,1,127,1000,16.189522222222223,27.6 GB,29637642698,openneuro,ds004995,Healthy,Visual,Attention,eeg,The Time-Course of Food Representation in the Human Brain,CC0,doi:10.18112/openneuro.ds004995.v1.0.2,1.0
+307,ds004998,145,20,6,323*,2000,10.766654722222222,161.76 GB,173691728283,openneuro,ds004998,Parkinson's,Motor,Motor,meg,Exploring the electrophysiology of Parkinson's disease - magnetoencephalography combined with deep brain recordings from the subthalamic nucleus.,CC0,doi:10.18112/openneuro.ds004998.v1.2.2,1.0
+308,ds005007,42,40,1,100*,1000,9.423494444444446,8.29 GB,8896470075,openneuro,ds005007,Unknown,Unknown,Unknown,ieeg,Auditory naming task with questions that begin or end with a wh-interrogative,CC0,doi:10.18112/openneuro.ds005007.v1.0.0,0.0
+309,ds005021,36,36,1,72,1024,43.06305555555556,47.5 GB,51007318536,openneuro,ds005021,Healthy,Visual,Attention,eeg,Tilt Illusion by Phase,CC0,doi:10.18112/openneuro.ds005021.v1.2.1,0.0
+310,ds005028,105,11,3,[],[],0.0291666666666666,422.07 MB,442568172,openneuro,ds005028,,Visual,Motor,eeg,Comparing P300 Flashing paradigms in online typing with language models,CC0,doi:10.18112/openneuro.ds005028.v1.0.0,0.0
+311,ds005034,100,25,2,129,1000,34.91862888888889,61.36 GB,65885314989,openneuro,ds005034,Healthy,Visual,Memory,eeg,The effect of theta tACS on working memory,CC0,doi:10.18112/openneuro.ds005034.v1.0.1,1.0
+312,ds005048,35,35,1,19,250,5.2027777777777775,355.91 MB,373200390,openneuro,ds005048,Dementia,Auditory,Attention,eeg,40Hz Auditory Entrainment,CC0,doi:10.18112/openneuro.ds005048.v1.0.1,1.0
+313,ds005059,282,69,1,112*,1000*,261.31572875603473,167.3 GB,179631838657,openneuro,ds005059,Unknown,Visual,Memory,ieeg,Paired Associates Learning: Memory for Word Pairs in Cued Recall,CC0,doi:10.18112/openneuro.ds005059.v1.0.6,0.0
+314,ds005065,275,21,1,415*,1200,68.0,425.76 GB,457153490815,openneuro,ds005065,Healthy,Visual,Decision-making,meg,Heuristics in risky decision-making relate to preferential representation of information MEG data,CC0,doi:10.18112/openneuro.ds005065.v1.0.0,1.0
+315,ds005079,60,1,15,65,500,3.800026666666666,1.68 GB,1809231507,openneuro,ds005079,Healthy,Multisensory,Affect,eeg,The Effects of Directed Therapeutic Intent on Live and Damaged Cells,CC0,doi:10.18112/openneuro.ds005079.v2.0.0,1.0
+316,ds005083,1357,61,3,[],[],,0B,0,openneuro,ds005083,Surgery,,Clinical/Intervention,ieeg,Safety and Accuracy of Stereoelectroencephalography for Pediatric Patients with Prior Craniotomy,CC0,doi:10.18112/openneuro.ds005083.v1.0.0,
+317,ds005087,60,20,3,63,1000,14.447911111111113,12.24 GB,13146879384,openneuro,ds005087,Healthy,Visual,Perception,eeg,rapid-hemifield-object-eeg,CC0,doi:10.18112/openneuro.ds005087.v1.0.1,1.0
+318,ds005089,36,36,1,63,1000,68.82001666666666,68.01 GB,73021312471,openneuro,ds005089,Healthy,Visual,Attention,eeg,Proactive selective attention across competition contexts,CC0,doi:10.18112/openneuro.ds005089.v1.0.1,1.0
+319,ds005095,48,48,1,63,1000,16.901139444444443,14.28 GB,15336170094,openneuro,ds005095,Healthy,Visual,Memory,eeg,STERNBERG DIFFICULT,CC0,doi:10.18112/openneuro.ds005095.v1.0.2,7.0
+320,ds005106,42,42,1,33,500,,1.24 GB,1331391470,openneuro,ds005106,Healthy,Visual,Attention,eeg,200 Objects Infants EEG,CC0,doi:10.18112/openneuro.ds005106.v1.5.0,0.0
+321,ds005107,350,21,1,65,1000,31.625122222222224,27.58 GB,29613455000,openneuro,ds005107,Healthy,Visual,Perception,meg,FACE-DEC,CC0,doi:10.18112/openneuro.ds005107.v2.0.0,1.0
+322,ds005114,223,91,1,65*,500,125.70132055555555,55.88 GB,59996318346,openneuro,ds005114,TBI,Visual,Attention,eeg,EEG: DPX Cog Ctl Task in Acute Mild TBI,CC0,doi:10.18112/openneuro.ds005114.v1.0.0,0.0
+323,ds005121,39,34,1,65,512,40.52590386284722,9.04 GB,9711091695,openneuro,ds005121,Healthy,Sleep,Memory,eeg,Siefert2024,CC0,doi:10.18112/openneuro.ds005121.v1.0.2,1.0
+324,ds005131,63,58,2,64,500,52.035291666666666,22.35 GB,23996523766,openneuro,ds005131,Healthy,Auditory,Attention/Memory,eeg,Evoked responses to elevated sounds,CC0,doi:10.18112/openneuro.ds005131.v1.0.1,0.0
+325,ds005169,112,20,1,82*,4096,0.6533333333333333,4.03 GB,4322721427,openneuro,ds005169,Epilepsy,Other,Clinical/Intervention,ieeg,Dataset of intracranial EEG during cortical stimulation evoking visual effects,CC0,doi:10.18112/openneuro.ds005169.v1.0.0,0.0
+326,ds005170,225,5,1,[],[],104.28733333333334,90.73 GB,97416063152,openneuro,ds005170,Healthy,Visual,other,eeg,Chisco,CC0,doi:10.18112/openneuro.ds005170.v1.1.2,1.0
+327,ds005178,140,10,1,4*,250,1012.5174533333332,25.74 GB,27636341897,openneuro,ds005178,Healthy,Sleep,Sleep,eeg,Ear-EEG Sleep Monitoring 2023 (EESM23),CC0,doi:10.18112/openneuro.ds005178.v1.0.0,
+328,ds005185,356,20,3,25,500,1365.566388888889,267.6 GB,287335439821,openneuro,ds005185,Healthy,Sleep,Sleep,eeg,Ear-EEG Sleep Monitoring 2019 (EESM19),CC0,doi:10.18112/openneuro.ds005185.v1.0.2,
+329,ds005189,30,30,1,62,1000,19.326080555555556,16.07 GB,17255876906,openneuro,ds005189,Healthy,Visual,Memory,eeg,Search Superiority Recollection Familiarity,CC0,doi:10.18112/openneuro.ds005189.v1.0.1,0.0
+330,ds005207,39,20,1,13*,128*,422.5796577083333,28.52 GB,30627443497,openneuro,ds005207,Healthy,Sleep,Sleep,eeg,Surrey cEEGrid sleep data set,CC0,doi:10.18112/openneuro.ds005207.v1.0.0,0.0
+331,ds005241,117,24,2,256,1000,3.731936944444445,140.48 GB,150839266536,openneuro,ds005241,Healthy,Unknown,Unknown,meg,NeuroMorph: A High-Temporal Resolution MEG Dataset for Morpheme-Based Linguistic Analysis,CC0,doi:10.18112/openneuro.ds005241.v1.1.0,0.0
+332,ds005261,128,17,2,248*,2034,3.0415982996288142,137.25 GB,147368587261,openneuro,ds005261,Healthy,Unknown,Learning,meg,Gloups_MEG,CC0,doi:10.18112/openneuro.ds005261.v3.0.0,0.0
+333,ds005262,186,12,1,8,250,25.04766111111111,688.75 MB,722210589,openneuro,ds005262,Healthy,Visual,other,eeg,ArEEG: Arabic Inner Speech EEG dataset,CC0,doi:10.18112/openneuro.ds005262.v1.0.1,0.0
+334,ds005273,33,33,1,63,1000,58.05492972222223,44.42 GB,47690881750,openneuro,ds005273,Healthy,Visual,Decision-making,eeg,Neural representation of consciously seen and unseen information,CC0,doi:10.18112/openneuro.ds005273.v1.0.0,0.0
+335,ds005274,22,22,1,6,500,1.6619166666666665,71.91 MB,75399884,openneuro,ds005274,Healthy,,,eeg,UV_EEG,CC0,doi:10.18112/openneuro.ds005274.v1.0.0,0.0
+336,ds005279,90,30,0,[],1200,3.4166666666666665,58.88 GB,63222442220,openneuro,ds005279,Healthy,Multisensory,Other,meg,Picture-Word Interference Dataset,CC0,doi:10.18112/openneuro.ds005279.v1.0.3,0.0
+337,ds005280,669,223,1,64,1000,98.77304805555556,42.38 GB,45503186303,openneuro,ds005280,Healthy,Tactile,Perception,eeg,223 By BP,CC0,doi:10.18112/openneuro.ds005280.v1.0.0,
+338,ds005284,26,26,1,64,1024*,2.3897222222222223,1.66 GB,1784094196,openneuro,ds005284,Unknown,Unknown,Unknown,eeg,26 By Biosemi,CC0,doi:10.18112/openneuro.ds005284.v1.0.0,
+339,ds005285,116,29,1,32,1000,26.726972777777775,11.83 GB,12705224701,openneuro,ds005285,Healthy,Tactile,Perception,eeg,29 By ANT,CC0,doi:10.18112/openneuro.ds005285.v1.0.0,
+340,ds005286,30,30,1,32,1000,21.157749444444445,9.35 GB,10042737622,openneuro,ds005286,Healthy,Tactile,Perception,eeg,30 By ANT,CC0,doi:10.18112/openneuro.ds005286.v1.0.0,
+341,ds005289,195,39,1,64,1000,16.56392138888889,7.11 GB,7636421599,openneuro,ds005289,Unknown,Unknown,Unknown,eeg,39 By BP,CC0,doi:10.18112/openneuro.ds005289.v1.0.0,
+342,ds005291,65,65,1,32,1000,47.67444555555556,20.46 GB,21968960012,openneuro,ds005291,Healthy,Tactile,Perception,eeg,65 By ANT,CC0,doi:10.18112/openneuro.ds005291.v1.0.0,
+343,ds005292,426,142,1,64,1024*,64.33333333333333,50.85 GB,54603307745,openneuro,ds005292,Healthy,Tactile,Perception,eeg,142 by Biosemi,CC0,doi:10.18112/openneuro.ds005292.v1.0.0,
+344,ds005293,570,95,1,60,1000,234.0310605555555,98.88 GB,106171437197,openneuro,ds005293,Healthy,Tactile,Perception,eeg,95 By BP,CC0,doi:10.18112/openneuro.ds005293.v1.0.0,
+345,ds005296,62,62,1,32,500,37.20480388888889,8.53 GB,9154606499,openneuro,ds005296,Healthy,Multisensory,Decision-making,eeg,"Assessing sensitivity to semantic and syntactic information in deaf readers: An ERP
+study",CC0,doi:10.18112/openneuro.ds005296.v1.0.1,0.0
+346,ds005305,165,165,1,64,512*,14.136398111979169,6.38 GB,6850532958,openneuro,ds005305,Healthy,Visual,Decision-making,eeg,EEG Resting-state Microstates Correlates of Executive Functions,CC0,doi:10.18112/openneuro.ds005305.v1.0.1,0.0
+347,ds005307,73,7,1,77*,10000,1.5768097222222224,18.08 GB,19411390126,openneuro,ds005307,Unknown,Unknown,Unknown,eeg,Laser-evoked potentials in the human spinal cord and cortex,CC0,doi:10.18112/openneuro.ds005307.v1.0.1,1.0
+348,ds005340,15,15,1,2,10000,35.29713844444445,9.47 GB,10172114688,openneuro,ds005340,Healthy,Auditory,Perception,eeg,Fundamental frequency predominantly drives talker differences in auditory brainstem responses to continuous speech,CC0,doi:10.18112/openneuro.ds005340.v1.0.4,1.0
+349,ds005342,32,32,1,17,250,33.01657222222222,2.03 GB,2181595802,openneuro,ds005342,Healthy,Visual,Motor,eeg,EEG data offline and online during motor imagery for standing and sitting,CC0,doi:10.18112/openneuro.ds005342.v1.0.3,1.0
+350,ds005343,43,43,1,129,1000,14.927455833333331,22.7 GB,24373540791,openneuro,ds005343,Development,Multisensory,Perception,eeg,Gaffrey Lab Infant Microstates and Attention,CC0,doi:10.18112/openneuro.ds005343.v1.0.0,
+351,ds005345,26,26,1,64,500,19.983922222222223,162.54 GB,174527101942,openneuro,ds005345,Healthy,Auditory,Attention,eeg,Le Petit Prince (LPP) Multi-talker: Naturalistic 7T fMRI and EEG Dataset,CC0,doi:10.18112/openneuro.ds005345.v1.0.1,
+352,ds005346,90,30,3,66*,1000,20.35939638888889,38.95 GB,41821126308,openneuro,ds005346,Healthy,Multisensory,Memory,meg,Naturalistic fMRI and MEG recordings during viewing of a reality TV show,CC0,doi:10.18112/openneuro.ds005346.v1.0.5,
+353,ds005356,116,85,1,396*,1000,18.24137361111111,161.57 GB,173488425070,openneuro,ds005356,Depression,Visual,Learning,meg,MEG: Major Depression & Probabilistic Learning Task,CC0,doi:10.18112/openneuro.ds005356.v1.5.0,
+354,ds005363,43,43,1,64,1000,43.08531583333333,17.71 GB,19011100939,openneuro,ds005363,Healthy,Visual,Perception,eeg,Object recognition in healthy aging (ORHA) - EEG,CC0,doi:10.18112/openneuro.ds005363.v1.0.0,1.0
+355,ds005383,240,30,1,31,200,8.32688888888889,358.18 MB,375577954,openneuro,ds005383,Healthy,Visual,Perception,eeg,"TMNRED, A Chinese Language EEG Dataset for Fuzzy Semantic Target Identification in Natural Reading Environments",CC0,doi:10.18112/openneuro.ds005383.v1.0.0,0.0
+356,ds005385,3264,608,2,64,1000,169.35916666666665,74.07 GB,79529430433,openneuro,ds005385,Healthy,Resting State,Resting-state,eeg,Resting-state EEG data before and after cognitive activity across the adult lifespan and a 5-year follow-up,CC0,doi:10.18112/openneuro.ds005385.v1.0.3,1.0
+357,ds005397,26,26,1,64,500,27.923140555555555,11.99 GB,12872404161,openneuro,ds005397,Healthy,Visual,Affect,eeg,Affordances of stairs,CC0,doi:10.18112/openneuro.ds005397.v1.0.4,0.0
+358,ds005398,185,185,1,128*,1000*,90.98912097222222,102.19 GB,109729579196,openneuro,ds005398,Epilepsy,Sleep,Clinical/Intervention,ieeg,"Open iEEG Dataset (Pediatric iEEG, Wayne State University and UCLA)",CC0,doi:10.18112/openneuro.ds005398.v1.1.1,1.0
+359,ds005403,32,32,1,66,10000,13.38265186111111,118.45 GB,127189601509,openneuro,ds005403,Unknown,Auditory,Motor,eeg,Delayed Auditory Feedback EEG/EGG,CC0,doi:10.18112/openneuro.ds005403.v1.0.1,1.0
+360,ds005406,29,29,1,64,1000,15.4524875,13.26 GB,14241904586,openneuro,ds005406,Unknown,Unknown,Unknown,eeg,EEG frequency tagging reveals the integration of dissimilar observed actions,CC0,doi:10.18112/openneuro.ds005406.v1.0.0,0.0
+361,ds005407,29,25,1,2,10000,56.87177694444444,37.85 GB,40639241863,openneuro,ds005407,Healthy,Auditory,Perception,eeg,The effect of speech masking on the subcortical response to speech,CC0,doi:10.18112/openneuro.ds005407.v1.0.1,
+362,ds005408,29,25,1,2,10000,56.87177694444444,15.29 GB,16418282216,openneuro,ds005408,Healthy,Auditory,Perception,eeg,The effect of speech masking on the subcortical response to speech,CC0,doi:10.18112/openneuro.ds005408.v1.0.0,
+363,ds005410,81,81,1,63,1000,22.97631888888889,19.76 GB,21213480734,openneuro,ds005410,Healthy,Visual,Affect,eeg,Semantic_conditioning,CC0,doi:10.18112/openneuro.ds005410.v1.0.1,1.0
+364,ds005411,193,47,1,120*,1000*,140.0236284722222,157.36 GB,168961242901,openneuro,ds005411,Epilepsy,Visual,Memory,ieeg,Free Recall of Word Lists with Repeated Items,CC0,doi:10.18112/openneuro.ds005411.v1.0.0,0.0
+365,ds005415,13,13,1,182*,1000*,4.21944125,7.46 GB,8015284412,openneuro,ds005415,Epilepsy,Multisensory,Perception,ieeg,Numbers,CC0,doi:10.18112/openneuro.ds005415.v1.0.0,1.0
+366,ds005416,23,23,1,64,1000,24.67972222222222,21.3 GB,22869324774,openneuro,ds005416,Healthy,Visual,Resting-state,eeg,Fatigue Characterization of EEG under Mixed Reality Stereo Vision,CC0,doi:10.18112/openneuro.ds005416.v1.0.1,0.0
+367,ds005420,72,37,2,20,500,5.411903888888888,372.11 MB,390188994,openneuro,ds005420,Unknown,Unknown,Unknown,eeg,Resting state EEG with closed eyes and open eyes in females from 60 to 80 years old,CC0,doi:10.18112/openneuro.ds005420.v1.0.0,0.0
+368,ds005429,61,15,3,64,2500*,14.390138722222222,16.47 GB,17684554701,openneuro,ds005429,Healthy,Auditory,Attention,eeg,"Auditory oddball comparison (Optimum-1, Learning-oddball, and the local–global paradigm)",CC0,doi:10.18112/openneuro.ds005429.v1.0.0,0.0
+369,ds005448,18,13,1,133*,2048,12.382256944444444,44.73 GB,48025611704,openneuro,ds005448,Epilepsy,Other,Clinical/Intervention,ieeg,STReEF,CC0,doi:10.18112/openneuro.ds005448.v1.0.0,
+370,ds005473,58,29,1,64,1000,14.631388888888887,6.18 GB,6637997774,openneuro,ds005473,Unknown,Unknown,Unknown,eeg,29 By BP,CC0,doi:10.18112/openneuro.ds005473.v1.0.0,
+371,ds005486,445,159,1,66,5000*,56.76204444444444,371.04 GB,398401151423,openneuro,ds005486,Unknown,Unknown,Unknown,eeg,PREDICT,CC0,doi:10.18112/openneuro.ds005486.v1.0.1,0.0
+372,ds005489,154,37,1,100*,500*,138.17323425954314,64.94 GB,69728763972,openneuro,ds005489,Unknown,Visual,Clinical/Intervention,ieeg,Free Recall with Open-Loop Stimulation at Encoding,CC0,doi:10.18112/openneuro.ds005489.v1.0.3,0.0
+373,ds005491,51,19,1,64*,500*,46.67650149705261,22.54 GB,24202629465,openneuro,ds005491,Unknown,Visual,Memory,ieeg,Categorized Free Recall with Open-Loop Stimulation at Encoding,CC0,doi:10.18112/openneuro.ds005491.v1.0.0,0.0
+374,ds005494,51,20,1,100*,500*,55.08165333333333,26.34 GB,28279607081,openneuro,ds005494,Unknown,Unknown,Unknown,ieeg,Cued Recall of Paired Associates with Open-Loop Stimulation at Encoding or Retrieval,CC0,doi:10.18112/openneuro.ds005494.v1.0.1,0.0
+375,ds005505,1342,136,10,129,500,117.5389038888889,103.11 GB,110708612638,openneuro,ds005505,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 1,CC-BY-SA 4.0,doi:10.18112/openneuro.ds005505.v1.0.1,1.0
+376,ds005506,1405,150,10,129,500,127.52424388888888,111.88 GB,120126392039,openneuro,ds005506,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 2,CC-BY-SA 4.0,doi:10.18112/openneuro.ds005506.v1.0.1,1.0
+377,ds005507,1812,184,10,129,500,158.8272261111111,139.37 GB,149646643076,openneuro,ds005507,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 3,CC-BY-SA 4.0,doi:10.18112/openneuro.ds005507.v1.0.1,1.0
+378,ds005508,3342,324,10,129,500,261.8067727777778,229.81 GB,246753616656,openneuro,ds005508,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 4,CC-BY-SA 4.0,doi:10.18112/openneuro.ds005508.v1.0.1,1.0
+379,ds005509,3326,330,10,129,500,255.34662,224.17 GB,240701002046,openneuro,ds005509,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 5,CC-BY-SA 4.0,doi:10.18112/openneuro.ds005509.v1.0.1,1.0
+380,ds005510,1227,135,10,129,500,103.45367166666666,90.8 GB,97492911148,openneuro,ds005510,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 6,CC-BY-SA 4.0,doi:10.18112/openneuro.ds005510.v1.0.1,1.0
+381,ds005512,2320,257,10,129,500,179.12267277777778,157.19 GB,168778412421,openneuro,ds005512,Development,Multisensory,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 8,CC-BY-SA 4.0,doi:10.18112/openneuro.ds005512.v1.0.1,2.0
+382,ds005514,2885,295,10,129,500,210.79156111111112,185.03 GB,198677619354,openneuro,ds005514,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 9,CC-BY-SA 4.0,doi:10.18112/openneuro.ds005514.v1.0.1,1.0
+383,ds005515,2516,533,8,129,500,183.12360166666667,160.55 GB,172385562881,openneuro,ds005515,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 10,CC-BY-SA 4.0,doi:10.18112/openneuro.ds005515.v1.0.1,
+384,ds005516,3397,430,8,129,500,250.45184833333332,219.15 GB,235310606952,openneuro,ds005516,Development,Visual,Clinical/Intervention,eeg,Healthy Brain Network (HBN) EEG - Release 11,CC-BY-SA 4.0,doi:10.18112/openneuro.ds005516.v1.0.1,
+385,ds005520,69,23,3,67,1000,48.870593611111104,43.91 GB,47150724861,openneuro,ds005520,Healthy,Visual,Other,eeg,Research data supporting 'EEG recording during playing MOBA game',CC0,doi:10.18112/openneuro.ds005520.v1.0.1,0.0
+386,ds005522,176,55,1,133*,1000*,145.237675247194,107.47 GB,115392336164,openneuro,ds005522,Unknown,Visual,Memory,ieeg,Spatial Navigation Memory of Object Locations,CC0,doi:10.18112/openneuro.ds005522.v1.0.0,0.0
+387,ds005523,102,21,1,166*,1000*,84.3298929568347,69.7 GB,74834541025,openneuro,ds005523,Surgery,Visual,Memory,ieeg,Spatial Memory of Object Locations with Open-Loop Stimulation at Encoding,CC0,doi:10.18112/openneuro.ds005523.v1.0.1,0.0
+388,ds005530,21,17,1,10,500,144.7749161111111,6.47 GB,6949640968,openneuro,ds005530,Healthy,Multisensory,Sleep,eeg,Depotentiation of emotional reactivity using TMR during REM sleep,CC0,doi:10.18112/openneuro.ds005530.v1.0.9,0.0
+389,ds005540,103,59,1,68,600*,167.10194444444446,47.31 GB,50796471315,openneuro,ds005540,Healthy,Visual,Affect,eeg,EmoEEG-MC: A Multi-Context Emotional EEG Dataset for Cross-Context Emotion Decoding,CC0,doi:10.18112/openneuro.ds005540.v1.0.7,0.0
+390,ds005545,336,106,1,128*,1000,117.62165555555556,39.96 GB,42905692557,openneuro,ds005545,Unknown,Auditory,Memory,ieeg,Auditory naming,CC0,doi:10.18112/openneuro.ds005545.v1.0.3,0.0
+391,ds005555,256,128,1,9*,256,2002.5916666666667,33.45 GB,35921406226,openneuro,ds005555,Unknown,Unknown,Unknown,eeg,The Bitbrain Open Access Sleep (BOAS) dataset,CC0,doi:10.18112/openneuro.ds005555.v1.1.1,0.0
+392,ds005557,58,16,1,110*,1000,51.07257555555555,34.69 GB,37243089880,openneuro,ds005557,Other,Visual,Memory,ieeg,Free Recall with Closed-Loop Stimulation at Encoding (Encoding Classifier),CC0,doi:10.18112/openneuro.ds005557.v1.0.0,0.0
+393,ds005558,22,7,1,126*,1000,17.006120555555555,12.19 GB,13091493612,openneuro,ds005558,Unknown,Visual,Memory,ieeg,Categorized Free Recall with Closed-Loop Stimulation at Encoding (Encoding Classifier),CC0,doi:10.18112/openneuro.ds005558.v1.0.0,0.0
+394,ds005565,24,24,1,32,500,11.435694444444444,2.62 GB,2816585202,openneuro,ds005565,Healthy,Visual,Memory,eeg,"Neural associations between fingerspelling, print, and signs: An ERP priming study with deaf readers",CC0,doi:10.18112/openneuro.ds005565.v1.0.3,1.0
+395,ds005571,45,24,2,66*,5000,28.21085,63.29 GB,67959727373,openneuro,ds005571,Unknown,Unknown,Unknown,eeg,Expectation of Conflict Stimuli,CC0,doi:10.18112/openneuro.ds005571.v1.0.1,1.0
+396,ds005574,9,9,1,178*,512*,4.499995524088542,3.24 GB,3483284760,openneuro,ds005574,Unknown,Auditory,Other,ieeg,"The ""Podcast"" ECoG dataset",CC0,doi:10.18112/openneuro.ds005574.v1.0.2,
+397,ds005586,23,23,1,63,1000,33.52867694444444,28.33 GB,30422094662,openneuro,ds005586,Healthy,Visual,Perception,eeg,Electroencephalographic responses to the number of objects in partially occluded and uncovered scenes,CC0,doi:10.18112/openneuro.ds005586.v2.0.0,1.0
+398,ds005594,16,16,1,66,1000,12.933862222222222,10.89 GB,11695588974,openneuro,ds005594,Unknown,Unknown,Unknown,eeg,Alphabetic Decision Task (Arial Light Font),CC0,doi:10.18112/openneuro.ds005594.v1.0.3,1.0
+399,ds005620,202,21,3,64*,5000,17.939717444444444,77.3 GB,83002662733,openneuro,ds005620,Healthy,Anesthesia,Clinical/Intervention,eeg,A repeated awakening study exploring the capacity of complexity measures to capture dreaming during propofol sedation,CC0,doi:10.18112/openneuro.ds005620.v1.0.0,0.0
+400,ds005624,35,24,1,74*,512*,11.40025417751736,13.75 GB,14768426442,openneuro,ds005624,Unknown,Unknown,Unknown,ieeg,Color Change Detection Task,CC0,doi:10.18112/openneuro.ds005624.v1.0.0,0.0
+401,ds005628,306,102,1,8,250,20.953197777777778,633.66 MB,664444547,openneuro,ds005628,Healthy,Multisensory,Attention,eeg,Dataset of Visual and Audiovisual Stimuli in Virtual Reality from the Edzna Archaeological Site,CC0,doi:10.18112/openneuro.ds005628.v1.0.0,
+402,ds005642,21,21,1,68,1024,18.59861111111111,13.82 GB,14838061051,openneuro,ds005642,Healthy,Visual,Perception,eeg,illusory-face-eeg,CC0,doi:10.18112/openneuro.ds005642.v1.0.1,
+403,ds005648,21,21,1,64,2048,11.576944444444443,15.53 GB,16672927073,openneuro,ds005648,Healthy,Visual,Perception,eeg,Mapping object space dimensions: new insights from temporal dynamics,CC0,doi:10.18112/openneuro.ds005648.v1.0.3,
+404,ds005662,80,80,1,65,2048,80.46722222222222,107.81 GB,115754787329,openneuro,ds005662,Healthy,Visual,Perception,eeg,"A comprehensive EEG dataset for investigating
+visual touch perception",CC0,doi:10.18112/openneuro.ds005662.v2.0.1,
+405,ds005670,2,2,1,186*,2000,0.24251,708.81 MB,743242149,openneuro,ds005670,Epilepsy,Resting State,Resting-state,ieeg,SEEG Resting State Recording,CC0,doi:10.18112/openneuro.ds005670.v1.0.0,0.0
+406,ds005672,3,3,1,69*,1000,4.5855,4.23 GB,4545640816,openneuro,ds005672,Unknown,Visual,Memory,eeg,PerceiveImagine,CC0,doi:10.18112/openneuro.ds005672.v1.0.0,2.0
+407,ds005688,89,20,5,5*,10000*,1.731666666666667,8.42 GB,9036020603,openneuro,ds005688,Healthy,Visual,Clinical/Intervention,eeg,visStim,CC0,doi:10.18112/openneuro.ds005688.v1.0.1,0.0
+408,ds005691,8,8,1,7*,2500,5.919116666666667,723.04 MB,758159062,openneuro,ds005691,Other,Multisensory,Attention,ieeg,SpinalExpect_Invasive,CC0,doi:10.18112/openneuro.ds005691.v1.0.0,0.0
+409,ds005692,59,30,1,25,5000,112.20623327777776,92.81 GB,99649236711,openneuro,ds005692,Healthy,Multisensory,Attention,eeg,SpinalExpect_NonInvasive,CC0,doi:10.18112/openneuro.ds005692.v1.0.0,0.0
+410,ds005697,51,51,1,65*,1000,77.68925,66.55 GB,71461601517,openneuro,ds005697,Healthy,Visual,Memory,eeg,PerceiveImagine,CC0,doi:10.18112/openneuro.ds005697.v1.0.2,3.0
+411,ds005752,1055,123,10,305*,1200*,102.62917361111111,662.67 GB,711534899143,openneuro,ds005752,Healthy,Multisensory,Other,meg,The NIMH Healthy Research Volunteer Dataset,CC0,doi:10.18112/openneuro.ds005752.v2.1.0,
+412,ds005776,46,11,5,102,50,,1.2 GB,1286928698,openneuro,ds005776,Unknown,Unknown,Unknown,fnirs,Electrical_Thermal_FingerTapping_2015,CC0,doi:10.18112/openneuro.ds005776.v1.0.1,
+413,ds005777,113,14,2,66,25,,864.77 MB,906782275,openneuro,ds005777,Unknown,Unknown,Unknown,fnirs,Electrical_Morphine_Placebo_2018,CC0,doi:10.18112/openneuro.ds005777.v1.0.1,
+414,ds005779,250,19,16,67*,5000,19.778788944444443,88.67 GB,95206991257,openneuro,ds005779,Healthy,Other,Clinical/Intervention,eeg,Real-time personalized brain state-dependent TMS in healthy adults,CC0,doi:10.18112/openneuro.ds005779.v1.0.1,
+415,ds005795,39,34,2,72,500,7.933313888888889,6.41 GB,6887944978,openneuro,ds005795,Healthy,Auditory,Learning,eeg,MULTI-CLARID (Multimodal Category Learning and Resting-state Imaging Data),CC0,doi:10.18112/openneuro.ds005795.v1.0.0,
+416,ds005810,305,31,2,409*,1200,25.52289236111111,178.61 GB,191777285350,openneuro,ds005810,Healthy,Visual,Perception,meg,NOD-MEG,CC0,doi:10.18112/openneuro.ds005810.v2.0.0,
+417,ds005811,448,19,1,64*,500*,23.7022,16.24 GB,17432462486,openneuro,ds005811,Healthy,Visual,Perception,eeg,NOD-EEG,CC0,doi:10.18112/openneuro.ds005811.v1.0.9,
+418,ds005815,103,20,3,31,1000,3.9896991666666666,7.6 GB,8155837338,openneuro,ds005815,Healthy,Multisensory,Perception,eeg,"A Human EEG
+Dataset for Multisensory Perception and Mental
+Imagery",CC0,doi:10.18112/openneuro.ds005815.v2.0.1,
+419,ds005841,288,48,6,[],512,21.566111111111113,7.35 GB,7889278693,openneuro,ds005841,Healthy,Visual,Perception,eeg,EEG Experiment measuring ERPs in VR,CC0,doi:10.18112/openneuro.ds005841.v1.0.0,
+420,ds005857,110,29,1,137,2048,101.04776285807291,284.38 GB,305355180585,openneuro,ds005857,Unknown,Unknown,Unknown,eeg,ltpDelayRepFRReadOnly,CC0,doi:10.18112/openneuro.ds005857.v1.0.0,
+421,ds005863,357,127,4,30,500,50.88856666666666,10.59 GB,11371789699,openneuro,ds005863,Healthy,Multisensory,Other,eeg,Cognitive Electrophysiology in Socioeconomic Context in Adulthood,CC0,doi:10.18112/openneuro.ds005863.v2.0.0,
+422,ds005866,60,60,1,32,500,15.976248888888888,3.57 GB,3837193012,openneuro,ds005866,Healthy,Visual,Attention,eeg,Flankers-NEAR,CC0,doi:10.18112/openneuro.ds005866.v1.0.1,
+423,ds005868,48,48,1,32,500,13.093546111111111,2.93 GB,3146044984,openneuro,ds005868,Healthy,Visual,Attention,eeg,Flankers-FAR,CC0,doi:10.18112/openneuro.ds005868.v1.0.1,
+424,ds005872,1,1,1,129,500,0.0898511111111111,39.94 MB,41874965,openneuro,ds005872,Healthy,Visual,Attention,eeg,EEGEyeNet Dataset,CC0,doi:10.18112/openneuro.ds005872.v1.0.0,
+425,ds005873,5654,125,1,2*,256,22897.171388888888,44.36 GB,47635473156,openneuro,ds005873,Epilepsy,Other,Clinical/Intervention,"eeg, emg",SeizeIT2,CC0,doi:10.18112/openneuro.ds005873.v1.1.0,
+426,ds005876,29,29,1,32,1000,16.017188611111113,7.13 GB,7654276844,openneuro,ds005876,Healthy,Auditory,Memory,eeg,Song Familiarity,CC0,doi:10.18112/openneuro.ds005876.v1.0.1,
+427,ds005907,53,53,1,58*,500,14.171917222222223,5.65 GB,6062770483,openneuro,ds005907,Alcohol,Visual,Learning,eeg,EEG: RL Task (3-Armed Bandit) with alcohol cues in hazardous drinkers and ctls,CC0,doi:10.18112/openneuro.ds005907.v1.0.0,
+428,ds005929,7,7,1,28,50,,68.52 MB,71847616,openneuro,ds005929,Unknown,Unknown,Unknown,fnirs,Motion-Yucel2014,CC0,doi:10.18112/openneuro.ds005929.v1.0.1,
+429,ds005930,36,12,1,200,8,,304.24 MB,319015113,openneuro,ds005930,Unknown,Unknown,Unknown,fnirs,BallSqueezingHD_Gao2023,CC0,doi:10.18112/openneuro.ds005930.v1.0.1,
+430,ds005931,16,8,1,128*,1000,1.8886666666666667,817.66 MB,857380965,openneuro,ds005931,Epilepsy,Visual,Motor,ieeg,Visuomotor_task,CC0,doi:10.18112/openneuro.ds005931.v1.0.0,
+431,ds005932,29,29,1,32,500,9.946916666666668,2.28 GB,2446718661,openneuro,ds005932,Healthy,Visual,Other,eeg,PWIe,CC0,doi:10.18112/openneuro.ds005932.v1.0.0,
+432,ds005935,64,21,1,120,25,,738.59 MB,774469713,openneuro,ds005935,Unknown,Unknown,Unknown,fnirs,Mirror Neuron Study,CC0,doi:10.18112/openneuro.ds005935.v1.0.0,
+433,ds005946,39,39,1,60,1000,18.3456,14.83 GB,15923179540,openneuro,ds005946,Healthy,Visual,Perception,eeg,ERC_CoG PROMENADE - WP2 - MetaImagery (Metaphor and Mental Imagery),CC0,doi:10.18112/openneuro.ds005946.v1.0.1,
+434,ds005953,3,2,1,96*,1525*,0.1946988794917,577.3 MB,605346653,openneuro,ds005953,Surgery,Visual,Perception,ieeg,iEEG_visual,CC0,doi:10.18112/openneuro.ds005953.v1.0.0,
+435,ds005960,41,41,1,63,1000,66.90505555555556,57.69 GB,61945670760,openneuro,ds005960,Healthy,Visual,Attention,eeg,General Info: inst-comp-eeg,CC0,doi:10.18112/openneuro.ds005960.v1.0.0,
+436,ds005963,40,10,1,136,8,6.489715555555555,233.36 MB,244698664,openneuro,ds005963,Unknown,Unknown,Unknown,fnirs,FRESH Motor Dataset,CC0,doi:10.18112/openneuro.ds005963.v1.0.0,
+437,ds005964,17,17,1,66,5,6.14368,62.43 MB,65461433,openneuro,ds005964,Unknown,Unknown,Unknown,fnirs,FRESH Audio Dataset,CC0,doi:10.18112/openneuro.ds005964.v1.0.0,
+438,ds006012,193,21,2,336*,1000,15.586618611111112,71.07 GB,76309397809,openneuro,ds006012,Healthy,Visual,Perception,meg,A geometric shape regularity effect in the human brain: MEG dataset,CC0,doi:10.18112/openneuro.ds006012.v1.0.1,
+439,ds006018,357,127,4,30,500,50.88856666666666,10.59 GB,11372008786,openneuro,ds006018,Healthy,Multisensory,Other,eeg,Cognitive Electrophysiology in Socioeconomic Context in Adulthood: An EEG dataset,CC0,doi:10.18112/openneuro.ds006018.v1.2.2,
+440,ds006033,5,3,1,66,5000,2.1883706111111114,15.32 GB,16449271220,openneuro,ds006033,Healthy,Visual,Other,eeg,Synchronous EEG and fMRI dataset on inner speech,CC0,doi:10.18112/openneuro.ds006033.v1.0.1,
+441,ds006035,15,5,1,388*,1004,1.1343288512795158,3.07 GB,3295034095,openneuro,ds006035,Unknown,Tactile,Motor,meg,somatomotor,CC0,doi:10.18112/openneuro.ds006035.v1.0.0,
+442,ds006036,88,88,1,19,500,7.716666666666667,1.05 GB,1125336677,openneuro,ds006036,Dementia,Visual,Clinical/Intervention,eeg,"A complementary dataset of open-eyes EEG recordings in a photo-stimulation setting from: Alzheimer's disease, Frontotemporal dementia and Healthy subjects",CC0,doi:10.18112/openneuro.ds006036.v1.0.6,
+443,ds006040,392,28,10,64,5000,,172.5 GB,185217929633,openneuro,ds006040,Healthy,Visual,Other,eeg,Sustained Attention Task (gradCPT) Dataset using simultaneous EEG-fMRI and DTI,CC0,doi:10.18112/openneuro.ds006040.v1.0.2,
+444,ds006065,45,7,10,168*,500,10.699191111111112,9.63 GB,10343281171,openneuro,ds006065,Unknown,Other,Clinical/Intervention,ieeg,TSS_iEEG,CC0,doi:10.18112/openneuro.ds006065.v1.0.0,
+445,ds006095,1182,71,9,284*,500,61.09685555555556,129.84 GB,139411715731,openneuro,ds006095,Healthy,Motor,Motor,eeg,Mind in Motion Older Adults Walking Over Uneven Terrain,CC0,doi:10.18112/openneuro.ds006095.v1.0.0,
+446,ds006104,56,24,3,61*,2000,50.75694444444444,42.96 GB,46128446170,openneuro,ds006104,Healthy,Auditory,Perception,eeg,EEG dataset for speech decoding,CC0,doi:10.18112/openneuro.ds006104.v1.0.1,
+447,ds006107,167,166,1,128*,1000,16.50111111111111,11.9 GB,12778446176,openneuro,ds006107,Unknown,Unknown,Unknown,ieeg,iEEG_Neural_spatial_volatility,CC0,doi:10.18112/openneuro.ds006107.v1.0.0,
+448,ds006126,90,5,6,3,5000,10.730372611111113,1.08 GB,1159689297,openneuro,ds006126,Healthy,Motor,Motor,eeg,TDCS Modulation of Visual Cortex in Motor Imagery,CC0,doi:10.18112/openneuro.ds006126.v1.0.0,
+449,ds006136,14,13,1,8*,1000,25.273888888888887,285.89 MB,299778229,openneuro,ds006136,Epilepsy,Visual,Memory,ieeg,OWM-Dataset,CC0,doi:10.18112/openneuro.ds006136.v1.0.1,
+450,ds006142,27,27,1,65,2048,26.29589721679687,24.28 GB,26073650133,openneuro,ds006142,Healthy,Visual,Memory,eeg,Essex EEG Movie Memory dataset,CC0,doi:10.18112/openneuro.ds006142.v1.0.2,
+451,ds006159,61,61,1,73,1024,14.299166666666666,14.35 GB,15404183606,openneuro,ds006159,Unknown,Unknown,Unknown,eeg,Implicit Learning EEG (BioSemi),CC0,doi:10.18112/openneuro.ds006159.v1.0.0,
+452,ds006171,104,36,3,144,1024,40.88305555555556,67.83 GB,72833078851,openneuro,ds006171,Unknown,Unknown,Unknown,eeg,"EEG data during three near-threshold visual detection tasks: a no-cue task, a noninformative cue task (50% validity), and an informative cue task (100% validity)",CC0,doi:10.18112/openneuro.ds006171.v1.0.0,
+453,ds006222,70,69,1,40,512,52.80083333333334,14.74 GB,15825503728,openneuro,ds006222,Healthy,Multisensory,Attention,eeg,MultisensoryFlickerHealthyYoungAdults_AllSubjectsRawData,CC0,doi:10.18112/openneuro.ds006222.v1.0.1,
+454,ds006233,347,108,1,128*,1000,,17.3 GB,18579703387,openneuro,ds006233,Surgery,Visual,Other,ieeg,Picture naming,CC0,doi:10.18112/openneuro.ds006233.v1.0.0,
+455,ds006234,378,119,1,128*,1000,128.09192777777778,43.93 GB,47167316634,openneuro,ds006234,Unknown,Auditory,Other,ieeg,Auditory naming,CC0,doi:10.18112/openneuro.ds006234.v1.0.0,
+456,ds006253,201,23,4,[],[],,0B,0,openneuro,ds006253,Epilepsy,Visual,Decision-making,ieeg,MetaRDK,CC0,doi:10.18112/openneuro.ds006253.v1.0.3,
+457,ds006260,366,76,1,32,256,23.128793402777777,2.71 GB,2908201731,openneuro,ds006260,Development,Visual,Clinical/Intervention,eeg,Dataset of psychophysiological data from children with learning difficulties who strengthen reading and math skills through assistive technology,CC0,doi:10.18112/openneuro.ds006260.v1.0.1,
+458,ds006269,40,24,2,33,1000,240.0,106.67 GB,114536455305,openneuro,ds006269,Other,Resting State,Resting-state,eeg,Tethered EEG Recordings in Syngap1 rats,CC0,doi:10.18112/openneuro.ds006269.v1.0.0,
+459,ds006317,64,2,2,127,1000,62.12170444444445,52.92 GB,56822054258,openneuro,ds006317,Healthy,Unknown,Motor,eeg,Chisco-2.0,CC0,doi:10.18112/openneuro.ds006317.v1.1.0,
+460,ds006334,128,30,1,331*,1000,36.74722222222222,166.2 GB,178454548010,openneuro,ds006334,Unknown,Multisensory,Memory,meg,Neocortical and Hippocampal Theta Oscillations Track Audiovisual Integration and Replay of Speech Memories,CC0,doi:10.18112/openneuro.ds006334.v1.0.0,
+461,ds006366,148,92,1,3*,128,2163.2877777777776,6.08 GB,6526725895,openneuro,ds006366,Healthy,Sleep,Sleep,eeg,Mouse Sleep Staging Validation dataset (MSSV),CC0,doi:10.18112/openneuro.ds006366.v1.0.1,
+462,ds006367,52,52,1,30,1000,68.17161055555555,27.76 GB,29810755955,openneuro,ds006367,Healthy,Visual,Memory,eeg,Memory Reactivation Levels Remain Unaffected by Anticipated Interference,CC0,doi:10.18112/openneuro.ds006367.v1.0.1,
+463,ds006370,56,56,1,30,1000,95.32295833333336,40.08 GB,43035741246,openneuro,ds006370,Healthy,Visual,Memory,eeg,Memory Reactivation Levels Remain Unaffected by Anticipated Interference Experiment 2 Dataset,CC0,doi:10.18112/openneuro.ds006370.v1.0.1,
+464,ds006374,358,36,2,35,2000,31.611037916666668,31.12 GB,33413497382,openneuro,ds006374,Unknown,Unknown,Unknown,eeg,Expectation effects on repetition suppression in nociception,CC0,doi:10.18112/openneuro.ds006374.v1.0.0,
+465,ds006377,690,115,6,52,10,,1.38 GB,1480974514,openneuro,ds006377,Unknown,Unknown,Unknown,fnirs,InclusionStudy,CC0,doi:10.18112/openneuro.ds006377.v1.0.2,
+466,ds006386,180,30,1,59,1000,57.99939444444445,22.97 GB,24666877908,openneuro,ds006386,Healthy,Motor,Other,eeg,PhysioMotion_Artifact,CC0,doi:10.18112/openneuro.ds006386.v1.0.1,
+467,ds006392,1,1,1,166,512,0.2403428819444444,32.05 MB,33603727,openneuro,ds006392,Unknown,Visual,Clinical/Intervention,ieeg,HED schema library for SCORE annotations example,CC0,doi:10.18112/openneuro.ds006392.v1.0.1,
+468,ds006394,60,33,2,16,125,,534.84 MB,560818153,openneuro,ds006394,Healthy,Multisensory,Attention,eeg,Electrophysiological markers of surprise-induced failures of visual and auditory awareness,CC0,doi:10.18112/openneuro.ds006394.v1.0.3,
+469,ds006434,118,66,5,32*,10000*,263.13554426111114,103.05 GB,110646361086,openneuro,ds006434,Healthy,Auditory,Attention,eeg,The auditory brainstem response to natural speech is not affected by selective attention,CC0,doi:10.18112/openneuro.ds006434.v1.2.0,
+470,ds006437,63,9,5,64,256,16.798037109375,4.31 GB,4631684039,openneuro,ds006437,Healthy,Auditory,Clinical/Intervention,eeg,LIGHT Hypnotherapy,CC0,doi:10.18112/openneuro.ds006437.v1.1.0,
+471,ds006446,29,29,1,65,2048,18.029718288845487,16.1 GB,17285482171,openneuro,ds006446,Healthy,Unknown,Decision-making,eeg,Cueing the future to reduce temporal discounting,CC0,doi:10.18112/openneuro.ds006446.v1.0.0,
+472,ds006459,17,17,1,120,24,,168.78 MB,176977615,openneuro,ds006459,Unknown,Unknown,Unknown,fnirs,High-DensityvSparsefNIRS_WordColorStroop_Sparse_Anderson_2025,CC0,doi:10.18112/openneuro.ds006459.v1.0.0,
+473,ds006460,17,17,1,428,17,,459.74 MB,482075463,openneuro,ds006460,Unknown,Unknown,Unknown,fnirs,High-DensityvSparsefNIRS_WordColorStroop_HD_Anderson_2025,CC0,doi:10.18112/openneuro.ds006460.v1.0.0,
+474,ds006465,80,20,1,32*,500,36.199955555555555,8.17 GB,8768486080,openneuro,ds006465,Healthy,Visual,Motor,eeg,"3M-CPSEED：An EEG-based Dataset for Chinese Pinyin Production in Overt, Silent-intended, and Imagined Speech",CC0,doi:10.18112/openneuro.ds006465.v2.0.0,
+475,ds006466,1257,66,6,65,1000,131.76201944444446,117.47 GB,126131448388,openneuro,ds006466,Healthy,Auditory,Attention,eeg,HeartBEAM: Older Adult Resting State and Auditory Oddball Task EEG Data,CC0,doi:10.18112/openneuro.ds006466.v1.0.1,
+476,ds006468,189,24,4,341*,1000,21.73856527777778,101.21 GB,108674320301,openneuro,ds006468,Healthy,Auditory,Perception,meg,"MEG-SCANS - A comprehensive magnetoencephalography speech dataset with Stories, Chirps And Noisy Sentences.",CC0,doi:10.18112/openneuro.ds006468.v1.1.2,
+477,ds006480,68,68,1,65,1000,71.66592555555556,64.06 GB,68786099468,openneuro,ds006480,Healthy,Auditory,Attention,eeg,Young Adult Resting State and Auditory Oddball Task EEG Data,CC0,doi:10.18112/openneuro.ds006480.v1.0.1,
+478,ds006502,380,31,4,307*,600,37.88333333333333,95.75 GB,102812849034,openneuro,ds006502,Healthy,Visual,Learning,meg,Skill learning and consolidation in healthy humans,CC0,doi:10.18112/openneuro.ds006502.v1.0.0,
+479,ds006519,35,21,1,35*,4096*,0.2686111111111111,1.04 GB,1118742821,openneuro,ds006519,Epilepsy,Other,Clinical/Intervention,ieeg,Dataset of intracranial EEG during cortical stimulations evoking negative motor responses,CC0,doi:10.18112/openneuro.ds006519.v1.0.0,
+480,ds006525,34,34,1,128*,250,,3.0 GB,3223158965,openneuro,ds006525,Unknown,Resting State,Resting-state,eeg,Resting EEG,CC0,doi:10.18112/openneuro.ds006525.v1.0.0,
+481,ds006545,98,49,1,6180*,3,,46.7 GB,50147809917,openneuro,ds006545,Unknown,Unknown,Unknown,fnirs,Reliability-Dubois2024,CC0,doi:10.18112/openneuro.ds006545.v1.0.0,
+482,ds006547,31,31,1,64,500,39.21989444444444,17.62 GB,18921502382,openneuro,ds006547,Unknown,Visual,Perception,eeg,Visual EEG Study (BrainVision → BIDS),CC0,doi:10.18112/openneuro.ds006547.v1.0.0,
+483,ds006554,47,47,1,64,500,28.228528333333333,12.12 GB,13014195680,openneuro,ds006554,Unknown,Unknown,Unknown,eeg,Social Observation EEG raw data,CC0,doi:10.18112/openneuro.ds006554.v1.0.0,
+484,ds006563,12,12,1,64,500,12.639361666666666,5.63 GB,6045373165,openneuro,ds006563,Healthy,Visual,Attention,eeg,Dimension-based attention modulates early visual processing,CC0,doi:10.18112/openneuro.ds006563.v1.0.0,
+485,ds006576,57,57,1,73,512,97.67361111111111,553.89 GB,594736641777,openneuro,ds006576,Healthy,Sleep,Sleep,eeg,The role of REM sleep in neural differentiation of memories in the hippocampus,CC0,doi:10.18112/openneuro.ds006576.v1.0.3,
+486,ds006593,21,21,1,19,300,5.610982407407407,441.94 MB,463412434,openneuro,ds006593,Healthy,Visual,Attention,eeg,cBCI Matrix Multimodal Dataset,CC0,doi:10.18112/openneuro.ds006593.v1.0.0,
+487,ds006629,38,19,2,339,250,,11.23 GB,12055724574,openneuro,ds006629,Healthy,Auditory,Perception,meg,SINGSING,CC0,doi:10.18112/openneuro.ds006629.v1.0.1,
+488,ds006647,4,4,1,70,512,8.681111111111111,4.29 GB,4610198011,openneuro,ds006647,Healthy,Visual,Affect,eeg,Poetry Assessment EEG Dataset 2,CC0,doi:10.18112/openneuro.ds006647.v1.0.1,
+489,ds006648,47,47,1,70,512,91.80333333333331,45.4 GB,48749259066,openneuro,ds006648,Healthy,Visual,Affect,eeg,Poetry Assessment EEG Dataset 1,CC0,doi:10.18112/openneuro.ds006648.v1.0.0,
+490,ds006673,67,17,2,2440*,[],,7.78 GB,8349792794,openneuro,ds006673,Unknown,Unknown,Unknown,fnirs,ball_squeeze_Carlton_2025,CC0,doi:10.18112/openneuro.ds006673.v1.0.2,
+491,ds006695,19,19,1,3,500,164.257975,9.36 GB,10052862715,openneuro,ds006695,Unknown,Sleep,Sleep,eeg,Validation of Sleep Staging with Forehead EEG Patch,CC0,doi:10.18112/openneuro.ds006695.v1.0.2,
+492,ds006720,246,24,3,328*,1000*,30.722993750000004,136.45 GB,146513556741,openneuro,ds006720,Healthy,Auditory,Memory,meg,Alpha power indexes working memory load for durations,CC0,doi:10.18112/openneuro.ds006720.v1.0.0,
+493,ds006735,27,27,1,36*,10000,38.84182222222222,175.87 GB,188843790172,openneuro,ds006735,Healthy,Auditory,Perception,eeg,Chimeric music reveals an interaction of pitch and time in electrophysiological signatures of music encoding,CC0,doi:10.18112/openneuro.ds006735.v2.0.0,
+494,ds006761,31,31,1,64,2048,25.621111111111112,78.0 GB,83755152274,openneuro,ds006761,Healthy,Visual,Decision-making,eeg,Neural decoding of competitive decision-making in Rock-Paper-Scissors,CC0,doi:10.18112/openneuro.ds006761.v1.0.0,
+495,ds006768,210,30,1,64,1000,14.466388888888888,6.52 GB,7002555913,openneuro,ds006768,Healthy,Visual,Attention,eeg,Multiple Object Monitoring (EEG),CC0,doi:10.18112/openneuro.ds006768.v1.1.0,
+496,ds006801,42,21,1,31,500,6.335461111111111,1.32 GB,1414488873,openneuro,ds006801,Healthy,Resting State,Learning,eeg,Resting-state EEG before and after different study methods,CC0,doi:10.18112/openneuro.ds006801.v1.0.0,
+497,ds006802,24,24,1,64,2048,23.414166666666667,62.23 GB,66817006188,openneuro,ds006802,Healthy,Unknown,Learning,eeg,Collaborative rule learning promotes interbrain information alignment,CC0,doi:10.18112/openneuro.ds006802.v1.0.0,
+498,ds006803,126,63,1,8,250,45.946035555555554,1.39 GB,1497259364,openneuro,ds006803,Healthy,Visual,Learning,eeg,NeuroTechs Dataset for Stem Skills,CC0,doi:10.18112/openneuro.ds006803.v1.1.1,
+499,ds006817,34,34,1,65,1024,21.68111111111111,9.69 GB,10400423631,openneuro,ds006817,Unknown,Unknown,Unknown,eeg,Visual Attribute-Specific Contextual Trajectory Paradigm 2.0,CC0,doi:10.18112/openneuro.ds006817.v1.0.0,
+500,ds006839,144,36,4,29,1000,26.62208888888889,10.36 GB,11119141416,openneuro,ds006839,Healthy,Multisensory,Attention,eeg,EEG recordings during sham neurofeedback in virtual reality,CC0,doi:10.18112/openneuro.ds006839.v1.0.0,
+501,ds006840,128,15,1,29*,1024,14.781475694444444,5.99 GB,6435718408,openneuro,ds006840,Unknown,Unknown,Unknown,eeg,IACKD: Intention Action Conflict EEG-Hand Kinematics Dataset,CC0,doi:10.18112/openneuro.ds006840.v1.0.0,
+502,ds006848,52,30,2,65,1000,47.409621666666666,41.37 GB,44416584256,openneuro,ds006848,Healthy,Visual,Memory,eeg,"AlphaDirection1: EEG, ECG, PPG in the resting state and working memory for sequentially and simultaneously presented digits",CC0,doi:10.18112/openneuro.ds006848.v1.0.0,
+503,ds006850,126,63,1,66,500,78.82088222222221,34.68 GB,37239047888,openneuro,ds006850,Healthy,Visual,Affect,eeg,Urban Appraisal: Physiological Recording during Rating of Different Urban Environments,CC0,doi:10.18112/openneuro.ds006850.v1.0.0,
+504,ds006861,239,120,1,37,1000,99.5760275,52.13 GB,55976306491,openneuro,ds006861,Healthy,Visual,Affect,eeg,Targeted Neuromodulation of the Left Dorsolateral Prefrontal Cortex Alleviates Altered Affective Response Evaluation in Lonely Individuals,CC0,doi:10.18112/openneuro.ds006861.v1.0.2,
+505,ds006866,148,148,1,69,1000,123.35075777777776,116.24 GB,124810279277,openneuro,ds006866,Healthy,Visual,Affect,eeg,Discrepancy between self-report and neurophysiological markers of socio-affective responses in lonely individuals,CC0,doi:10.18112/openneuro.ds006866.v1.0.0,
+506,ds006890,870,2,5,50*,1000,105.82138916666666,41.17 GB,44207054000,openneuro,ds006890,Healthy,Multisensory,Motor,ieeg,Longitudinal Multitask Wireless ECoG Data from Two Fully Implanted Macaca fuscata,CC0,doi:10.18112/openneuro.ds006890.v1.0.0,
+507,ds006902,42,42,1,112,7,27.677904833333333,5.51 GB,5914166447,openneuro,ds006902,Healthy,Motor,Perception,fnirs,Profound neuronal differences during Exercise-Induced Hypoalgesia between athletes and non-athletes revealed by functional near-infrared spectroscopy,CC0,doi:10.18112/openneuro.ds006902.v1.1.1,
+508,ds006903,67,17,2,1134*,4*,,5.43 GB,5826262353,openneuro,ds006903,Unknown,Unknown,Unknown,fnirs,ball_squeeze_2025,CC0,doi:10.18112/openneuro.ds006903.v1.0.0,
+509,ds006910,384,121,1,128*,1000,130.07328611111112,44.6 GB,47891802796,openneuro,ds006910,Unknown,Auditory,Other,ieeg,Auditory Naming EC,CC0,doi:10.18112/openneuro.ds006910.v1.0.1,
+510,ds006914,353,110,1,128*,1000,0.7271305555555556,17.55 GB,18843484223,openneuro,ds006914,Epilepsy,Visual,Other,ieeg,Visual Naming EC,CC0,doi:10.18112/openneuro.ds006914.v1.0.3,
+511,ds006921,152,38,2,128*,2400,16.961872800925924,64.42 GB,69166826012,openneuro,ds006921,Other,Resting State,Clinical/Intervention,eeg,High Density Resting State EEG of Phantom Limb Pain and Controls,CC0,doi:10.18112/openneuro.ds006921.v1.1.1,
+512,ds006923,280,140,1,128,128,37.333333333333336,8.09 GB,8691122065,openneuro,ds006923,Other,Resting State,Clinical/Intervention,eeg,Dataset of Electroencephalograms of Juvenile Offenders,CC0,doi:10.18112/openneuro.ds006923.v1.0.0,
+513,ds006940,935,7,15,64,100,34.022077777777774,3.62 GB,3883627381,openneuro,ds006940,Healthy,Motor,Motor,eeg,Dataset: EEG-Controlled Exoskeleton for Walking and Standing - A Longitudinal Study of Healthy Individuals,CC0,doi:10.18112/openneuro.ds006940.v1.0.0,
+514,ds006945,14,5,3,64,5000,2.110611111111111,5.37 GB,5761229857,openneuro,ds006945,Healthy,Visual,Motor,eeg,Dataset: T1-Weighted Structural MRI and fMRI of Participants Viewing Self-Avatar Exoskeleton Walking (11 SWS Cycles),CC0,doi:10.18112/openneuro.ds006945.v1.2.1,
+515,ds006963,32,32,1,64,1000,85.26408194444444,52.8 GB,56696991879,openneuro,ds006963,Healthy,Visual,Memory,eeg,Motor Control Processes Moderate Visual Working Memory Gating Dataset,CC0,doi:10.18112/openneuro.ds006963.v1.0.0,
+516,ds006979,56,53,3,69*,512*,148.12,38.55 GB,41389026706,openneuro,ds006979,Healthy,Visual,Memory,eeg,Examining Perceptual Grouping on Stages of Processing in Visual Working Memory: An ERP Study,CC0,doi:10.18112/openneuro.ds006979.v1.0.1,
+517,ds007006,50,10,5,64,256,3.606944444444444,918.75 MB,963375182,openneuro,ds007006,Healthy,Multisensory,Affect,eeg,VR-Compassion Cultivation Training,CC0,doi:10.18112/openneuro.ds007006.v1.0.0,
+518,ds007020,94,94,1,63*,500,4.106407222222223,1.74 GB,1870056562,openneuro,ds007020,Parkinson's,Resting State,Clinical/Intervention,eeg,EEG Mortality Dataset in Parkinson's Disease,CC0,doi:10.18112/openneuro.ds007020.v1.0.0,
+519,ds007028,3,3,1,64,20000,0.8074388888888889,13.86 GB,14882843764,openneuro,ds007028,Other,Auditory,Perception,eeg,Auditory Cortex Macaque Monkey DISC Data,CC0,doi:10.18112/openneuro.ds007028.v1.0.0,
+520,ds007052,288,288,1,32,500,40.00969111111111,8.98 GB,9636979355,openneuro,ds007052,Healthy,Visual,Memory,eeg,PURSUE N400 Word Processing,CC0,doi:10.18112/openneuro.ds007052.v1.1.2,
+521,ds007056,286,286,1,32,500,34.86793055555555,7.84 GB,8413923956,openneuro,ds007056,Healthy,Visual,Attention,eeg,PURSUE P300 Visual Oddball,CC0,doi:10.18112/openneuro.ds007056.v1.1.1,
+522,ds007069,281,281,1,32,500,54.90152944444444,12.42 GB,13336113822,openneuro,ds007069,Healthy,Auditory,Perception,eeg,PURSUE MMN Auditory Oddball,CC0,doi:10.18112/openneuro.ds007069.v1.0.0,
+523,ds007081,41,41,1,32,1000,26.319111111111113,11.3 GB,12129532986,openneuro,ds007081,Healthy,Visual,Memory,eeg,"Passive but accessible:  Studied information is not actively stored in working memory, yet attended regardless of anticipated load",CC0,doi:10.18112/openneuro.ds007081.v1.0.0,
+524,ds007095,6019,8,1,2,200,154.5963888888889,497.76 MB,521941815,openneuro,ds007095,Epilepsy,Other,Clinical/Intervention,ieeg,RNS_Epilepsy-iBIDS,CC0,doi:10.18112/openneuro.ds007095.v1.0.0,
+525,ds007096,292,292,1,32,500,51.75700166666667,11.64 GB,12503279073,openneuro,ds007096,Healthy,Visual,Perception,eeg,PURSUE N170 Face Perception,CC0,doi:10.18112/openneuro.ds007096.v1.0.0,
+526,ds007118,82,65,1,128*,1000,44.215,33.82 GB,36317646610,openneuro,ds007118,,Sleep,Sleep,ieeg,iEEG_comprehensive_HFA_model_part1,CC0,doi:10.18112/openneuro.ds007118.v1.0.0,
+527,ds007119,106,103,1,128*,1000,41.775,32.58 GB,34981740938,openneuro,ds007119,,Sleep,Sleep,ieeg,iEEG_comprehensive_HFA_model_part3,CC0,doi:10.18112/openneuro.ds007119.v1.0.0,
+528,ds007120,70,65,1,128*,1000,41.863055555555555,33.01 GB,35448518496,openneuro,ds007120,Epilepsy,Sleep,Sleep,ieeg,iEEG_comprehensive_HFA_model_part2,CC0,doi:10.18112/openneuro.ds007120.v1.0.0,
+529,ds007137,294,294,1,32,500,54.44088055555556,12.24 GB,13143663368,openneuro,ds007137,Healthy,Visual,Attention,eeg,PURSUE N2pc Visual Search,CC0,doi:10.18112/openneuro.ds007137.v1.0.0,
+530,ds007139,292,292,1,32,500,64.58555888888888,14.53 GB,15598996691,openneuro,ds007139,Healthy,Visual,Attention,eeg,PURSUE LRP/ERN Flanker,CC0,doi:10.18112/openneuro.ds007139.v1.0.0,
+531,ds007162,69,34,1,63,1000,71.81638055555555,60.85 GB,65339062772,openneuro,ds007162,Healthy,Visual,Perception,eeg,Adaptive recruitment of cortex-wide recurrence for visual object recognition (EEG),CC0,doi:10.18112/openneuro.ds007162.v1.0.0,
+532,ds007169,18,18,1,24,250,5.090633333333333,421.66 MB,442139020,openneuro,ds007169,Healthy,Visual,Memory,eeg,"Multimodal Cognitive Workload n-back Task, 4 Difficulties",CC0,doi:10.18112/openneuro.ds007169.v1.0.5,
+533,ds007172,501,100,6,32*,500*,50.98400083333333,11.04 GB,11852106397,openneuro,ds007172,Healthy,Visual,Attention,eeg,EEG-Asymmetries Dataset,CC0,doi:10.18112/openneuro.ds007172.v1.0.0,
+534,ds007175,41,41,1,65,5000,46.89787261111111,200.43 GB,215211348736,openneuro,ds007175,Unknown,Unknown,Unknown,eeg,FFR-active-listening,CC0,doi:10.18112/openneuro.ds007175.v1.0.1,
+535,ds007176,300,45,2,60,1000,26.174016666666667,21.06 GB,22616298800,openneuro,ds007176,Healthy,Resting State,Resting-state,eeg,Longitudinal EEG Test-Retest Reliability in Healthy Individuals,CC0,doi:10.18112/openneuro.ds007176.v1.0.1,
+536,ds007180,25,25,1,63,500,34.725588888888886,14.67 GB,15755538005,openneuro,ds007180,Healthy,,,eeg,Exo-EEG Experiment,CC0,doi:10.18112/openneuro.ds007180.v1.0.0,
+537,ds007181,59,59,1,24,1024,454.4836111111111,59.15 GB,63514978596,openneuro,ds007181,Other,Sleep,Clinical/Intervention,eeg,"Structural MRI, Resting-state fMRI, and PSG/EEG Dataset of Zoster-associated Neuralgia",CC0,doi:10.18112/openneuro.ds007181.v1.0.1,
+538,ds007216,187,24,2,36,5000,33.29890561111111,104.7 GB,112422123313,openneuro,ds007216,Healthy,Visual,Attention,eeg,A multi-session simultaneous EEG-fMRI dataset with online experience sampling,CC0,doi:10.18112/openneuro.ds007216.v1.0.0,
+539,ds007221,1265,84,4,69*,1000,135.3057763888889,124.78 GB,133984759249,openneuro,ds007221,Healthy,Visual,Motor,eeg,Cross-Environment Multi-Paradigm Motor Imagery EEG Dataset,CC0,doi:10.18112/openneuro.ds007221.v1.0.1,
+540,ds007262,18,18,1,24,250,4.58342,378.87 MB,397274375,openneuro,ds007262,Healthy,Unknown,Attention,eeg,Cognitive Workload 8-level arithmetic,CC0,doi:10.18112/openneuro.ds007262.v1.0.6,
+541,ds007314,14,2,1,32,500,4.888012222222223,1.09 GB,1165891095,openneuro,ds007314,Other,Visual,Clinical/Intervention,eeg,tACS for Patients with Post-Stroke Anomia,CC0,doi:10.18112/openneuro.ds007314.v1.0.0,
+542,ds007315,14,2,1,32,500,4.888012222222223,1.09 GB,1165892937,openneuro,ds007315,Other,Visual,Clinical/Intervention,eeg,tACS for Patients with Post-Stroke Anomia,CC0,doi:10.18112/openneuro.ds007315.v1.0.1,
+543,ds007322,57,57,1,64*,1000,48.70112305555555,42.51 GB,45648502420,openneuro,ds007322,Healthy,Auditory,Attention,eeg,Personalized smartphone notifications bias auditory salience across processing stages,CC0,doi:10.18112/openneuro.ds007322.v1.0.1,
+544,ds007338,1,1,1,129,500,0.0898511111111111,39.94 MB,41876427,openneuro,ds007338,Healthy,Visual,Perception,eeg,EEGEyeNet Dataset,CC0,doi:10.18112/openneuro.ds007338.v1.0.0,
+545,ds007347,10,5,1,50*,256*,4.473611111111111,1.65 GB,1767378590,openneuro,ds007347,Cancer,Resting State,Clinical/Intervention,eeg,Sterotactic Focused Ultrasound Mesencephalotomy for the Treatment of Head and Neck Cancer Pain,CC0,doi:10.18112/openneuro.ds007347.v1.0.0,
+546,ds007353,473,32,2,409*,1200*,44.82657291666667,180.59 GB,193902192538,openneuro,ds007353,Healthy,Visual,Perception,"eeg, meg",HAD-MEEG,CC0,doi:10.18112/openneuro.ds007353.v1.0.0,
+547,ds007358,6000,2000,3,62*,128*,276.1350466579861,16.08 GB,17264324344,openneuro,ds007358,Healthy,Resting State,Resting-state,eeg,A subset of large-scale EEG dataset (India + Tanzania),CC0,doi:10.18112/openneuro.ds007358.v1.0.0,
+548,ds007406,10,10,1,14,256,0.5000651041666667,25.76 MB,27012236,openneuro,ds007406,Healthy,Multisensory,Affect,eeg,EEG dataset on consumer responses to extreme versus traditional marketing videos,CC0,doi:10.18112/openneuro.ds007406.v1.0.0,
+549,ds007420,60,12,4,200,8*,,560.71 MB,587945590,openneuro,ds007420,Healthy,Motor,Motor,fnirs,A Light Weight Multi-Distance fNIRS Dataset for Ball-Squeezing Task and Purposeful Motion Artifact Creation Task,CC0,doi:10.18112/openneuro.ds007420.v1.0.2,
+550,ds007427,44,44,1,60,1000,3.911543333333334,3.15 GB,3379868887,openneuro,ds007427,Dementia,Resting State,Clinical/Intervention,eeg,Comprehensive methodology for sample enrichment in EEG biomarker studies for Alzheimer’s risk classification,CC0,doi:10.18112/openneuro.ds007427.v1.0.1,
+551,ds007431,47,47,1,66,1000,160.1695947222222,144.57 GB,155226967884,openneuro,ds007431,Healthy,Visual,Memory,eeg,Diffuse predictions stabilize and reshape neural code during memory encoding,CC0,doi:10.18112/openneuro.ds007431.v1.0.0,
+552,ds007445,66,19,1,140*,200*,73.70927875000001,50.48 GB,54201403733,openneuro,ds007445,Epilepsy,Other,Clinical/Intervention,ieeg,Thalamocortical ictal iEEG dataset,CC0,doi:10.18112/openneuro.ds007445.v1.0.2,
+553,ds007454,42,42,1,64,1000,37.15316055555555,29.63 GB,31812516010,openneuro,ds007454,Healthy,Visual,Perception,eeg,A common neural mechanism underlies experiences of passage of time,CC0,doi:10.18112/openneuro.ds007454.v1.0.1,
+554,ds007463,88,8,14,19086*,7,18.898382222222224,69.3 GB,74413175764,openneuro,ds007463,Healthy,Visual,Perception,fnirs,Very-High-Density Diffuse Optical Tomography System Validation Dataset,CC0,doi:10.18112/openneuro.ds007463.v1.1.1,
+555,ds007471,31,31,1,64,1000,18.78229444444444,8.06 GB,8658914750,openneuro,ds007471,Healthy,Auditory,Other,eeg,Joint agency EEG dataset,CC0,doi:10.18112/openneuro.ds007471.v1.0.0,
+556,ds007473,189,5,19,6782*,10,51.12245333333332,36.29 GB,38961072704,openneuro,ds007473,Healthy,Multisensory,Perception,fnirs,High-Density Diffuse Optical Tomography Audiovisual Movie Viewing Dataset,CC0,doi:10.18112/openneuro.ds007473.v1.0.0,
+557,ds007477,36,18,1,1,10,,9.16 KB,9384,openneuro,ds007477,,Other,,fnirs,TimeSeries BIDS converted,CC0,doi:10.18112/openneuro.ds007477.v1.0.1,
+558,ds007521,46,23,1,64,100,34.23017222222222,28.98 GB,31115320529,openneuro,ds007521,Healthy,Visual,Attention,eeg,The effect of hunger and state preferences on the neural processing of food images,CC0,doi:10.18112/openneuro.ds007521.v1.0.1,
+559,ds007523,579,58,1,346*,1000,94.80763305555556,444.82 GB,477619624392,openneuro,ds007523,Healthy,Auditory,Perception,meg,LPP MEG Listen,CC0,doi:10.18112/openneuro.ds007523.v1.0.0,
+560,ds007524,500,50,1,346*,1000,63.99154166666667,298.56 GB,320573795930,openneuro,ds007524,Healthy,Visual,Other,meg,LittlePrince_MEG_French_Read_Pallier2025,CC0,doi:10.18112/openneuro.ds007524.v1.0.1,
+561,ds007526,277,144,2,65,250,19.488375555555557,4.26 GB,4578749719,openneuro,ds007526,Parkinson's,Motor,Clinical/Intervention,eeg,PD-EEG: Resting-State & Walking EEG in Parkinson's Disease,CC0,doi:10.18112/openneuro.ds007526.v1.0.0,
+562,ds007554,1034,30,7,32,10*,61.88401802488944,4.21 GB,4515882153,openneuro,ds007554,Healthy,,Other,"eeg, fnirs",Multimodal dataset from the CMx7-MM Experiment,CC0,doi:10.18112/openneuro.ds007554.v1.0.0,
+563,ds007558,121,67,1,19*,200,25.984918055555557,686.4 MB,719738454,openneuro,ds007558,,Resting State,Clinical/Intervention,eeg,EEG Pre/Post Intervention Dataset,CC0,doi:10.18112/openneuro.ds007558.v1.0.0,
+564,ds007591,21,3,3,139,256,6.775833333333333,1.62 GB,1737849881,openneuro,ds007591,Healthy,Unknown,Motor,eeg,Delineating neural contributions to EEG-based speech decoding,CC0,doi:10.18112/openneuro.ds007591.v1.0.1,
+565,ds007602,113,3,1,134,1200,44.18638888888889,49.65 GB,53309491557,openneuro,ds007602,Healthy,Visual,Motor,eeg,EEG-Speech Brain Decoding Dataset,CC0,doi:10.18112/openneuro.ds007602.v1.0.1,
+566,ds007609,51,51,1,256,500,4.057284444444445,7.01 GB,7528851369,openneuro,ds007609,Healthy,Resting State,Affect,eeg,Resting-State EEG and Trait Anxiety,CC0,doi:10.18112/openneuro.ds007609.v1.0.0,
+567,ds007615,192,69,2,68,2048,18.548532307942708,34.65 GB,37200493446,openneuro,ds007615,Healthy,Auditory,Perception,eeg,LDAEP and resting-state EEG in healthy women,CC0,doi:10.18112/openneuro.ds007615.v1.0.0,
+568,nm000103,3522,447,10,129,500,285.01504277777775,250.25 GB,268707751031,nemar,nm000103,Development,Unknown,Unknown,eeg,Healthy Brain Network EEG - Not for Commercial Use,CC-BY-NC-SA 4.0,10.82901/nemar.nm000103,
+569,nm000104,1136,108,1,32,2000,346.3244476388889,223.28 GB,239744959855,nemar,nm000104,Healthy,Visual,Motor,emg,emg2qwerty: A Large Dataset with Baselines for Touch Typing using Surface Electromyography,CC-BY-NC-SA-4.0,10.82901/nemar.nm000104,
+570,nm000105,100,100,1,16,2000,63.93759180555555,20.59 GB,22108979286,nemar,nm000105,Healthy,Visual,Motor,emg,FRL Discrete Gestures: Hand Gesture Recognition from Surface Electromyography,CC-BY-NC 4.0,10.82901/nemar.nm000105,
+571,nm000106,807,100,1,16,2000,140.70160930555554,45.34 GB,48680264913,nemar,nm000106,Healthy,Visual,Motor,emg,FRL Handwriting: Handwriting Decoding from Surface Electromyography,CC-BY-NC 4.0,10.82901/nemar.nm000106,
+572,nm000107,182,100,1,16,2000,77.18355888888888,24.85 GB,26685152720,nemar,nm000107,Healthy,Visual,Motor,emg,FRL Wrist Control: Wrist Movement Decoding from Surface Electromyography,CC-BY-NC 4.0,10.82901/nemar.nm000107,
+573,nm000108,1514,20,38,256,[],,108.19 GB,116163611127,nemar,nm000108,Healthy,Motor,Motor,emg,HySER: High-Density Surface Electromyogram Recordings,ODC-By-1.0,10.82901/nemar.nm000108,
+574,nm000109,72,36,2,21,500,2.40996,174.51 MB,182988609,nemar,nm000109,Healthy,Visual,Attention,eeg,EEG During Mental Arithmetic Tasks,ODC-By-1.0,10.82901/nemar.nm000109,
+575,nm000110,686,24,1,23*,256,982.9345334201388,42.62 GB,45759383669,nemar,nm000110,Epilepsy,Resting State,Clinical/Intervention,eeg,CHB-MIT,ODC-By-1.0,10.82901/nemar.nm000110,
+576,nm000112,123,123,1,32,1000*,155.28158666666664,31.41 GB,33722262448,nemar,nm000112,Healthy,Visual,Affect,eeg,FACED - Finer-grained Affective Computing EEG Dataset,CC-BY-4.0,10.82901/nemar.nm000112,
+577,nm000113,45,15,1,64,256,5.175732421875,585.21 MB,613632602,nemar,nm000113,Healthy,Unknown,Motor,eeg,"2020 BCI competition, track 3",CC-BY-4.0,10.82901/nemar.nm000113,
+578,nm000114,181,64,3,22*,256,20.55563693576389,812.75 MB,852232697,nemar,nm000114,Depression,Resting State,Clinical/Intervention,eeg,MDD Patients and Healthy Controls EEG Data,CC-BY-4.0,10.82901/nemar.nm000114,
+579,nm000115,24,4,1,14,250,6.268284444444444,152.06 MB,159443901,nemar,nm000115,Healthy,Visual,Motor,eeg,Zhou2016,CC-BY-4.0,10.82901/nemar.nm000115,
+580,nm000118,9,9,1,8,256,2.133974609375,65.37 MB,68545404,nemar,nm000118,Healthy,Visual,Perception,eeg,Nakanishi2015 – SSVEP Nakanishi 2015 dataset,Unknown,,
+581,nm000119,47,11,1,256,250,6.22372,5.36 GB,5751425358,nemar,nm000119,Healthy,Visual,Perception,eeg,Oikonomou2016 – SSVEP MAMEM 1 dataset,ODC-By-1.0,,
+582,nm000120,55,11,1,256,250,5.1091766666666665,4.4 GB,4726025611,nemar,nm000120,Healthy,Visual,Attention,eeg,Oikonomou2016 – SSVEP MAMEM 2 dataset,ODC-By-1.0,,
+583,nm000121,110,11,1,14,128,4.597261284722222,120.22 MB,126061931,nemar,nm000121,Healthy,Visual,Perception,eeg,Oikonomou2016 – SSVEP MAMEM 3 dataset,ODC-By-1.0,,
+584,nm000122,12,12,1,32,512,3.2708430989583333,741.88 MB,777922244,nemar,nm000122,Healthy,Visual,Perception,eeg,Chen2017 – Single-flicker online SSVEP BCI dataset,CC BY 4.0,,
+585,nm000123,30,12,1,8,256,2.589654947916667,78.2 MB,82000354,nemar,nm000123,Healthy,Visual,Perception,eeg,Kalunga2016 – SSVEP Exo dataset,CC-BY-4.0,,
+586,nm000124,48,24,1,64,1000,19.839986666666668,17.04 GB,18297663024,nemar,nm000124,Healthy,Visual,Perception,eeg,Han2024 – SSVEP fatigue dataset with two frequency paradigms,CC BY 4.0,,
+587,nm000125,85,23,1,73*,100,13.33595,1.31 GB,1407989189,nemar,nm000125,Healthy,Visual,Perception,eeg,Lee2021 – SSVEP paradigm of the Mobile BCI dataset,CC BY 4.0,,
+588,nm000126,34,34,1,64,250,14.506628888888889,3.12 GB,3351783823,nemar,nm000126,Healthy,Visual,Perception,eeg,Wang2016 – SSVEP Wang 2016 dataset,CC-BY-4.0,,
+589,nm000127,240,40,1,31,1024,18.927018229166663,8.07 GB,8668702772,nemar,nm000127,Healthy,Visual,Perception,eeg,Kim2025 – 40-class beta-range SSVEP speller dataset,CC BY 4.0,,
+590,nm000128,59,59,1,8,250,14.159934444444444,397.11 MB,416400314,nemar,nm000128,Healthy,Visual,Perception,eeg,Dong2023 – 59-subject 40-class SSVEP dataset,CC BY-NC 4.0,,
+591,nm000129,70,70,1,64,250,13.022144444444445,2.81 GB,3012862406,nemar,nm000129,Healthy,Visual,Perception,eeg,Liu2020 – BETA SSVEP benchmark dataset,Non-commercial research use,,
+592,nm000130,700,100,1,64,1000,20.17517222222222,17.37 GB,18646340197,nemar,nm000130,Healthy,Visual,Perception,eeg,Liu2022 – eldBETA SSVEP benchmark dataset for elderly population,CC BY 4.0,,
+593,nm000131,22,8,1,31,1000,6.1615825,2.57 GB,2757289649,nemar,nm000131,Healthy,Visual,Attention,eeg,Wang2021 – Combined SSVEP dataset with single stimulus location for two inputs,CC BY 4.0,,
+594,nm000132,240,40,6,33,1024,37.74583333333333,17.52 GB,18809442511,nemar,nm000132,Healthy,Visual,Other,eeg,ERP CORE,CC-BY-4.0,10.82901/nemar.nm000132,
+595,nm000133,13,8,1,64,512,,7.59 GB,8146888991,nemar,nm000133,Healthy,Visual,Perception,eeg,Alljoined1,CC-BY-NC-ND-4.0,10.82901/nemar.nm000133,
+596,nm000134,1525,20,1,32,256,129.4950119357639,8.2 GB,8802143012,nemar,nm000134,Healthy,Visual,Perception,eeg,Alljoined-1.6M,CC-BY-NC-ND-4.0,10.82901/nemar.nm000134,
+597,nm000135,5,1,1,3,250,2.8521533333333333,22.58 MB,23679375,nemar,nm000135,Healthy,Visual,Motor,eeg,BNCI 2014-004 Motor Imagery dataset,CC-BY-ND-4.0,,
+598,nm000136,63,31,1,65,1000,11.223038055555556,7.35 GB,7887167781,nemar,nm000136,Healthy,Visual,Attention,eeg,GuttmannFlury2025-P300,CC0,doi:10.1038/s41597-025-04861-9,
+599,nm000137,17,7,1,19,200,15.696565277777776,623.42 MB,653703701,nemar,nm000137,Healthy,Visual,Motor,eeg,"Classical motor imagery dataset with left hand, right hand, and rest",CC-BY-4.0,,
+600,nm000138,8,8,1,16,512,1.1037152777777777,99.71 MB,104556459,nemar,nm000138,Healthy,Visual,Motor,eeg,Alex Motor Imagery dataset,CC-BY-SA-4.0,,
+601,nm000139,108,9,1,22,250,11.60808,672.78 MB,705462224,nemar,nm000139,Healthy,Multisensory,Motor,eeg,BNCI 2014-001 Motor Imagery dataset,CC-BY-ND-4.0,,
+602,nm000140,28,12,1,13,512,16.68931640625,1.13 GB,1212919293,nemar,nm000140,Healthy,Visual,Motor,eeg,BNCI 2015-001 Motor Imagery dataset,CC-BY-NC-ND-4.0,,
+603,nm000141,14,14,1,19,1024,2.8049180772569446,571.66 MB,599428856,nemar,nm000141,Healthy,Visual,Motor,eeg,Motor execution dataset from Wairagkar et al 2018,CC-BY-4.0,,
+604,nm000142,13,6,1,122,1000,4.0056075,4.93 GB,5290402739,nemar,nm000142,Healthy,Visual,Motor,eeg,Ear-EEG motor execution dataset from Wu et al 2020,CC-BY-4.0,,
+605,nm000143,5,5,1,118,100,3.9763027777777777,492.73 MB,516668416,nemar,nm000143,Healthy,Visual,Motor,eeg,BNCI2003_IVa Motor Imagery dataset,CC-BY-4.0,,
+606,nm000144,18,9,1,30,256,13.750518663194445,1.08 GB,1157280768,nemar,nm000144,Other,Visual,Motor,eeg,BNCI 2015-004 Mental tasks dataset,CC-BY-NC-ND-4.0,,
+607,nm000145,10,10,1,128,500,8.404805555555555,5.42 GB,5824656181,nemar,nm000145,Healthy,Visual,Motor,eeg,Munich Motor Imagery dataset,CC-BY-4.0,,
+608,nm000146,10,10,1,60,200,13.080541666666663,1.6 GB,1720642221,nemar,nm000146,Healthy,Visual,Motor,eeg,Motor Imagery dataset from Weibo et al 2014,CC0-1.0,,
+609,nm000147,120,22,1,8,250,6.27819111111111,134.34 MB,140866957,nemar,nm000147,Healthy,Visual,Learning,eeg,RomaniBF2025ERP,CC-BY-4.0,doi:10.48550/arXiv.2510.10169,
+610,nm000148,60,30,1,32,512,5.7026199001736115,975.27 MB,1022640656,nemar,nm000148,Healthy,Auditory,Motor,eeg,Motor imagery BCI dataset with pupillometry augmentation,CC0 1.0,,
+611,nm000149,90,10,1,61,256,7.536291232638889,1.2 GB,1289632633,nemar,nm000149,Other,Visual,Motor,eeg,BNCI 2019-001 Motor Imagery dataset for Spinal Cord Injury patients,CC-BY-4.0,,
+612,nm000150,0,0,0,[],[],,0B,0,nemar,nm000150,,,,eeg,Liu2025 - NEMAR Dataset,,,
+613,nm000151,46,12,1,32,1000,9.901242777777778,3.2 GB,3435333443,nemar,nm000151,Healthy,Visual,Motor,eeg,Motor imagery dataset for three imaginary states of the same upper extremity,CC0-1.0,,
+614,nm000152,180,12,1,17,1000,9.24525,1.61 GB,1727304819,nemar,nm000152,Healthy,Visual,Motor,eeg,Upper-limb elbow-centered motor imagery dataset (10 classes),CC BY 4.0,,
+615,nm000156,98,37,1,32,256,31.22144314236111,2.59 GB,2783523616,nemar,nm000156,Other,Visual,Clinical/Intervention,eeg,Hybrid EEG-fNIRS MI dataset for ICH from Shi et al 2025,CC-BY-NC-ND-4.0,,
+616,nm000158,50,50,1,29,500,4.444416666666666,673.65 MB,706376579,nemar,nm000158,Other,Multisensory,Motor,eeg,Dataset [1]_ from the study on motor imagery [2]_,CC-BY-4.0,,
+617,nm000160,141,18,1,62,1000,32.48256083333333,20.3 GB,21794537131,nemar,nm000160,Healthy,Visual,Motor,eeg,Multi-joint upper-limb MI dataset from Yi et al. 2025,CC-BY-NC-ND-4.0,,
+618,nm000161,40,20,1,60,500,33.61688888888889,10.17 GB,10921586386,nemar,nm000161,Healthy,Visual,Motor,eeg,BNCI 2024-001 Handwritten Character Classification dataset,CC-BY-4.0,,
+619,nm000162,20,20,1,67,500,44.44853333333333,15.02 GB,16132682212,nemar,nm000162,Healthy,Visual,Motor,eeg,BNCI 2025-001 Motor Kinematics Reaching dataset,CC-BY-4.0,,
+620,nm000163,12,12,1,32,500,0.878318888888889,160.11 MB,167892325,nemar,nm000163,Healthy,Visual,Attention,eeg,c-VEP and Burst-VEP dataset from Castillos et al. (2023),CC-BY-4.0,,
+621,nm000167,375,25,1,64*,1000,35.204795833333336,22.44 GB,24091695012,nemar,nm000167,Healthy,Visual,Motor,eeg,Motor imagery dataset from Ma et al. 2020,CC-BY-4.0,,
+622,nm000168,120,6,1,64,512,6.0910460069444445,2.03 GB,2176366718,nemar,nm000168,Healthy,Visual,Attention,eeg,BNCI 2015-013 Error-Related Potentials dataset,CC-BY-NC-ND-4.0,,
+623,nm000169,8,8,1,8,256,3.018255208333333,75.94 MB,79628492,nemar,nm000169,Other,Visual,Attention,eeg,BNCI 2014-008 P300 dataset (ALS patients),CC-BY-NC-ND-4.0,,
+624,nm000170,90,10,1,60,200,28.178534722222224,3.42 GB,3669211627,nemar,nm000170,Other,Visual,Motor,eeg,BNCI 2025-002 Continuous 2D Trajectory Decoding dataset,CC-BY-4.0,,
+625,nm000171,112,14,1,15,512,6.865494791666666,554.26 MB,581180985,nemar,nm000171,Healthy,Visual,Motor,eeg,BNCI 2014-002 Motor Imagery dataset,CC-BY-ND-4.0,,
+626,nm000172,28,14,1,128,500,28.695817777777776,18.49 GB,19854097472,nemar,nm000172,Healthy,Visual,Motor,eeg,High-gamma dataset described in Schirrmeister et al. 2017,CC-BY-4.0,,
+627,nm000173,300,15,1,61,512,27.10289279513889,8.54 GB,9172718452,nemar,nm000173,Healthy,Visual,Motor,eeg,Motor Imagery ataset from Ofner et al 2017,CC-BY-4.0,,
+628,nm000176,128,5,1,16,256,3.5955902777777777,168.26 MB,176435450,nemar,nm000176,Healthy,Visual,Perception,eeg,"BigP3BCI Study K — 9x8 adaptive/checkerboard, 2 sessions (5 healthy subjects)",CC-BY-4.0,,
+629,nm000186,88,8,1,16,256,2.3882378472222223,104.68 MB,109762280,nemar,nm000186,Healthy,Visual,Attention,eeg,BigP3BCI Study E — 6x6 checkerboard (8 healthy subjects),CC-BY-4.0,,
+630,nm000187,160,8,1,16,256,8.200868055555556,353.17 MB,370324207,nemar,nm000187,Other,Visual,Attention,eeg,BigP3BCI Study N — 9x8 dry/wet electrode comparison (8 ALS subjects),CC-BY-4.0,,
+631,nm000188,30,10,1,16,256,1.6335611979166669,70.9 MB,74344053,nemar,nm000188,Healthy,Visual,Attention,eeg,BNCI 2014-009 P300 dataset,CC-BY-NC-ND-4.0,,
+632,nm000189,20,10,1,8,256,0.9342003038194444,21.78 MB,22835171,nemar,nm000189,Healthy,Auditory,Attention,eeg,BNCI 2015-003 P300 dataset,CC-BY-NC-ND-4.0,,
+633,nm000190,20,10,1,63,250,13.575294444444443,2.16 GB,2321810370,nemar,nm000190,Healthy,Auditory,Attention,eeg,BNCI 2015-012 PASS2D P300 dataset,CC-BY-NC-ND-4.0,,
+634,nm000191,270,10,1,16,256,12.812762586805556,551.9 MB,578709543,nemar,nm000191,Other,Visual,Attention,eeg,"BigP3BCI Study F — 6x6 multi-paradigm, 3 sessions (10 healthy subjects)",CC-BY-4.0,,
+635,nm000192,11,11,1,64,200,33.94770694444444,4.38 GB,4703111928,nemar,nm000192,Healthy,Auditory,Attention,eeg,BNCI 2015-006 Music BCI dataset,CC-BY-NC-ND-4.0,,
+636,nm000193,66,11,1,64,1000,5.797537222222223,3.74 GB,4016738870,nemar,nm000193,Healthy,Auditory,Attention,eeg,Class for Kojima2024A dataset management. P300 dataset,CC0-1.0,,
+637,nm000194,24,12,1,63*,200,16.163227777777777,2.07 GB,2221728980,nemar,nm000194,Healthy,Visual,Attention,eeg,BNCI 2015-010 RSVP P300 dataset,CC-BY-NC-ND-4.0,,
+638,nm000195,360,12,1,31,1000,15.3207975,4.81 GB,5168060358,nemar,nm000195,Healthy,Visual,Attention,eeg,Mixture of LLP and EM for a visual matrix speller (ERP) dataset from,CC-BY-4.0,,
+639,nm000196,36,12,1,64,2048,2.6154667154947915,3.5 GB,3761971274,nemar,nm000196,Healthy,Visual,Attention,eeg,c-VEP dataset from Thielen et al. (2015),CC0-1.0,,
+640,nm000197,420,21,1,16,256,11.218919270833334,491.58 MB,515454350,nemar,nm000197,Other,Visual,Attention,eeg,BigP3BCI Study M — 9x8 adaptive/checkerboard (21 ALS subjects),CC-BY-4.0,,
+641,nm000198,26,13,1,63,250,19.37079333333333,3.08 GB,3308112084,nemar,nm000198,Healthy,Visual,Attention,eeg,BNCI 2015-008 Center Speller P300 dataset,CC-BY-NC-ND-4.0,,
+642,nm000199,342,13,1,31,1000,16.410199166666665,5.15 GB,5528194680,nemar,nm000199,Healthy,Visual,Attention,eeg,Learning from label proportions for a visual matrix speller (ERP),CC-BY-4.0,,
+643,nm000200,265,13,1,16,256,7.403184678819445,324.42 MB,340174595,nemar,nm000200,Healthy,Visual,Attention,eeg,BigP3BCI Study I — 9x8 checkerboard/performance-based (13 healthy subjects),CC-BY-4.0,,
+644,nm000201,113,24,1,48*,500*,22.13410722222222,5.19 GB,5575356846,nemar,nm000201,Healthy,Visual,Attention,eeg,ERP paradigm of the Mobile BCI dataset,CC BY 4.0,,
+645,nm000202,25,25,1,16,128,2.5100325520833335,55.38 MB,58069100,nemar,nm000202,Healthy,Visual,Attention,eeg,"P300 dataset BI2012 from a ""Brain Invaders"" experiment",CC-BY-4.0,,
+646,nm000203,800,13,1,31,1000,8.911166666666666,2.83 GB,3040169946,nemar,nm000203,Healthy,Auditory,Attention,eeg,P300 dataset from initial spot study,CC-BY-SA-4.0,,
+647,nm000204,420,14,1,31,500,1.95331,322.98 MB,338663856,nemar,nm000204,Healthy,Visual,Attention,eeg,"Bluetooth speaker experiment (14 subjects, 6 classes, 31 EEG ch)",CC-BY-4.0,,
+648,nm000205,84,14,1,62,1000,8.461972777777778,5.3 GB,5686833347,nemar,nm000205,Healthy,Visual,Attention,eeg,RSVP collaborative BCI dataset from Zheng et al 2020,CC-BY-4.0,,
+649,nm000206,30,15,1,61,500,3.9749833333333338,1.22 GB,1310961905,nemar,nm000206,Healthy,Visual,Attention,eeg,Neuroergonomic 2021 dataset,CC-BY-SA-4.0,,
+650,nm000207,180,15,1,64,1000,21.62847222222222,13.95 GB,14976725618,nemar,nm000207,Healthy,Auditory,Attention,eeg,Class for Kojima2024B dataset management. P300 dataset,CC0-1.0,,
+651,nm000208,434,14,1,31,500,3.671492222222222,609.62 MB,639234216,nemar,nm000208,Healthy,Visual,Attention,eeg,"Door lock control experiment (15 subjects, 4 classes, 31 EEG ch)",CC-BY-4.0,,
+652,nm000209,150,25,1,64,1000,7.572991388888889,4.89 GB,5253102816,nemar,nm000209,Healthy,Visual,Motor,eeg,Motor imagery + spatial attention dataset from Forenzo & He 2023,CC-BY-4.0,,
+653,nm000210,210,15,1,8,250,187.43532222222225,3.81 GB,4090796514,nemar,nm000210,Development,Visual,Clinical/Intervention,eeg,BCIAUT-P300 dataset for autism from Simoes et al 2020,CC-BY-4.0,,
+654,nm000211,240,15,1,57,1000,15.022525,8.66 GB,9300616154,nemar,nm000211,Healthy,Visual,Attention,eeg,RSVP ERP dataset for authentication from Zhang et al 2025,CC-BY-NC-ND-4.0,,
+655,nm000212,32,16,1,63,100,19.954505555555556,1.28 GB,1372915485,nemar,nm000212,Healthy,Visual,Attention,eeg,BNCI 2015-007 Motion VEP (mVEP) Speller dataset,CC-BY-NC-ND-4.0,,
+656,nm000213,2300,30,1,31,500,8.477633333333333,1.41 GB,1517440605,nemar,nm000213,Healthy,Visual,Attention,eeg,"Television control experiment (30 subjects, 4 classes, 31 EEG ch)",CC-BY-4.0,,
+657,nm000214,150,30,1,8,512,27.764727105034723,1.47 GB,1581376842,nemar,nm000214,Healthy,Visual,Perception,eeg,c-VEP dataset from Thielen et al. (2021),CC0-1.0,,
+658,nm000215,38,38,1,32,512,2.362566189236111,401.82 MB,421335599,nemar,nm000215,Healthy,Visual,Attention,eeg,"P300 dataset BI2014b from a ""Brain Invaders"" experiment",CC-BY-4.0,,
+659,nm000216,129,43,1,32,512,11.664148763020831,1.94 GB,2080775571,nemar,nm000216,Healthy,Visual,Perception,eeg,"P300 dataset BI2015a from a ""Brain Invaders"" experiment",CC-BY-4.0,,
+660,nm000217,176,44,1,32,512,26.08000868055555,4.32 GB,4640673271,nemar,nm000217,Healthy,Visual,Attention,eeg,"P300 dataset BI2015b from a ""Brain Invaders"" experiment",CC-BY-4.0,,
+661,nm000218,372,16,1,16,256,7.428207465277778,326.52 MB,342382842,nemar,nm000218,Healthy,Visual,Attention,eeg,BigP3BCI Study H — 9x8 checkerboard with gaze conditions (16 healthy subjects),CC-BY-4.0,,
+662,nm000219,18,18,1,30,250,13.226646666666667,1023.57 MB,1073295300,nemar,nm000219,Healthy,Visual,Attention,eeg,BNCI 2020-002 Attention Shift (Covert Spatial Attention) dataset,CC-BY-4.0,,
+663,nm000221,19,19,1,16,512,0.9618820529513888,81.68 MB,85647715,nemar,nm000221,Healthy,Resting State,Resting-state,eeg,Alphawaves dataset,CC-BY-4.0,,
+664,nm000222,305,10,1,25,500,3.1864966666666668,415.26 MB,435428261,nemar,nm000222,Healthy,Visual,Attention,eeg,"Air conditioner control experiment (10 subjects, 4 classes, 25 EEG ch)",CC-BY-4.0,,
+665,nm000223,465,15,1,31,500,3.895852777777778,632.42 MB,663135528,nemar,nm000223,Healthy,Visual,Attention,eeg,"Electric light control experiment (15 subjects, 4 classes, 31 EEG ch)",CC-BY-4.0,,
+666,nm000227,63,31,1,66,1000,7.093593611111111,4.71 GB,5059348126,nemar,nm000227,Healthy,Visual,Motor,eeg,Eye-BCI Motor Execution dataset from Guttmann-Flury et al 2025,CC0,,
+667,nm000230,118,30,1,30,500,38.07771222222222,5.75 GB,6175868677,nemar,nm000230,Other,Visual,Motor,eeg,Lower-limb MI dataset for knee pain patients from Zuo et al. 2025,CC-BY-4.0,,
+668,nm000231,192,8,1,32,2048,2.9408072916666668,1.94 GB,2086585448,nemar,nm000231,Other,Visual,Attention,eeg,P300 dataset from Hoffmann et al 2008,Unknown,,
+669,nm000234,42,21,1,60,250,30.17912,4.58 GB,4917025135,nemar,nm000234,Healthy,Auditory,Attention,eeg,BNCI 2015-009 AMUSE (Auditory Multi-class Spatial ERP) dataset,CC-BY-NC-ND-4.0,,
+670,nm000235,63,31,1,66,1000,6.996371388888889,4.65 GB,4990038162,nemar,nm000235,Healthy,Visual,Motor,eeg,Eye-BCI multimodal MI/ME dataset from Guttmann-Flury et al 2025,CC0,,
+671,nm000236,2520,21,1,16,512,4.099188368055556,373.29 MB,391425304,nemar,nm000236,Healthy,Visual,Attention,eeg,Dataset of an EEG-based BCI experiment in Virtual Reality using P300,CC-BY-4.0,,
+672,nm000237,833,20,1,41*,500,90.07259277777776,15.96 GB,17139583837,nemar,nm000237,Healthy,Visual,Motor,eeg,7-day motor imagery BCI EEG dataset from Zhou et al 2021,CC-BY-4.0,,
+673,nm000239,640,16,1,16,256*,15.095158796296298,783.04 MB,821074196,nemar,nm000239,Healthy,Visual,Perception,eeg,P-ary m-sequence-based c-VEP dataset from Martínez-Cagigal et al. (2023),CC-BY-NC-SA-4.0,,
+674,nm000240,383,16,1,16,256,13.408473307291668,637.74 MB,668714201,nemar,nm000240,Healthy,Visual,Perception,eeg,Checkerboard m-sequence-based c-VEP dataset from,CC-BY-NC-SA-4.0,,
+675,nm000242,125,22,1,32,1000,98.47829861111111,31.71 GB,34047544657,nemar,nm000242,Healthy,Visual,Other,eeg,Visual imagery EEG dataset from Gao et al 2026,CC-BY-NC-ND-4.0,,
+676,nm000243,15,15,1,59,200,33.74497916666667,4.01 GB,4305271416,nemar,nm000243,Healthy,Visual,Motor,eeg,BNCI 2016-002 Emergency Braking during Simulated Driving dataset,CC-BY-NC-ND-4.0,,
+677,nm000244,64,64,1,16,512,12.4046875,1.03 GB,1106792754,nemar,nm000244,Healthy,Visual,Attention,eeg,"P300 dataset BI2014a from a ""Brain Invaders"" experiment",CC-BY-4.0,,
+678,nm000245,52,52,1,64,512,20.45552734375,6.75 GB,7243985570,nemar,nm000245,Healthy,Visual,Motor,eeg,Motor Imagery dataset from Cho et al 2017,CC-BY-4.0,,
+679,nm000246,153,51,1,59,1000,98.42606861111108,58.43 GB,62733839084,nemar,nm000246,Healthy,Visual,Motor,eeg,Multi-day MI-BCI dataset (WBCIC-SHU) from Yang et al 2025,CC-BY-4.0,,
+680,nm000247,120,10,1,32,256,5.566534792017462,477.91 MB,501121502,nemar,nm000247,Healthy,Visual,Attention,eeg,BigP3BCI Study S1 — 9x8 face/house paradigm (10 healthy subjects),CC-BY-4.0,,
+681,nm000248,330,11,1,16,256,18.057970677922476,780.55 MB,818465206,nemar,nm000248,Other,Visual,Attention,eeg,BigP3BCI Study L — 6x6 multi-paradigm (11 ALS subjects),CC-BY-4.0,,
+682,nm000249,13,13,1,64,256,16.191097005208334,2.98 GB,3203178899,nemar,nm000249,Healthy,Visual,Attention,eeg,BNCI 2022-001 EEG Correlates of Difficulty Level dataset,CC-BY-4.0,,
+683,nm000250,520,87,1,27,512,63.4652734375,8.84 GB,9489882869,nemar,nm000250,Healthy,Visual,Motor,eeg,Class for Dreyer2023 dataset management. MI dataset,CC-BY-4.0,,
+684,nm000259,60,10,1,32,256,3.3766015625,290.23 MB,304324391,nemar,nm000259,Healthy,Visual,Attention,eeg,Speier2017,CC0,doi:10.1371/journal.pone.0175382,
+685,nm000260,46,23,1,17,128,7.122400173611111,164.78 MB,172784440,nemar,nm000260,Healthy,Visual,Attention,eeg,BrainInvaders2012,CC-BY-4.0,doi:10.5281/zenodo.2649006,
+686,nm000264,292,24,1,16,512,20.632897135416663,1.72 GB,1842015606,nemar,nm000264,Healthy,Visual,Attention,eeg,BrainInvaders2013a,CC-BY-1.0,doi:10.5281/zenodo.1494163,
+687,nm000265,126,31,1,65,1000,14.089965,9.22 GB,9896626772,nemar,nm000265,Healthy,Visual,Motor,eeg,GuttmannFlury2025-MI,CC0,doi:10.1038/s41597-025-04861-9,
+688,nm000266,1060,13,1,37,1000,9.793594444444444,3.67 GB,3945575147,nemar,nm000266,Healthy,Auditory,Attention,eeg,Sosulski2019,CC-BY-SA-4.0,doi:10.48550/arXiv.2109.06011,
+689,nm000267,174,29,1,32,200,29.03336944444445,1.88 GB,2014295369,nemar,nm000267,Healthy,Visual,Motor,eeg,Shin2017A,GPL-3.0,doi:10.1109/TNSRE.2016.2628057,
+690,nm000268,174,29,1,32,200,29.03336944444445,1.88 GB,2014258770,nemar,nm000268,Healthy,Visual,Memory,eeg,Shin2017B,GPL-3.0,doi:10.1109/TNSRE.2016.2628057,
+691,nm000270,797,27,3,[],[],8.997747222222221,0B,0,nemar,nm000270,Unknown,Unknown,Motor,eeg,liu2025 - NEMAR Dataset,,,
+692,nm000271,1245,28,3,[],[],5.824969444444444,0B,0,nemar,nm000271,,Visual,Motor,eeg,chang2025 - NEMAR Dataset,,,
+693,nm000272,1022,22,3,[],[],6.2782,0B,0,nemar,nm000272,Unknown,Visual,Attention,eeg,romani-bf2025-erp - NEMAR Dataset,,,
+694,nm000277,320,20,1,16,256,7.619930555555555,333.16 MB,349344096,nemar,nm000277,Healthy,Visual,Attention,eeg,Mainsah2025-G,CC-BY-4.0,doi:10.13026/0byy-ry86,
+695,nm000301,307,17,1,32,256,8.574389105902778,738.07 MB,773918371,nemar,nm000301,Healthy,Visual,Attention,eeg,Mainsah2025-D,CC-BY-4.0,doi:10.13026/0byy-ry86,
+696,nm000303,347,18,1,32,256,11.497953407383674,992.23 MB,1040423918,nemar,nm000303,Other,Visual,Perception,eeg,Mainsah2025-O,CC-BY-4.0,doi:10.13026/0byy-ry86,
+697,nm000310,26,11,1,65,1000,3.1566594444444447,2.06 GB,2217198330,nemar,nm000310,Healthy,Visual,Perception,eeg,GuttmannFlury2025-SSVEP,CC0,doi:10.1038/s41597-025-04861-9,
+698,nm000311,213,25,1,71,1000,124.0643847222222,88.63 GB,95161244204,nemar,nm000311,Healthy,Visual,Motor,eeg,Multimodal upper-limb MI/ME EEG (Jeong et al. 2020),CC0-1.0,10.82901/nemar.nm000311,
+699,nm000313,288,24,1,32,256,13.359683500841909,1.12 GB,1202592690,nemar,nm000313,Healthy,Visual,Perception,eeg,Mainsah2025-S2,CC-BY-4.0,doi:10.13026/0byy-ry86,
+700,nm000321,360,36,1,32,256,13.13960498457674,1.11 GB,1189232135,nemar,nm000321,Other,Visual,Clinical/Intervention,eeg,Mainsah2025-Q,CC-BY-4.0,doi:10.13026/0byy-ry86,
+701,nm000323,216,54,1,66,1000,58.12466222222223,38.63 GB,41482270421,nemar,nm000323,Healthy,Visual,Attention,eeg,Lee2019-ERP,GPL-3.0,doi:10.1093/gigascience/giz002,
+702,nm000326,341,19,1,32,256,14.678791922980263,1.23 GB,1321765161,nemar,nm000326,Healthy,Visual,Attention,eeg,Mainsah2025-C,CC-BY-4.0,doi:10.13026/0byy-ry86,
+703,nm000329,112,16,1,63,1000,97.11163555555557,61.55 GB,66090669820,nemar,nm000329,Healthy,Auditory,Motor,eeg,Brandl2020,CC-BY-NC-ND-4.0,doi:10.3389/fnins.2020.566147,
+704,nm000334,216,54,1,66,1000,81.16049555555556,53.89 GB,57866470237,nemar,nm000334,Healthy,Visual,Attention,eeg,Lee2019-SSVEP,GPL-3.0,doi:10.1093/gigascience/giz002,
+705,nm000336,480,20,1,32,256,23.526139376380513,1.97 GB,2117757355,nemar,nm000336,Other,Visual,Attention,eeg,Mainsah2025-R,CC-BY-4.0,doi:10.13026/0byy-ry86,
+706,nm000338,216,54,1,66,1000,91.54160666666668,60.79 GB,65269270841,nemar,nm000338,Healthy,Visual,Motor,eeg,Lee2019-MI,GPL-3.0,doi:10.1093/gigascience/giz002,
+707,nm000339,598,62,1,60,1000,615.3526116666666,371.45 GB,398846614515,nemar,nm000339,Healthy,Visual,Learning,eeg,Stieger2021,CC-BY-NC-4.0,doi:10.1038/s41597-021-00883-1,
+708,nm000340,502,20,1,16,256,9.916121961805556,433.61 MB,454670385,nemar,nm000340,Healthy,Visual,Attention,eeg,Mainsah2025-J,CC-BY-4.0,doi:10.13026/0byy-ry86,
+709,nm000341,12,12,1,16,512,2.7361046006944445,231.3 MB,242533802,nemar,nm000341,Healthy,Auditory,Resting-state,eeg,Cattan2019-PHMD,CC-BY-4.0,doi:10.5281/zenodo.2617084,
+710,nm000342,12,12,1,32,500,0.8488822222222221,145.31 MB,152372062,nemar,nm000342,Healthy,Visual,Attention,eeg,CastillosCVEP40,CC-BY-4.0,doi:10.1016/j.neuroimage.2023.120446,
+711,nm000343,30,15,1,61,500,3.9749833333333338,1.22 GB,1310961731,nemar,nm000343,Healthy,Visual,Attention,eeg,Hinss2021,CC-BY-SA-4.0,doi:10.1038/s41597-022-01898-y,
+712,nm000344,12,12,1,32,500,0.8772155555555554,150.05 MB,157338487,nemar,nm000344,Healthy,Visual,Attention,eeg,CastillosBurstVEP100,CC-BY-4.0,doi:10.1016/j.neuroimage.2023.120446,
+713,nm000345,12,12,1,32,500,0.8422155555555555,144.19 MB,151192839,nemar,nm000345,Healthy,Visual,Attention,eeg,CastillosBurstVEP40,CC-BY-4.0,doi:10.1016/j.neuroimage.2023.120446,
+714,nm000346,12,12,1,32,500,0.880271111111111,150.6 MB,157918853,nemar,nm000346,Healthy,Visual,Attention,eeg,CastillosCVEP100,CC-BY-4.0,doi:10.1016/j.neuroimage.2023.120446,
+715,nm000347,98,37,1,32,256,31.19656032986111,2.58 GB,2766220854,nemar,nm000347,Other,Multisensory,Motor,eeg,HefmiIch2025,CC-BY-NC-ND-4.0,doi:10.1038/s41597-025-06100-7,
+716,nm000348,153,51,1,64,1000,98.42606861111108,63.38 GB,68049094604,nemar,nm000348,Healthy,Visual,Motor,eeg,Yang2025,CC-BY-4.0,doi:10.1038/s41597-025-04826-y,
+717,nm000349,0,0,0,[],[],,0B,0,nemar,nm000349,,,,eeg,Mainsah2025-B - NEMAR Dataset,,,
+718,nm000351,228,19,1,32,256,17.685858862826244,1.49 GB,1596682427,nemar,nm000351,Other,Visual,Attention,eeg,Mainsah2025-P,CC-BY-4.0,doi:10.13026/0byy-ry86,

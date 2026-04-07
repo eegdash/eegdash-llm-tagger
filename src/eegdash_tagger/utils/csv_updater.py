@@ -208,11 +208,25 @@ def update_csv_with_predictions(
             if verbose:
                 print(f"  Modality: Skipped (low confidence {modality_confidence:.2f})")
 
-        # Update type - DISABLED
-        # Type field updates are currently disabled due to low prediction accuracy.
-        # This functionality has been removed. See git history for previous implementation.
+        # Update type
+        current_type = df.at[row_idx, type_col]
+        type_confidence = pred['confidence'].get('type', 0.0)
+
+        if not is_empty_value(current_type):
+            stats['type_skipped_existing'] += 1
+            if verbose:
+                print(f"  Type: Keeping existing value '{current_type}'")
+        elif pred['type'] and type_confidence >= confidence_threshold:
+            df.at[row_idx, type_col] = pred['type']
+            stats['type_updated_high_conf'] += 1
+            if verbose:
+                print(f"  Type: Updated to '{pred['type']}' (confidence {type_confidence:.2f})")
+        elif pred['type'] and type_confidence < confidence_threshold:
+            stats['type_updated_low_conf'] += 1
+            if verbose:
+                print(f"  Type: Skipped (low confidence {type_confidence:.2f})")
+
         if verbose:
-            print(f"  Type: Skipped (updates disabled)")
             print()
 
     # Print summary

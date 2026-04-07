@@ -66,7 +66,7 @@ class OpenRouterTagger:
     def __init__(
         self,
         api_key: Optional[str] = None,
-        model: str = "openai/gpt-4",
+        model: str = "openai/gpt-5.2",
         verbose: bool = False,
         few_shot_path: Optional[Path] = None,
         prompt_path: Optional[Path] = None,
