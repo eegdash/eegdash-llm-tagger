@@ -29,11 +29,18 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from eegdash_tagger.naming.name_suggester import extract_author_year  # noqa: E402
 
-BASE = Path("data/processed")
+# Resolve paths relative to the llm-tagger repo root so the script runs
+# correctly from any CWD.
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+BASE = _REPO_ROOT / "data" / "processed"
 INPUT = BASE / "name_suggestions_all.json"
-NEMAR_STATUS = BASE / "nemar_dup_status.json"
 ALL_META = BASE / "all_metadata.json"
 OUTPUT = BASE / "name_suggestions_normalized.json"
+
+# Confidence assigned to names produced by the deterministic Authors:+year
+# extractor. Lower than LLM-backed matches because no semantic check is
+# applied.
+FALLBACK_CONFIDENCE = 0.55
 
 
 # --- manual strips: (dataset_id, canonical_name_to_strip) ---------------
@@ -171,8 +178,131 @@ def _pick_suffix(name: str, dataset_id: str, title: str) -> str:
 def _concat(name: str, suffix: str) -> str:
     """Join name + suffix as a clean Python identifier."""
     out = f"{name}_{suffix}"
-    out = re.sub(r"__+", "_", out).strip("_")
-    return out
+    return re.sub(r"__+", "_", out).strip("_")
+
+
+# ---------------------------------------------------------------------------
+# Pipeline stages
+# ---------------------------------------------------------------------------
+
+
+def _build_name_index(results: list[dict]) -> dict[str, list[str]]:
+    """Build a ``canonical_name -> [dataset_id, ...]`` index."""
+    index: dict[str, list[str]] = defaultdict(list)
+    for r in results:
+        for n in r["canonical_name"]:
+            index[n].append(r["dataset_id"])
+    return index
+
+
+def _clear_entry(r: dict, source: str) -> None:
+    """Wipe the suggestion for ``r`` and tag it with ``source``."""
+    r["canonical_name"] = []
+    r["name_source"] = source
+    r["name_confidence"] = 0.0
+
+
+def _apply_manual_strips(results: list[dict]) -> None:
+    """Remove LLM mis-associations listed in :data:`MANUAL_STRIPS`."""
+    strips: dict[str, set[str]] = defaultdict(set)
+    for did, bad, _reason in MANUAL_STRIPS:
+        strips[did].add(bad)
+    for r in results:
+        bad = strips.get(r["dataset_id"])
+        if not bad:
+            continue
+        r["canonical_name"] = [n for n in r["canonical_name"] if n not in bad]
+        if not r["canonical_name"]:
+            # Stripped the last name — consumers should see this as a non-result.
+            _clear_entry(r, "none")
+
+
+def _apply_stale_uploads(results_by_id: dict[str, dict]) -> None:
+    """Zero canonical names for datasets known missing on nemar."""
+    for did in STALE_UPLOADS:
+        r = results_by_id.get(did)
+        if r and r["canonical_name"]:
+            _clear_entry(r, "stale_upload")
+
+
+def _apply_author_year_fallback(
+    results: list[dict], meta: dict[str, dict]
+) -> int:
+    """Deterministic ``Surname<Year>`` pass for remaining ``none`` entries.
+
+    Scans each still-empty entry's metadata for an ``Authors:`` line plus
+    any 4-digit year. Only fires when both are unambiguously present —
+    never invents a year. Returns the number of entries upgraded.
+    """
+    count = 0
+    for r in results:
+        if r.get("name_source") != "none" or r["canonical_name"]:
+            continue
+        if r["dataset_id"] in STALE_UPLOADS:
+            continue
+        md = meta.get(r["dataset_id"], {}).get("metadata", {})
+        extracted = extract_author_year(md)
+        if not extracted:
+            continue
+        name, reasoning = extracted
+        r["canonical_name"] = [name]
+        r["name_source"] = "author_year"
+        r["name_confidence"] = FALLBACK_CONFIDENCE
+        r["reasoning"] = reasoning
+        count += 1
+    return count
+
+
+def _rewrite_collision(
+    r: dict, colliding_name: str, new_name: str
+) -> None:
+    """Replace ``colliding_name`` with ``new_name`` in r, order-preserving and deduped."""
+    replaced: list[str] = []
+    seen: set[str] = set()
+    for existing in r["canonical_name"]:
+        candidate = new_name if existing == colliding_name else existing
+        if candidate not in seen:
+            replaced.append(candidate)
+            seen.add(candidate)
+    r["canonical_name"] = replaced
+
+
+def _resolve_collisions(
+    results: list[dict],
+    results_by_id: dict[str, dict],
+    meta: dict[str, dict],
+) -> tuple[int, int]:
+    """Disambiguate every colliding canonical name.
+
+    Returns ``(renamed_slots, colliding_groups)``.
+    """
+    renamed = 0
+    groups = 0
+    for name, ids in _build_name_index(results).items():
+        if len(ids) < 2:
+            continue
+        groups += 1
+        for did in ids:
+            r = results_by_id[did]
+            title = (meta.get(did, {}).get("metadata", {}).get("title") or "").strip()
+            new_name = _concat(name, _pick_suffix(name, did, title))
+            _rewrite_collision(r, name, new_name)
+            renamed += 1
+    return renamed, groups
+
+
+def _apply_residual_suffix(
+    results: list[dict], results_by_id: dict[str, dict]
+) -> None:
+    """Suffix with the dataset_id digit tail if any collision survives the
+    primary disambiguation pass. Applies to every owner so each final
+    name reads unambiguously (``Smith2023_4520``, ``Smith2023_7137``).
+    """
+    remaining = {n: ids for n, ids in _build_name_index(results).items() if len(ids) > 1}
+    for name, ids in remaining.items():
+        for did in ids:
+            tiebreak = _concat(name, _short_dataset_suffix(did))
+            _rewrite_collision(results_by_id[did], name, tiebreak)
 
 
 def main() -> int:
@@ -184,136 +314,28 @@ def main() -> int:
     results = data["results"]
     results_by_id = {r["dataset_id"]: r for r in results}
 
-    # 1. Apply manual strips before computing collisions — these entries
-    #    were wrong upstream and shouldn't influence the collision map.
-    manual_strip_map: dict[str, set[str]] = defaultdict(set)
-    for did, bad_name, _ in MANUAL_STRIPS:
-        manual_strip_map[did].add(bad_name)
+    _apply_manual_strips(results)
+    _apply_stale_uploads(results_by_id)
+    fallback_count = _apply_author_year_fallback(results, meta)
+    renamed, colliding_groups = _resolve_collisions(results, results_by_id, meta)
+    _apply_residual_suffix(results, results_by_id)
 
-    for r in results:
-        bad = manual_strip_map.get(r["dataset_id"])
-        if not bad:
-            continue
-        before = r["canonical_name"]
-        r["canonical_name"] = [n for n in before if n not in bad]
-        if not r["canonical_name"]:
-            # We stripped the last name — downgrade metadata so consumers
-            # see this as a non-result.
-            r["name_source"] = "none"
-            r["name_confidence"] = 0.0
-
-    # 2. Strip names for datasets missing on nemar.
-    for did in STALE_UPLOADS:
-        if did in results_by_id:
-            r = results_by_id[did]
-            if r["canonical_name"]:
-                r["canonical_name"] = []
-                r["name_source"] = "stale_upload"
-                r["name_confidence"] = 0.0
-
-    # 2b. Deterministic author_year fallback: for everything still
-    # ``name_source == 'none'`` (and not a stale upload), scan the
-    # metadata for an ``Authors:`` line + a year and synthesise
-    # ``<Surname><Year>``. Only fires when both pieces are unambiguously
-    # present — it never invents a year.
-    fallback_count = 0
-    for r in results:
-        if r.get("name_source") != "none":
-            continue
-        if r["dataset_id"] in STALE_UPLOADS:
-            continue
-        if r["canonical_name"]:
-            continue
-        md = meta.get(r["dataset_id"], {}).get("metadata", {})
-        extracted = extract_author_year(md)
-        if not extracted:
-            continue
-        name, reasoning = extracted
-        r["canonical_name"] = [name]
-        r["name_source"] = "author_year"
-        # Lower confidence than LLM-backed matches — this is a purely
-        # mechanical extraction, no semantic check.
-        r["name_confidence"] = 0.55
-        r["reasoning"] = reasoning
-        fallback_count += 1
-
-    # 3. Compute collision map after strips.
-    name_to_ids: dict[str, list[str]] = defaultdict(list)
-    for r in results:
-        for n in r["canonical_name"]:
-            name_to_ids[n].append(r["dataset_id"])
-
-    # 4. For each colliding name, rewrite each dataset's entry with a
-    #    disambiguator. We don't touch single-owner names.
-    rewritten_count = 0
-    collisions_resolved: list[tuple[str, list[tuple[str, str]]]] = []
-    for name, ids in list(name_to_ids.items()):
-        if len(ids) < 2:
-            continue
-        changes: list[tuple[str, str]] = []
-        for did in ids:
-            r = results_by_id[did]
-            title = (meta.get(did, {}).get("metadata", {}).get("title") or "").strip()
-            suffix = _pick_suffix(name, did, title)
-            new_name = _concat(name, suffix)
-            # Replace the colliding name in-place, preserve order, dedupe.
-            replaced: list[str] = []
-            seen: set[str] = set()
-            for existing in r["canonical_name"]:
-                candidate = new_name if existing == name else existing
-                if candidate not in seen:
-                    replaced.append(candidate)
-                    seen.add(candidate)
-            r["canonical_name"] = replaced
-            changes.append((did, new_name))
-            rewritten_count += 1
-        collisions_resolved.append((name, changes))
-
-    # 5. Re-check for any remaining collisions (suffix function could
-    #    still produce collisions if two datasets share both the same
-    #    name AND the same derived suffix). For each still-colliding
-    #    name, append a short data-derived suffix (digit tail of the
-    #    dataset_id) to every owner — so ``Smith2023`` on ds004520 and
-    #    ds007137 becomes ``Smith2023_4520`` / ``Smith2023_7137``.
-    new_name_to_ids: dict[str, list[str]] = defaultdict(list)
-    for r in results:
-        for n in r["canonical_name"]:
-            new_name_to_ids[n].append(r["dataset_id"])
-    remaining_dups = {n: ids for n, ids in new_name_to_ids.items() if len(ids) > 1}
-    if remaining_dups:
-        for name, ids in remaining_dups.items():
-            # Apply the short-suffix to ALL owners (not just the latecomers)
-            # — every entry reads unambiguously on its own.
-            for did in ids:
-                r = results_by_id[did]
-                tiebreak = _concat(name, _short_dataset_suffix(did))
-                r["canonical_name"] = [
-                    tiebreak if n == name else n for n in r["canonical_name"]
-                ]
-
-    # 6. Write output and print summary.
     with OUTPUT.open("w") as f:
         json.dump({"results": results}, f, indent=2, ensure_ascii=False)
 
     print(f"Wrote {OUTPUT}")
-    print(f"Renamed {rewritten_count} name-slot(s) across "
-          f"{len(collisions_resolved)} colliding groups")
+    print(f"Renamed {renamed} name-slot(s) across {colliding_groups} colliding groups")
     print(f"Stale uploads zeroed: {sorted(STALE_UPLOADS)}")
     print(f"Manual strips applied: {len(MANUAL_STRIPS)}")
     print(f"Author_year fallback filled: {fallback_count}")
 
-    # Verify zero unresolved collisions.
-    final_name_to_ids: dict[str, list[str]] = defaultdict(list)
-    for r in results:
-        for n in r["canonical_name"]:
-            final_name_to_ids[n].append(r["dataset_id"])
-    final_dups = [(n, ids) for n, ids in final_name_to_ids.items() if len(ids) > 1]
+    final_dups = [(n, ids) for n, ids in _build_name_index(results).items() if len(ids) > 1]
     if final_dups:
         print(f"\n!! {len(final_dups)} unresolved collisions remain:")
         for n, ids in final_dups[:10]:
             print(f"   {n}: {ids}")
-    else:
-        print("\n✓ All canonical names are unique across datasets.")
+        return 1
+    print("\n✓ All canonical names are unique across datasets.")
     return 0
 
 

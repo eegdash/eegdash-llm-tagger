@@ -21,13 +21,16 @@ from __future__ import annotations
 
 import json
 import keyword
+import logging
 import os
 import re
-import sys
+import unicodedata
 from pathlib import Path
 from typing import Any, Optional, TypedDict
 
 import requests
+
+logger = logging.getLogger(__name__)
 
 
 class NameSuggestion(TypedDict, total=False):
@@ -104,12 +107,20 @@ Schema:
 ```"""
 
 
+# Identifier rules here are a strict SUPERSET of the registry's
+# ``_is_valid_alias`` (eegdash/dataset/registry.py): we additionally
+# require length >= 3 so suggestions like ``MI`` don't reach the
+# catalog. The registry itself is intentionally more permissive so
+# curator-added short aliases (e.g. ``TUH``) stay legal.
+_MIN_IDENTIFIER_LEN = 3
+
+
 def _is_valid_identifier(name: str) -> bool:
-    """Same rule the registry enforces — non-keyword Python identifier."""
+    """Non-keyword Python identifier of at least :data:`_MIN_IDENTIFIER_LEN` chars."""
     if not isinstance(name, str):
         return False
     name = name.strip()
-    if len(name) < 3:
+    if len(name) < _MIN_IDENTIFIER_LEN:
         return False
     if not name.isidentifier():
         return False
@@ -269,11 +280,7 @@ class NameSuggester:
             response = self._call_api(user_message)
             return self._parse_response(response, dataset_id)
         except Exception as exc:  # requests + json errors caught here
-            if self.verbose:
-                print(
-                    f"[NameSuggester] error for {dataset_id}: {exc}",
-                    file=sys.stderr,
-                )
+            logger.warning("name suggestion failed for %s: %s", dataset_id, exc)
             return NameSuggestion(
                 dataset_id=dataset_id,
                 canonical_name=[],
@@ -315,13 +322,16 @@ _YEAR_RE = re.compile(r"\b(19\d{2}|20\d{2})\b")
 
 def _strip_accents(s: str) -> str:
     """Collapse diacritics so ``Mikulán`` becomes ``Mikulan``."""
-    import unicodedata
-
     return "".join(
         c
         for c in unicodedata.normalize("NFKD", s)
         if not unicodedata.combining(c)
     )
+
+
+def _is_initials(tok: str) -> bool:
+    """True for all-caps short tokens (``WH``, ``JMR``) that follow a surname."""
+    return tok.isupper() and len(tok) <= 4
 
 
 def _first_surname_from_authors_blob(authors_blob: str) -> str | None:
@@ -334,10 +344,6 @@ def _first_surname_from_authors_blob(authors_blob: str) -> str | None:
     # Split on delimiters between authors: comma that isn't part of "Last,
     # First", semicolons, or " and ".
     first = re.split(r"\s+and\s+|;|\s*\*", authors_blob, maxsplit=1)[0]
-    def _is_initials(tok: str) -> bool:
-        # Sequences like ``WH`` / ``JMR`` after a surname are initials,
-        # not a surname. All-caps + short is the discriminator.
-        return tok.isupper() and len(tok) <= 4
 
     # "Last, First" vs "First Last" — if a single comma with text on
     # both sides, left side is surname.

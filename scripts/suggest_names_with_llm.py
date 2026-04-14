@@ -12,7 +12,6 @@ import argparse
 import json
 import os
 import sys
-import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
@@ -135,7 +134,6 @@ def main() -> int:
     )
 
     results: list[NameSuggestion] = []
-    lock = threading.Lock()
     start = time.time()
 
     with ThreadPoolExecutor(max_workers=args.workers) as executor:
@@ -145,10 +143,9 @@ def main() -> int:
             ): i
             for i, ds in enumerate(datasets)
         }
+        # list.append is atomic under the GIL — no lock needed.
         for future in as_completed(future_to_index):
-            res = future.result()
-            with lock:
-                results.append(res)
+            results.append(future.result())
 
     elapsed = time.time() - start
     # Keep the order stable (by dataset_id) so diffs are readable.

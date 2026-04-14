@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
 """Push canonical-name suggestions to the EEGDash database.
 
-Reads ``name_suggestions_all.json`` (or any file with the same schema) and
-sets ``canonical_name``, ``name_source``, ``name_confidence``, and
-``name_meta`` on each dataset document.
+Reads ``name_suggestions_normalized.json`` (or any file with the same
+schema) and sets ``canonical_name``, ``name_source``, ``name_confidence``,
+and ``name_meta`` on each dataset document.
 
-Duplicate names across datasets are NOT filtered out here — the registry
-resolves collisions at load time with WARNING logs, and the user wants
-the raw LLM output preserved on the DB side.
+Expected input is the output of ``normalize_names.py`` — collision
+resolution has already been applied, so every entry's ``canonical_name``
+is unique across the catalog.
+
+Empty-name entries (``name_source`` in ``{"none", "stale_upload"}`` or
+``canonical_name == []``) are always skipped; the API is only called
+for datasets that actually have a name to set.
 
 Usage:
-    # Set admin token and run (API path)
     export EEGDASH_API_TOKEN=...
-    python scripts/push_names_to_api.py \
-        --names-json data/processed/name_suggestions_all.json --verbose
+    python scripts/push_names_to_api.py --verbose
 
     # Dry-run (no writes)
     python scripts/push_names_to_api.py --dry-run --verbose
@@ -37,10 +39,21 @@ try:
 except ImportError:
     pass
 
-# Add parent project to path for eegdash imports
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
+# Add parent project to path for eegdash imports. Assumes the
+# eegdash-llm-tagger repo is nested inside the EEGDash working copy;
+# if it's ever cloned standalone, install ``eegdash`` on the active
+# Python environment and delete this block.
+_EEGDASH_ROOT = Path(__file__).resolve().parent.parent.parent
+if (_EEGDASH_ROOT / "eegdash").is_dir():
+    sys.path.insert(0, str(_EEGDASH_ROOT))
 
-from eegdash.api import EEGDash  # noqa: E402
+try:
+    from eegdash.api import EEGDash  # noqa: E402
+except ImportError as exc:  # pragma: no cover - env-specific
+    raise SystemExit(
+        "Could not import eegdash. Either clone this repo inside the "
+        "EEGDash working tree or `pip install eegdash` in the active env."
+    ) from exc
 
 
 def build_name_meta(result: dict, model: str, config_hash: str) -> dict:
@@ -67,8 +80,8 @@ def main() -> int:
     parser.add_argument(
         "--names-json",
         type=Path,
-        default=Path("data/processed/name_suggestions_all.json"),
-        help="Path to the name-suggestions JSON",
+        default=Path("data/processed/name_suggestions_normalized.json"),
+        help="Path to the name-suggestions JSON (default: the normalizer's output)",
     )
     parser.add_argument(
         "--model",
@@ -81,12 +94,6 @@ def main() -> int:
         default=0.0,
         help="Skip datasets whose name_confidence is below this value "
         "(default: 0.0 — push everything non-empty)",
-    )
-    parser.add_argument(
-        "--only-named",
-        action="store_true",
-        default=True,
-        help="Skip datasets where canonical_name is empty (default: on)",
     )
     parser.add_argument(
         "--skip-existing",
@@ -129,13 +136,13 @@ def main() -> int:
         else "unknown"
     )
 
-    # Filter candidates.
+    # Filter candidates. Empty-name entries are always skipped —
+    # there's nothing to push.
     eligible = []
     skipped_empty = 0
     skipped_low_conf = 0
     for r in results:
-        names = r.get("canonical_name") or []
-        if args.only_named and not names:
+        if not (r.get("canonical_name") or []):
             skipped_empty += 1
             continue
         if float(r.get("name_confidence", 0.0)) < args.confidence_threshold:
@@ -161,6 +168,21 @@ def main() -> int:
 
     eegdash = EEGDash(database=args.database)
 
+    # Batch-fetch existing canonical_names up front when --skip-existing
+    # is set. One ``find_datasets`` over the candidate IDs beats N
+    # individual lookups inside the worker pool.
+    already_named: set[str] = set()
+    if args.skip_existing:
+        ids = [r["dataset_id"] for r in eligible]
+        existing_docs = eegdash.find_datasets(
+            {"dataset_id": {"$in": ids}, "canonical_name": {"$ne": []}},
+            limit=len(ids) + 1,
+        )
+        already_named = {
+            d["dataset_id"] for d in existing_docs if d.get("canonical_name")
+        }
+        print(f"Already-named in DB: {len(already_named)}")
+
     updated = 0
     skipped_existing = 0
     failed = 0
@@ -168,21 +190,14 @@ def main() -> int:
 
     def push_one(result: dict) -> tuple:
         dataset_id = result["dataset_id"]
-        names = result.get("canonical_name") or []
-        source = result.get("name_source", "none")
-        conf = float(result.get("name_confidence", 0.0))
-        name_meta = build_name_meta(result, args.model, config_hash)
-
-        if args.skip_existing:
-            existing = eegdash._client.get_dataset(dataset_id)
-            if existing and (existing.get("canonical_name") or []):
-                return ("skipped", dataset_id, None)
+        if dataset_id in already_named:
+            return ("skipped", dataset_id, None)
 
         payload = {
-            "canonical_name": names,
-            "name_source": source,
-            "name_confidence": conf,
-            "name_meta": name_meta,
+            "canonical_name": result.get("canonical_name") or [],
+            "name_source": result.get("name_source", "none"),
+            "name_confidence": float(result.get("name_confidence", 0.0)),
+            "name_meta": build_name_meta(result, args.model, config_hash),
         }
         try:
             modified = eegdash.update_dataset(dataset_id, payload)
