@@ -56,3 +56,18 @@ def test_prompt_lists_exactly_the_v2_labels():
     prompt = (ROOT / "prompt.md").read_text()
     for axis, labels in LABELS.items():
         assert json.dumps(labels, ensure_ascii=False) in prompt, axis
+
+
+def test_tag_with_details_validates_labels(monkeypatch):
+    from eegdash_tagger.tagging.llm_tagger import OpenRouterTagger
+
+    tagger = OpenRouterTagger(api_key="test")
+    raw = '{"pathology": ["Development"], "modality": ["Resting State"], "type": ["Clinical/Intervention", "Memory/Resting state"], "confidence": {}}'
+    monkeypatch.setattr(
+        tagger, "_call_api", lambda *a: {"choices": [{"message": {"content": raw}}]}
+    )
+    out = tagger.tag_with_details({"title": "t"}, dataset_id="on000001")
+    assert out["dataset_id"] == "on000001"
+    assert out["pathology"] == ["Unknown"]
+    assert out["modality"] == ["No stimulus"]
+    assert out["type"] == ["Clinical"]

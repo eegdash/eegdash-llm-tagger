@@ -436,6 +436,11 @@ Return strict JSON format only."""
 
             # Add dataset_id back (it was masked when sending to LLM)
             llm_output["dataset_id"] = dataset_id
+            # Same v2 validation as _parse_response: this is the path the
+            # batch script uses, so raw model labels must not leak from here.
+            for axis in ("pathology", "modality", "type"):
+                llm_output[axis] = normalize_labels(axis, llm_output.get(axis))
+            llm_output["model"] = self.model
 
             return llm_output
 
