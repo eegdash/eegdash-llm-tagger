@@ -32,7 +32,12 @@ class OpenRouterTagger:
         few_shot_examples: Cached labeled examples for in-context learning
     """
 
-    ENDPOINT = "https://openrouter.ai/api/v1/chat/completions"
+    # Any OpenAI-compatible chat endpoint works (OpenRouter, a local proxy,
+    # ...): set LLM_API_BASE, e.g. http://127.0.0.1:8317/v1.
+    ENDPOINT = (
+        os.getenv("LLM_API_BASE", "https://openrouter.ai/api/v1").rstrip("/")
+        + "/chat/completions"
+    )
 
     # Metadata fields relevant for classification (whitelist)
     # These are the only fields sent to the LLM to reduce noise and tokens
@@ -89,7 +94,7 @@ class OpenRouterTagger:
             ValueError: If API key is not provided and OPENROUTER_API_KEY env var is not set
             FileNotFoundError: If few-shot examples or prompt file cannot be found
         """
-        self.api_key = api_key or os.getenv('OPENROUTER_API_KEY')
+        self.api_key = api_key or os.getenv('LLM_API_KEY') or os.getenv('OPENROUTER_API_KEY')
         if not self.api_key:
             raise ValueError(
                 "OpenRouter API key required. Set OPENROUTER_API_KEY environment "
@@ -296,7 +301,7 @@ Return strict JSON format only."""
                 self.ENDPOINT,
                 headers=headers,
                 json=payload,
-                timeout=120
+                timeout=int(os.getenv("LLM_TIMEOUT", "300"))
             )
             response.raise_for_status()
             return response.json()
