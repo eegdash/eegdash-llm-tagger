@@ -23,11 +23,11 @@ def fetch_all_datasets(database: str = DEFAULT_DATABASE) -> list[dict[str, Any]]
     """Fetch all dataset summaries from the EEGDash API."""
     all_datasets = []
     skip = 0
-    limit = 1000
+    limit = 100  # one 1000-row page (~4 MB) was seen truncated mid-JSON
 
     while True:
         url = f"{API_BASE_URL}/{database}/datasets/summary?limit={limit}&skip={skip}"
-        with urllib.request.urlopen(url, timeout=60) as resp:
+        with urllib.request.urlopen(url, timeout=120) as resp:
             data = json.loads(resp.read().decode())
 
         if not data.get("success"):
@@ -138,6 +138,12 @@ def main():
         help="Limit number of datasets to process",
     )
     parser.add_argument(
+        "--all",
+        action="store_true",
+        help="Fetch every dataset, not only those missing tags (full re-tag, "
+        "e.g. after a taxonomy change)",
+    )
+    parser.add_argument(
         "--fetch-abstracts",
         action="store_true",
         help="Also fetch paper abstracts (slower but better metadata)",
@@ -165,7 +171,7 @@ def main():
         print(f"Fetched {len(all_datasets)} total datasets")
 
     # Step 2: Filter to incomplete
-    incomplete = [ds for ds in all_datasets if needs_tagging(ds)]
+    incomplete = list(all_datasets) if args.all else [ds for ds in all_datasets if needs_tagging(ds)]
 
     if args.verbose:
         print(f"Found {len(incomplete)} datasets needing tagging")

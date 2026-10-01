@@ -13,6 +13,8 @@ from typing import List, Dict, Any, Optional
 
 import requests
 
+from .taxonomy import normalize_labels
+
 from .tagger import Tagger, ParsedMetadata, TaggingResult
 
 
@@ -361,9 +363,11 @@ Return strict JSON format only."""
 
             # New format: flat object (no "results" array)
             # Extract labels (arrays)
-            pathology = llm_output.get("pathology", ["Unknown"])
-            modality = llm_output.get("modality", ["Unknown"])
-            exp_type = llm_output.get("type", ["Unknown"])
+            # Validate against the v2 vocabulary: free-text labels from the
+            # model used to reach the catalog verbatim.
+            pathology = normalize_labels("pathology", llm_output.get("pathology"))
+            modality = normalize_labels("modality", llm_output.get("modality"))
+            exp_type = normalize_labels("type", llm_output.get("type"))
 
             # Extract confidence scores
             confidence_scores = llm_output.get("confidence", {})

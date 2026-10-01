@@ -3,7 +3,7 @@
     {
       "dataset_id": "DS004368",
       "pathology": [
-        "Schizophrenia/Psychosis"
+        "Schizophrenia spectrum"
       ],
       "modality": [
         "Visual"
@@ -39,7 +39,8 @@
         "Multisensory"
       ],
       "type": [
-        "Clinical/Intervention"
+        "Clinical",
+        "Attention"
       ],
       "metadata": {
         "title": "Cross-modal Oddball Task.",
@@ -63,7 +64,7 @@
     {
       "dataset_id": "DS004951",
       "pathology": [
-        "Other"
+        "Other clinical"
       ],
       "modality": [
         "Tactile"
@@ -122,7 +123,8 @@
         "Auditory"
       ],
       "type": [
-        "Decision-making"
+        "Clinical",
+        "Attention"
       ],
       "metadata": {
         "title": "EEG: Three-Stim Auditory Oddball and Rest in Acute and Chronic TBI",
@@ -154,10 +156,10 @@
         "Dementia"
       ],
       "modality": [
-        "Resting State"
+        "No stimulus"
       ],
       "type": [
-        "Clinical/Intervention"
+        "Clinical"
       ],
       "metadata": {
         "title": "A dataset of EEG recordings from: Alzheimer's disease, Frontotemporal dementia and Healthy subjects",
@@ -182,7 +184,7 @@
         "Healthy"
       ],
       "modality": [
-        "Sleep"
+        "No stimulus"
       ],
       "type": [
         "Sleep"
@@ -222,7 +224,7 @@
         "Healthy"
       ],
       "modality": [
-        "Resting State"
+        "No stimulus"
       ],
       "type": [
         "Resting-state"
@@ -353,7 +355,7 @@
         "Visual"
       ],
       "type": [
-        "Affect"
+        "Decision-making"
       ],
       "metadata": {
         "title": "EEG: Three armed bandit gambling task",
@@ -396,7 +398,8 @@
         "Visual"
       ],
       "type": [
-        "Attention"
+        "Attention",
+        "Clinical"
       ],
       "metadata": {
         "title": "EEG: DPX Cog Ctl Task in Acute Mild TBI",
@@ -480,7 +483,8 @@
         "Visual"
       ],
       "type": [
-        "Decision-making"
+        "Learning",
+        "Clinical"
       ],
       "metadata": {
         "title": "EEG: Reinforcement Learning in Parkinson's",
@@ -562,10 +566,10 @@
         "Epilepsy"
       ],
       "modality": [
-        "Resting State"
+        "No stimulus"
       ],
       "type": [
-        "Clinical/Intervention"
+        "Clinical"
       ],
       "metadata": {
         "title": "Dataset of EEG recordings of pediatric patients with epilepsy based on the 10-20 system ",
