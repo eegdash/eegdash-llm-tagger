@@ -18,20 +18,34 @@ You must assign:
 
 ## Category Definitions
 
-- **Pathology** (WHO): Clinical condition used to RECRUIT participants, not incidental findings.
-  - Normative cohort with no disorder focus → Healthy
-  - If "control" appears in participants but paper title describes a clinical population (e.g., "blind", "visually deprived"), use the actual population → Other or specific label
-  - Childhood/adolescence mental health → Development
+Each axis answers ONE question. Never use one axis to describe another axis's concept.
 
-- **Modality** (HOW): Dominant sensory/input channel of stimuli presented to participants.
-  - Infer from: stimulus type, not response type (button press is not Motor modality)
+- **Pathology** (WHO was recruited): the clinical condition used to RECRUIT participants, not incidental findings.
+  - Normative cohort with no disorder focus → `Healthy`
+  - Patients + matched controls → the patients' condition (not `Healthy`)
+  - Age or developmental stage is NOT a pathology: children with no recruited condition → `Healthy`; children recruited for a condition → that condition (e.g. `ADHD`, `Autism`)
+  - Community/clinical samples recruited for mental-health concerns across many diagnoses (e.g. Healthy Brain Network) → `Psychiatric (transdiagnostic)`
+  - A procedure is NOT a pathology: pre-surgical or intra-operative recordings → the condition that motivated it (usually `Epilepsy`; tumour → `Cancer`; DBS for movement disorder → `Parkinson's`)
+  - Anaesthesia/sedation of otherwise healthy participants → `Healthy`
+  - A named condition with no specific label (e.g. blindness, tinnitus, knee pain) → `Other clinical`; never use it when a specific label fits (ALS, stroke and spinal cord injury have their own labels)
 
-- **Type** (WHAT): The cognitive construct or research purpose being studied — NOT the task mechanics.
-  - Sensory discrimination/detection (even with choice responses) → Perception
-  - Choice policy, value-based decisions, metacognition as PRIMARY aim → Decision-making
-  - When pathology IS the main research focus (large clinical cohort study) → Clinical/Intervention
-  - Movement execution/imagery as research focus → Motor
-  - Passive eyes-open/closed, no task → Resting-state
+- **Modality** (HOW stimuli were delivered): the sensory channel of the stimuli presented to participants.
+  - Infer from the stimulus, not the response (a button press is not a modality)
+  - No external stimulus at all (eyes-open/closed rest, sleep, self-paced or uncued movement/imagery, anaesthesia) → `No stimulus`
+  - Cued motor imagery uses the cue's channel (usually `Visual`)
+  - Two channels in one task, or several tasks each with a different channel → `Multisensory`, or list both (max 2)
+
+- **Type** (WHAT is studied): the paradigm or cognitive construct, NOT the task mechanics.
+  - Sensory discrimination/detection (even with choice responses) → `Perception`
+  - Choice policy, value-based decisions, metacognition as PRIMARY aim → `Decision-making`
+  - Language comprehension/production, reading, speech processing → `Language`
+  - Movement execution or imagery as research focus (incl. motor-imagery BCI) → `Motor`
+  - Passive eyes-open/closed, no task → `Resting-state`
+  - Sleep staging or sleep physiology → `Sleep`
+  - Anaesthesia, sedation, disorders of consciousness → `Consciousness`
+  - The condition itself is the research focus (diagnostic cohort, biomarker, seizure/HFO detection) → `Clinical`
+  - A drug, stimulation (TMS/tDCS/DBS) or therapy is administered and its effect studied → `Intervention`
+  - Up to 2 labels when a dataset genuinely has two aims (e.g. `Clinical` + `Attention` for an oddball in patients)
 
 ---
 
@@ -91,16 +105,18 @@ Your response must include a `reasoning` object with these fields:
 
 ---
 
-## Allowed Labels (Use Exact Strings)
+## Allowed Labels (Use Exact Strings, 1-2 per axis)
 
 **Pathology:**
-`["Alcohol", "Cancer", "Dementia", "Depression", "Development", "Dyslexia", "Epilepsy", "Healthy", "Obese", "Other", "Parkinson's", "Schizophrenia/Psychosis", "Surgery", "TBI", "Unknown"]`
+`["Healthy", "ADHD", "ALS", "Alcohol use disorder", "Autism", "Cancer", "Chronic pain", "Dementia", "Depression", "Disorders of consciousness", "Dyslexia", "Epilepsy", "Obesity", "Parkinson's", "Psychiatric (transdiagnostic)", "Schizophrenia spectrum", "Spinal cord injury", "Stroke", "TBI", "Other clinical", "Unknown"]`
 
 **Modality:**
-`["Auditory", "Anesthesia", "Motor", "Multisensory", "Tactile", "Other", "Resting State", "Sleep", "Unknown", "Visual"]`
+`["Visual", "Auditory", "Tactile", "Multisensory", "No stimulus", "Other", "Unknown"]`
 
 **Type:**
-`["Affect", "Attention", "Clinical/Intervention", "Decision-making", "Learning", "Memory", "Motor", "Other", "Perception", "Resting-state", "Sleep", "Unknown"]`
+`["Perception", "Attention", "Memory", "Learning", "Decision-making", "Affect", "Language", "Motor", "Resting-state", "Sleep", "Consciousness", "Clinical", "Intervention", "Other", "Unknown"]`
+
+Any other string is discarded and becomes `Unknown`.
 
 ---
 

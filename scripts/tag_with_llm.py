@@ -134,9 +134,9 @@ def main():
     print("=" * 60)
 
     # Check API key
-    api_key = os.getenv('OPENROUTER_API_KEY')
+    api_key = os.getenv('LLM_API_KEY') or os.getenv('OPENROUTER_API_KEY')
     if not api_key:
-        print("\nError: OPENROUTER_API_KEY environment variable not set")
+        print("\nError: set LLM_API_KEY (or OPENROUTER_API_KEY)")
         return 1
 
     print(f"\n✓ API key found")

@@ -16,51 +16,8 @@ import argparse
 # Fixed Label Vocabularies
 # ============================================================================
 
-PATHOLOGY_LABELS = [
-    "Alcohol",
-    "Cancer",
-    "Dementia",
-    "Depression",
-    "Development",
-    "Dyslexia",
-    "Epilepsy",
-    "Healthy",
-    "Obese",
-    "Other",
-    "Parkinson's Disease",
-    "Schizophrenia/Psychosis",
-    "Surgery",
-    "Traumatic Brain Injury",
-    "Unknown",
-]
-
-MODALITY_LABELS = [  # Modality of experiment
-    "Auditory",
-    "Anesthesia",
-    "Motor",
-    "Multi sensory",
-    "Tactile",
-    "Other",
-    "Resting State",
-    "Sleep",
-    "Unknown",
-    "Visual",
-]
-
-TYPE_LABELS = [  # Type of experiment
-    "Affect",
-    "Attention",
-    "Clinical/Intervention",
-    "Decision making",
-    "Learning",
-    "Memory",
-    "Motor",
-    "Other",
-    "Perception",
-    "Resting state",
-    "Sleep",
-    "Unknown",
-]
+# Vocabularies live in taxonomy.py (v2); re-exported here for old imports.
+from .taxonomy import MODALITY_LABELS, PATHOLOGY_LABELS, TYPE_LABELS  # noqa: E402,F401
 
 
 # ============================================================================

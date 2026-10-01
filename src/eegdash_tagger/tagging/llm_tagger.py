@@ -13,6 +13,8 @@ from typing import List, Dict, Any, Optional
 
 import requests
 
+from .taxonomy import normalize_labels
+
 from .tagger import Tagger, ParsedMetadata, TaggingResult
 
 
@@ -30,7 +32,12 @@ class OpenRouterTagger:
         few_shot_examples: Cached labeled examples for in-context learning
     """
 
-    ENDPOINT = "https://openrouter.ai/api/v1/chat/completions"
+    # Any OpenAI-compatible chat endpoint works (OpenRouter, a local proxy,
+    # ...): set LLM_API_BASE, e.g. http://127.0.0.1:8317/v1.
+    ENDPOINT = (
+        os.getenv("LLM_API_BASE", "https://openrouter.ai/api/v1").rstrip("/")
+        + "/chat/completions"
+    )
 
     # Metadata fields relevant for classification (whitelist)
     # These are the only fields sent to the LLM to reduce noise and tokens
@@ -87,7 +94,7 @@ class OpenRouterTagger:
             ValueError: If API key is not provided and OPENROUTER_API_KEY env var is not set
             FileNotFoundError: If few-shot examples or prompt file cannot be found
         """
-        self.api_key = api_key or os.getenv('OPENROUTER_API_KEY')
+        self.api_key = api_key or os.getenv('LLM_API_KEY') or os.getenv('OPENROUTER_API_KEY')
         if not self.api_key:
             raise ValueError(
                 "OpenRouter API key required. Set OPENROUTER_API_KEY environment "
@@ -294,7 +301,7 @@ Return strict JSON format only."""
                 self.ENDPOINT,
                 headers=headers,
                 json=payload,
-                timeout=120
+                timeout=int(os.getenv("LLM_TIMEOUT", "300"))
             )
             response.raise_for_status()
             return response.json()
@@ -361,9 +368,11 @@ Return strict JSON format only."""
 
             # New format: flat object (no "results" array)
             # Extract labels (arrays)
-            pathology = llm_output.get("pathology", ["Unknown"])
-            modality = llm_output.get("modality", ["Unknown"])
-            exp_type = llm_output.get("type", ["Unknown"])
+            # Validate against the v2 vocabulary: free-text labels from the
+            # model used to reach the catalog verbatim.
+            pathology = normalize_labels("pathology", llm_output.get("pathology"))
+            modality = normalize_labels("modality", llm_output.get("modality"))
+            exp_type = normalize_labels("type", llm_output.get("type"))
 
             # Extract confidence scores
             confidence_scores = llm_output.get("confidence", {})
@@ -432,6 +441,11 @@ Return strict JSON format only."""
 
             # Add dataset_id back (it was masked when sending to LLM)
             llm_output["dataset_id"] = dataset_id
+            # Same v2 validation as _parse_response: this is the path the
+            # batch script uses, so raw model labels must not leak from here.
+            for axis in ("pathology", "modality", "type"):
+                llm_output[axis] = normalize_labels(axis, llm_output.get(axis))
+            llm_output["model"] = self.model
 
             return llm_output
 
