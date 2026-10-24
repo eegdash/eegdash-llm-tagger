@@ -1,7 +1,10 @@
 [project]
 name = "eegdash-tagger"
-version = "0.1.0"
+version = "0.1.2"
 description = "Automatic tagging of EEG datasets using LLM-based predictions"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [{ name = "Kuntal Kokate" }]
 requires-python = ">=3.11"
 dependencies = [
@@ -12,18 +15,27 @@ dependencies = [
 ]
 
 [project.scripts]
-eegdash-fetch-incomplete = "scripts.fetch_incomplete_datasets:main"
-eegdash-fetch-complete = "scripts.fetch_complete_datasets:main"
-eegdash-update-csv = "scripts.update_csv:main"
+eegdash-fetch-incomplete = "eegdash_tagger.cli.fetch_incomplete_datasets:main"
+eegdash-fetch-complete = "eegdash_tagger.cli.fetch_complete_datasets:main"
+eegdash-update-csv = "eegdash_tagger.cli.update_csv:main"
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/eegdash_tagger"]
 
+[tool.hatch.build.targets.wheel.force-include]
+"prompt.md" = "eegdash_tagger/resources/prompt.md"
+"data/processed/few_shot_examples.json" = "eegdash_tagger/resources/few_shot_examples.json"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
 [dependency-groups]
 dev = [
     "pytest>=8.0",
+    "pytest-cov>=7.0",
+    "build>=1.2",
 ]

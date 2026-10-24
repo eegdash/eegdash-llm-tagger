@@ -7,33 +7,22 @@ fields via the EEGDash admin API.
 """
 
 import argparse
-import hashlib
 import json
+import os
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import quote
 
-# Add parent project to path for eegdash imports
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
+import requests
 
-from eegdash.api import EEGDash
+from eegdash_tagger.tagging.provenance import verified_result_provenance
 
 
-def build_tagger_meta(result: dict, model: str, config_hash: str) -> dict:
-    """Build tagger_meta matching the existing format in the DB."""
-    # Hash the metadata that was sent to the LLM
-    reasoning = result.get("reasoning", {})
-    meta_str = json.dumps(reasoning, sort_keys=True)
-    metadata_hash = hashlib.blake2b(meta_str.encode(), digest_size=8).hexdigest()
-
-    return {
-        "config_hash": config_hash,
-        "metadata_hash": metadata_hash,
-        "model": model,
-        "tagged_at": datetime.now(timezone.utc).isoformat(),
-    }
+def build_tagger_meta(result: dict, model: str | None = None) -> dict:
+    """Use captured request provenance; never hash generated reasoning."""
+    return verified_result_provenance(result, expected_model=model)
 
 
 def build_tags(result: dict) -> dict:
@@ -45,6 +34,49 @@ def build_tags(result: dict) -> dict:
         "confidence": result.get("confidence", {}),
         "reasoning": result.get("reasoning", {}),
     }
+
+
+def push_one(result: dict, *, api_url: str, database: str, token: str,
+             skip_existing: bool = False, model: str | None = None) -> tuple:
+    """Check existence, then use the catalogue's authenticated HTTP upsert.
+
+    The remote protocol has no atomic update-only endpoint. The existence check
+    reduces accidental inserts but cannot prevent a concurrent deletion race.
+    A confirmed zero-update result is an unchanged write, not an error.
+    """
+    dataset_id = result["dataset_id"]
+    base = api_url.rstrip("/")
+    database_path = quote(database, safe="")
+    try:
+        response = requests.get(
+            f"{base}/api/{database_path}/datasets/{quote(dataset_id, safe='')}",
+            timeout=30,
+        )
+        response.raise_for_status()
+        envelope = response.json()
+        if not isinstance(envelope, dict) or envelope.get("success") is not True or not isinstance(envelope.get("data"), dict):
+            return ("error", dataset_id, "Catalogue did not confirm an existing dataset")
+        existing = envelope["data"]
+        if skip_existing:
+            tags = existing.get("tags") or {}
+            if all(tags.get(axis) for axis in ("pathology", "modality", "type")):
+                return ("skipped", dataset_id)
+        payload = {"dataset_id": dataset_id, "tags": build_tags(result),
+                   "tagger_meta": build_tagger_meta(result, model)}
+        response = requests.post(
+            f"{base}/admin/{database_path}/datasets", json=payload,
+            headers={"Authorization": f"Bearer {token}"}, timeout=30,
+        )
+        response.raise_for_status()
+        envelope = response.json()
+        if (not isinstance(envelope, dict) or envelope.get("success") is not True
+                or type(envelope.get("inserted_count")) is not int or envelope["inserted_count"] != 0
+                or type(envelope.get("updated_count")) is not int or envelope["updated_count"] not in (0, 1)):
+            return ("error", dataset_id, "Catalogue did not confirm an update-only write")
+        return ("ok", dataset_id, envelope["updated_count"])
+    except (requests.RequestException, ValueError, TypeError) as exc:
+        # Do not print endpoint credentials/tokens from provider exception text.
+        return ("error", dataset_id, type(exc).__name__)
 
 
 def main():
@@ -59,8 +91,8 @@ def main():
     )
     parser.add_argument(
         "--model",
-        default="openai/gpt-5.2",
-        help="Model used for tagging (stored in tagger_meta)",
+        default=None,
+        help="Optional check against the requested model already recorded at generation",
     )
     parser.add_argument(
         "--confidence-threshold",
@@ -95,6 +127,10 @@ def main():
         help="Database name (default: eegdash)",
     )
 
+    parser.add_argument("--api-url", default=os.getenv("EEGDASH_API_URL", "https://data.eegdash.org"),
+                        help="Catalogue API base URL (or EEGDASH_API_URL)")
+    parser.add_argument("--admin-token", default=os.getenv("EEGDASH_ADMIN_TOKEN"),
+                        help="Admin bearer token (prefer EEGDASH_ADMIN_TOKEN environment variable)")
     args = parser.parse_args()
 
     # Load LLM results
@@ -103,19 +139,12 @@ def main():
     results = data.get("results", [])
     print(f"Loaded {len(results)} LLM results from {args.llm_json}")
 
-    # Compute a config hash from the prompt file
-    prompt_path = Path(__file__).parent.parent / "prompt.md"
-    if prompt_path.exists():
-        config_hash = hashlib.blake2b(
-            prompt_path.read_bytes(), digest_size=8
-        ).hexdigest()
-    else:
-        config_hash = "unknown"
-
     # Filter by confidence
     eligible = []
     skipped_low_conf = 0
     for r in results:
+        if r.get("status") == "error":
+            continue
         conf = r.get("confidence", {})
         max_conf = max(conf.values()) if conf else 0
         if max_conf >= args.confidence_threshold:
@@ -126,6 +155,14 @@ def main():
     print(f"Eligible (conf >= {args.confidence_threshold}): {len(eligible)}")
     print(f"Skipped (low confidence): {skipped_low_conf}")
 
+    # Fail before any connection/write if the input cannot support provenance.
+    try:
+        for result in eligible:
+            build_tagger_meta(result, args.model)
+    except ValueError as exc:
+        print(f"Invalid input provenance: {exc}", file=sys.stderr)
+        return 1
+
     if args.dry_run:
         print(f"\nDRY RUN — would update {len(eligible)} datasets")
         for r in eligible[:10]:
@@ -134,38 +171,21 @@ def main():
             print(f"  ... and {len(eligible) - 10} more")
         return 0
 
-    # Connect to API
-    eegdash = EEGDash(database=args.database)
+    if not eligible:
+        return 0
+    if not args.admin_token:
+        print("An explicit EEGDASH_ADMIN_TOKEN or --admin-token is required", file=sys.stderr)
+        return 1
 
-    # Push updates
     updated = 0
     skipped_existing = 0
     failed = 0
     start_time = time.time()
 
-    def push_one(result):
-        dataset_id = result["dataset_id"]
-        tags = build_tags(result)
-        tagger_meta = build_tagger_meta(result, args.model, config_hash)
-
-        if args.skip_existing:
-            ds = eegdash._client.get_dataset(dataset_id)
-            if ds:
-                existing_tags = ds.get("tags") or {}
-                if existing_tags.get("pathology") and existing_tags.get("modality") and existing_tags.get("type"):
-                    return ("skipped", dataset_id)
-
-        try:
-            modified = eegdash.update_dataset(
-                dataset_id,
-                {"tags": tags, "tagger_meta": tagger_meta},
-            )
-            return ("ok", dataset_id, modified)
-        except Exception as e:
-            return ("error", dataset_id, str(e))
-
     with ThreadPoolExecutor(max_workers=args.workers) as executor:
-        futures = {executor.submit(push_one, r): r for r in eligible}
+        futures = {executor.submit(push_one, r, api_url=args.api_url, database=args.database,
+                                   token=args.admin_token, skip_existing=args.skip_existing,
+                                   model=args.model): r for r in eligible}
 
         for i, future in enumerate(as_completed(futures), 1):
             result = future.result()
@@ -191,12 +211,12 @@ def main():
     print(f"\n{'=' * 60}")
     print("Summary")
     print("=" * 60)
-    print(f"Updated:          {updated}")
+    print(f"Confirmed writes (updated or unchanged): {updated}")
     print(f"Skipped existing: {skipped_existing}")
     print(f"Failed:           {failed}")
     print(f"Total time:       {elapsed:.1f}s")
 
-    return 0
+    return 1 if failed else 0
 
 
 if __name__ == "__main__":

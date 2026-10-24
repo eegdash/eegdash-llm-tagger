@@ -14,27 +14,17 @@ Usage:
 """
 
 import argparse
-import hashlib
+import os
 import json
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
-import pymongo
+from eegdash_tagger.tagging.provenance import verified_result_provenance
 
 
-def build_tagger_meta(result: dict, model: str, config_hash: str) -> dict:
-    """Build tagger_meta matching the existing format in the DB."""
-    reasoning = result.get("reasoning", {})
-    meta_str = json.dumps(reasoning, sort_keys=True)
-    metadata_hash = hashlib.blake2b(meta_str.encode(), digest_size=8).hexdigest()
-
-    return {
-        "config_hash": config_hash,
-        "metadata_hash": metadata_hash,
-        "model": model,
-        "tagged_at": datetime.now(timezone.utc).isoformat(),
-    }
+def build_tagger_meta(result: dict, model: str | None = None) -> dict:
+    """Use captured request provenance; never hash generated reasoning."""
+    return verified_result_provenance(result, expected_model=model)
 
 
 def build_tags(result: dict) -> dict:
@@ -60,8 +50,8 @@ def main():
     )
     parser.add_argument(
         "--model",
-        default="openai/gpt-5.2",
-        help="Model used for tagging (stored in tagger_meta)",
+        default=None,
+        help="Optional check against the requested model already recorded at generation",
     )
     parser.add_argument(
         "--confidence-threshold",
@@ -76,8 +66,8 @@ def main():
     )
     parser.add_argument(
         "--mongo-uri",
-        default="mongodb://competition_admin:CompAdmin2025Secure@localhost:27018",
-        help="MongoDB URI (default uses SSH tunnel on port 27018)",
+        default=os.getenv("MONGO_URI"),
+        help="MongoDB URI; otherwise read MONGO_URI (no embedded credentials)",
     )
     parser.add_argument(
         "--database",
@@ -103,19 +93,12 @@ def main():
     results = data.get("results", [])
     print(f"Loaded {len(results)} LLM results")
 
-    # Compute config hash from prompt
-    prompt_path = Path(__file__).parent.parent / "prompt.md"
-    if prompt_path.exists():
-        config_hash = hashlib.blake2b(
-            prompt_path.read_bytes(), digest_size=8
-        ).hexdigest()
-    else:
-        config_hash = "unknown"
-
     # Filter by confidence
     eligible = []
     skipped_low_conf = 0
     for r in results:
+        if r.get("status") == "error":
+            continue
         conf = r.get("confidence", {})
         max_conf = max(conf.values()) if conf else 0
         if max_conf >= args.confidence_threshold:
@@ -126,6 +109,14 @@ def main():
     print(f"Eligible (conf >= {args.confidence_threshold}): {len(eligible)}")
     print(f"Skipped (low confidence): {skipped_low_conf}")
 
+    # Fail before any connection/write if the input cannot support provenance.
+    try:
+        for result in eligible:
+            build_tagger_meta(result, args.model)
+    except ValueError as exc:
+        print(f"Invalid input provenance: {exc}", file=sys.stderr)
+        return 1
+
     if args.dry_run:
         print(f"\nDRY RUN — would update {len(eligible)} datasets")
         for r in eligible[:10]:
@@ -133,6 +124,11 @@ def main():
         if len(eligible) > 10:
             print(f"  ... and {len(eligible) - 10} more")
         return 0
+
+    if not args.mongo_uri:
+        print("Provide --mongo-uri or MONGO_URI", file=sys.stderr)
+        return 1
+    import pymongo
 
     # Connect to MongoDB
     print(f"\nConnecting to MongoDB at {args.mongo_uri.split('@')[1] if '@' in args.mongo_uri else args.mongo_uri}...")
@@ -158,7 +154,7 @@ def main():
     for i, result in enumerate(eligible, 1):
         dataset_id = result["dataset_id"]
         tags = build_tags(result)
-        tagger_meta = build_tagger_meta(result, args.model, config_hash)
+        tagger_meta = build_tagger_meta(result, args.model)
 
         try:
             if args.skip_existing:
@@ -203,7 +199,7 @@ def main():
     print(f"Skipped existing: {skipped_existing}")
     print(f"Failed:           {failed}")
 
-    return 0
+    return 1 if failed or not_found else 0
 
 
 if __name__ == "__main__":

@@ -6,6 +6,8 @@ using OpenRouter.ai API to classify datasets with GPT-4/Claude models.
 """
 
 import json
+import math
+from importlib.resources import files
 import os
 import sys
 from pathlib import Path
@@ -14,8 +16,17 @@ from typing import List, Dict, Any, Optional
 import requests
 
 from .taxonomy import normalize_labels
+from .provenance import request_provenance
 
 from .tagger import Tagger, ParsedMetadata, TaggingResult
+
+
+class TaggingError(RuntimeError):
+    """The model request failed or did not return a usable tagging record.
+
+    This is distinct from a valid model abstention (``Unknown`` labels). Callers
+    must not cache or persist a failed call as a completed classification.
+    """
 
 
 class OpenRouterTagger:
@@ -61,14 +72,24 @@ class OpenRouterTagger:
     }
 
     @classmethod
+    def _default_resource_path(cls, filename: str) -> Path:
+        # Pip installs wheels unpacked. Source/editable checkouts retain the
+        # canonical prompt/example files used as wheel build inputs.
+        bundled = files("eegdash_tagger").joinpath("resources", filename)
+        if bundled.is_file():
+            return Path(str(bundled))
+        root = Path(__file__).resolve().parents[3]
+        return root / ("data/processed" if filename.endswith(".json") else "") / filename
+
+    @classmethod
     def get_default_few_shot_path(cls) -> Path:
-        """Get the default path to few_shot_examples.json bundled with the package."""
-        return Path(__file__).parent.parent.parent.parent / "data" / "processed" / "few_shot_examples.json"
+        """Return the bundled examples, or canonical source file in a checkout."""
+        return cls._default_resource_path("few_shot_examples.json")
 
     @classmethod
     def get_default_prompt_path(cls) -> Path:
-        """Get the default path to prompt.md bundled with the package."""
-        return Path(__file__).parent.parent.parent.parent / "prompt.md"
+        """Return the bundled prompt, or canonical source file in a checkout."""
+        return cls._default_resource_path("prompt.md")
 
     def __init__(
         self,
@@ -84,7 +105,7 @@ class OpenRouterTagger:
 
         Args:
             api_key: OpenRouter.ai API key. If None, reads from OPENROUTER_API_KEY env var
-            model: Model identifier (default: "openai/gpt-4")
+            model: Model identifier (default: "openai/gpt-5.2")
             verbose: Enable verbose output
             few_shot_path: Path to few_shot_examples.json. If None, uses package default
             prompt_path: Path to prompt.md. If None, uses package default
@@ -104,15 +125,20 @@ class OpenRouterTagger:
         self.model = model
         self.verbose = verbose
         self.max_tokens = max_tokens
+        base_url = os.getenv("LLM_API_BASE")
+        self.endpoint = base_url.rstrip("/") + "/chat/completions" if base_url else self.ENDPOINT
 
         # Store prompt path for later use
-        self.prompt_path = prompt_path if prompt_path else self.get_default_prompt_path()
+        self.prompt_path = Path(prompt_path) if prompt_path is not None else self.get_default_prompt_path()
+        if not self.prompt_path.is_file():
+            raise FileNotFoundError(f"Prompt not found at: {self.prompt_path}")
 
         # Load few-shot examples
         if few_shot_path is None:
             few_shot_path = self.get_default_few_shot_path()
 
-        if not few_shot_path.exists():
+        few_shot_path = Path(few_shot_path)
+        if not few_shot_path.is_file():
             raise FileNotFoundError(f"Few-shot examples not found at: {few_shot_path}")
 
         with open(few_shot_path, 'r', encoding='utf-8') as f:
@@ -170,48 +196,23 @@ class OpenRouterTagger:
         return filtered
 
     def tag(self, meta: ParsedMetadata) -> TaggingResult:
+        """Return labels or raise :class:`TaggingError` on a failed model call.
+
+        A successful response containing ``Unknown`` remains a valid abstention.
+        Confidence is the model's score, not a calibrated correctness estimate.
         """
-        Tag a dataset using LLM.
-
-        Args:
-            meta: Parsed metadata from dataset
-
-        Returns:
-            TaggingResult with pathology, modality, type, confidence, and rationale
-        """
-        try:
-            # Build prompt messages
-            system_prompt = self._build_system_prompt()
-            user_message = self._build_user_message(meta)
-
-            if self.verbose:
-                print(f"\nCalling {self.model} API...")
-                print(f"System prompt length: {len(system_prompt)} chars")
-                print(f"User message length: {len(user_message)} chars")
-
-            # Call API
-            response_data = self._call_api(system_prompt, user_message)
-
-            # Parse response
-            result = self._parse_response(response_data, meta)
-
-            if self.verbose:
-                print("✓ Successfully tagged dataset")
-
-            return result
-
-        except Exception as e:
-            if self.verbose:
-                print(f"✗ Error tagging dataset: {e}", file=sys.stderr)
-
-            # Return fallback result
-            return TaggingResult(
-                pathology=["Unknown"],
-                modality=["Unknown"],
-                type=["Unknown"],
-                confidence=0.0,
-                rationale=f"API call failed: {str(e)}"
-            )
+        output = self.tag_with_details(meta)
+        confidence = output["confidence"]
+        reasoning = output.get("reasoning", {})
+        def snippet(key: str) -> str:
+            value = reasoning.get(key, "N/A")
+            text = value if isinstance(value, str) else json.dumps(value, ensure_ascii=False)
+            return text[:100]
+        return TaggingResult(
+            pathology=output["pathology"], modality=output["modality"], type=output["type"],
+            confidence=sum(confidence[axis] for axis in ("pathology", "modality", "type")) / 3,
+            rationale=f"Few-shot: {snippet('few_shot_analysis')}... | Metadata: {snippet('metadata_analysis')}...",
+        )
 
     def _build_system_prompt(self) -> str:
         """
@@ -220,20 +221,6 @@ class OpenRouterTagger:
         Returns:
             System message with full instructions
         """
-        if not self.prompt_path.exists():
-            # Fallback to minimal instructions
-            return """You are an expert EEG/MEG dataset curator for the EEGDash catalog.
-
-Your task is to classify datasets with:
-1. Pathology - one or two labels
-2. Modality of experiment - one or two labels
-3. Type of experiment - one or two labels
-4. Confidence scores for each category (0-1)
-
-Use few-shot examples as ground truth for labeling patterns.
-Base reasoning on actual metadata phrases.
-Return strict JSON format only."""
-
         with open(self.prompt_path, 'r', encoding='utf-8') as f:
             return f.read()
 
@@ -259,6 +246,14 @@ Return strict JSON format only."""
 
         return json.dumps(message, indent=2, ensure_ascii=False)
 
+    def _build_request_payload(self, system_prompt: str, user_message: str) -> Dict[str, Any]:
+        return {
+            "model": self.model,
+            "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_message}],
+            "max_tokens": self.max_tokens,
+            "response_format": {"type": "json_object"},
+        }
+
     def _call_api(self, system_prompt: str, user_message: str) -> Dict[str, Any]:
         """
         Make API call to OpenRouter.ai.
@@ -279,39 +274,29 @@ Return strict JSON format only."""
             "Content-Type": "application/json",
         }
 
-        payload = {
-            "model": self.model,
-            "messages": [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_message}
-            ],
-            # Limit max_tokens to control costs and fit within credit limits
-            # The response should be a relatively small JSON object
-            "max_tokens": self.max_tokens,
-        }
-
-        # Enforce JSON mode for all models
-        # OpenRouter supports response_format for many models
-        # If a model doesn't support it, the API will ignore it gracefully
-        # and the prompt instructions will still enforce JSON output
-        payload["response_format"] = {"type": "json_object"}
+        payload = self._build_request_payload(system_prompt, user_message)
+        endpoint = self.endpoint
 
         try:
             response = requests.post(
-                self.ENDPOINT,
+                endpoint,
                 headers=headers,
                 json=payload,
                 timeout=int(os.getenv("LLM_TIMEOUT", "300"))
             )
             response.raise_for_status()
-            return response.json()
+            data = response.json()
+            if isinstance(data, dict):
+                # Internal capture is overwritten locally, never trusted from
+                # the provider. It contains no authorization headers.
+                data["_eegdash_request"] = {"payload": payload, "endpoint": endpoint}
+            return data
 
         except requests.RequestException as e:
             if self.verbose:
-                print(f"API request failed: {e}", file=sys.stderr)
+                print(f"API request failed: {type(e).__name__}", file=sys.stderr)
                 if hasattr(e, 'response') and e.response is not None:
                     print(f"Response status: {e.response.status_code}", file=sys.stderr)
-                    print(f"Response body: {e.response.text[:500]}", file=sys.stderr)
             raise
 
     def _clean_json_response(self, content: str) -> str:
@@ -341,132 +326,74 @@ Return strict JSON format only."""
 
         return content
 
-    def _parse_response(self, response_data: Dict[str, Any], meta: ParsedMetadata) -> TaggingResult:
-        """
-        Parse API response into TaggingResult.
-
-        Args:
-            response_data: Raw API response
-            meta: Original metadata (for fallback)
-
-        Returns:
-            TaggingResult with extracted labels and confidence
-
-        Raises:
-            ValueError: If response format is invalid
-        """
+    def _decode_response(self, response_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Parse and validate the record envelope before label normalization."""
         try:
-            # Extract message content
             content = response_data["choices"][0]["message"]["content"]
+            if not isinstance(content, str):
+                raise ValueError("message content must be text")
+            def reject_constant(value):
+                raise ValueError(f"Non-JSON numeric constant: {value}")
+            output = json.loads(self._clean_json_response(content), parse_constant=reject_constant)
+            if not isinstance(output, dict):
+                raise ValueError("response must be a JSON object")
+            for axis in ("pathology", "modality", "type"):
+                raw = output[axis]
+                if not isinstance(raw, (str, list)) or (isinstance(raw, list) and not all(isinstance(v, str) for v in raw)):
+                    raise ValueError(f"{axis} must contain strings")
+            confidence = output["confidence"]
+            if not isinstance(confidence, dict):
+                raise ValueError("confidence must be an object")
+            for axis in ("pathology", "modality", "type"):
+                score = confidence[axis]
+                if isinstance(score, bool) or not isinstance(score, (int, float)) or not math.isfinite(score) or not 0 <= score <= 1:
+                    raise ValueError(f"confidence.{axis} must be finite and between zero and one")
+            if "reasoning" in output and not isinstance(output["reasoning"], dict):
+                raise ValueError("reasoning must be an object when supplied")
+        except (KeyError, IndexError, TypeError, ValueError) as exc:
+            raise TaggingError(f"Invalid model response: {exc}") from exc
+        return output
 
-            if self.verbose:
-                print(f"Raw response length: {len(content)} chars")
-
-            # Clean and parse JSON content
-            cleaned_content = self._clean_json_response(content)
-            llm_output = json.loads(cleaned_content)
-
-            # New format: flat object (no "results" array)
-            # Extract labels (arrays)
-            # Validate against the v2 vocabulary: free-text labels from the
-            # model used to reach the catalog verbatim.
-            pathology = normalize_labels("pathology", llm_output.get("pathology"))
-            modality = normalize_labels("modality", llm_output.get("modality"))
-            exp_type = normalize_labels("type", llm_output.get("type"))
-
-            # Extract confidence scores
-            confidence_scores = llm_output.get("confidence", {})
-            avg_confidence = sum([
-                confidence_scores.get("pathology", 0.0),
-                confidence_scores.get("modality", 0.0),
-                confidence_scores.get("type", 0.0),
-            ]) / 3.0
-
-            # Extract reasoning
-            reasoning = llm_output.get("reasoning", {})
-            rationale = (
-                f"Few-shot: {reasoning.get('few_shot_analysis', 'N/A')[:100]}... | "
-                f"Metadata: {reasoning.get('metadata_analysis', 'N/A')[:100]}..."
-            )
-
-            return TaggingResult(
-                pathology=pathology,
-                modality=modality,
-                type=exp_type,
-                confidence=avg_confidence,
-                rationale=rationale
-            )
-
-        except (KeyError, json.JSONDecodeError, IndexError) as e:
-            if self.verbose:
-                print(f"Error parsing response: {e}", file=sys.stderr)
-                print(f"Response data: {response_data}", file=sys.stderr)
-
-            # Return fallback
-            return TaggingResult(
-                pathology=["Unknown"],
-                modality=["Unknown"],
-                type=["Unknown"],
-                confidence=0.0,
-                rationale=f"Failed to parse LLM response: {str(e)}"
-            )
+    def _parse_response(self, response_data: Dict[str, Any], meta: ParsedMetadata) -> TaggingResult:
+        """Parse a response; retained for callers of the earlier private helper."""
+        output = self._decode_response(response_data)
+        for axis in ("pathology", "modality", "type"):
+            output[axis] = normalize_labels(axis, output[axis])
+        reasoning = output.get("reasoning", {})
+        snippets = [str(reasoning.get(key, "N/A"))[:100] for key in ("few_shot_analysis", "metadata_analysis")]
+        return TaggingResult(
+            pathology=output["pathology"], modality=output["modality"], type=output["type"],
+            confidence=sum(output["confidence"][axis] for axis in ("pathology", "modality", "type")) / 3,
+            rationale=f"Few-shot: {snippets[0]}... | Metadata: {snippets[1]}...",
+        )
 
     def tag_with_details(self, meta: ParsedMetadata, dataset_id: str = "unknown") -> Dict[str, Any]:
+        """Return a detailed record, or raise :class:`TaggingError` on failure.
+
+        ``dataset_id`` is added after the request and is not sent as a field.
+        Required labels/confidence are validated, then aliases and vocabulary
+        rules are applied. Reasoning values are preserved; this does not verify
+        their meaning or require that every reasoning value is a string.
+        No failure record is disguised as a successful ``Unknown`` response.
         """
-        Tag dataset and return detailed results including reasoning.
-
-        This method returns the full LLM output including confidence breakdown
-        and reasoning, which is useful for the llm_output.json format.
-
-        Note: dataset_id is NOT sent to the LLM (to prevent bias) but is
-        added back to the result after the API call.
-
-        Args:
-            meta: Parsed metadata from dataset
-            dataset_id: Dataset identifier
-
-        Returns:
-            Dict with dataset_id, pathology, modality, type, confidence, and reasoning
-        """
+        system_prompt = self._build_system_prompt()
+        user_message = self._build_user_message(meta)
+        captured_payload = self._build_request_payload(system_prompt, user_message)
+        captured_endpoint = self.endpoint
         try:
-            # Build and call API
-            system_prompt = self._build_system_prompt()
-            user_message = self._build_user_message(meta)
             response_data = self._call_api(system_prompt, user_message)
-
-            # Extract and clean full result (new flat format, no "results" array)
-            content = response_data["choices"][0]["message"]["content"]
-            cleaned_content = self._clean_json_response(content)
-            llm_output = json.loads(cleaned_content)
-
-            # Add dataset_id back (it was masked when sending to LLM)
-            llm_output["dataset_id"] = dataset_id
-            # Same v2 validation as _parse_response: this is the path the
-            # batch script uses, so raw model labels must not leak from here.
-            for axis in ("pathology", "modality", "type"):
-                llm_output[axis] = normalize_labels(axis, llm_output.get(axis))
-            llm_output["model"] = self.model
-
-            return llm_output
-
-        except Exception as e:
-            if self.verbose:
-                print(f"Error in tag_with_details: {e}", file=sys.stderr)
-
-            return {
-                "dataset_id": dataset_id,
-                "pathology": ["Unknown"],
-                "modality": ["Unknown"],
-                "type": ["Unknown"],
-                "confidence": {
-                    "pathology": 0.0,
-                    "modality": 0.0,
-                    "type": 0.0
-                },
-                "reasoning": {
-                    "few_shot_analysis": f"Error: {str(e)}",
-                    "metadata_analysis": "N/A",
-                    "paper_abstract_analysis": "N/A",
-                    "decision_summary": "API call failed"
-                }
-            }
+        except (requests.RequestException, ValueError) as exc:
+            raise TaggingError("Model request failed") from exc
+        if isinstance(response_data, dict) and "_eegdash_request" in response_data:
+            capture = response_data.pop("_eegdash_request")
+            captured_payload, captured_endpoint = capture["payload"], capture["endpoint"]
+        output = self._decode_response(response_data)
+        for axis in ("pathology", "modality", "type"):
+            output[axis] = normalize_labels(axis, output[axis])
+        output["dataset_id"] = dataset_id
+        output["model"] = captured_payload["model"]
+        output["status"] = "ok"
+        output["input_metadata"], output["tagger_meta"] = request_provenance(
+            captured_payload, captured_endpoint, response_data,
+        )
+        return output

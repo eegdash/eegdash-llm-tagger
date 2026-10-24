@@ -6,7 +6,7 @@ Three axes, each answering one question so no concept lives on two axes:
   ``Healthy`` for normative cohorts. Patient + control designs get the
   condition. Developmental stage is not a pathology (use the condition, or
   ``Healthy``); neither is a procedure such as surgery (use the condition
-  that motivated it, e.g. ``Epilepsy`` for pre-surgical iEEG).
+  that is explicitly documented; do not infer it from the procedure).
 - ``modality``: through which sensory channel were stimuli delivered?
   ``No stimulus`` when there is none (rest, sleep, self-paced movement or
   imagery without cues, anaesthesia).
@@ -93,7 +93,8 @@ _ALIASES = {
         "asd": "Autism",
         "autism spectrum disorder": "Autism",
         "amyotrophic lateral sclerosis": "ALS",
-        "mci": "Dementia",
+        "mci": "Other clinical",
+        "mild cognitive impairment": "Other clinical",
         "alzheimer's": "Dementia",
         "other": "Other clinical",
     },

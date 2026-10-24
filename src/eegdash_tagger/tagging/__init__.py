@@ -7,7 +7,7 @@ from .tagger import (
     DummyTagger,
     tag_from_summary,
 )
-from .llm_tagger import OpenRouterTagger
+from .llm_tagger import OpenRouterTagger, TaggingError
 
 __all__ = [
     "ParsedMetadata",
@@ -15,5 +15,6 @@ __all__ = [
     "Tagger",
     "DummyTagger",
     "OpenRouterTagger",
+    "TaggingError",
     "tag_from_summary",
 ]

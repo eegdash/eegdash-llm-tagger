@@ -1,103 +1,61 @@
-#!/usr/bin/env python3
-"""
-Quick test script to verify JSON metadata summarization feature.
-"""
-import json
-import subprocess
-import tempfile
+"""Offline parser contract tests on synthetic BIDS metadata."""
 from pathlib import Path
+import json
 
 from eegdash_tagger.metadata import build_dataset_summary_from_path
+from eegdash_tagger.tagging import OpenRouterTagger
 
-def test_json_metadata_feature():
-    """Test the new JSON metadata feature on a cloned dataset."""
+FIXTURE = Path(__file__).parent / "fixtures" / "bids_small"
 
-    # Use a small dataset for testing
-    openneuro_id = "ds002718"
-    github_url = f"https://github.com/OpenNeuroDatasets/{openneuro_id}.git"
 
-    print(f"Testing JSON metadata feature on {openneuro_id}...")
-    print(f"Cloning from: {github_url}")
+def test_local_bids_metadata_is_extracted_without_recordings():
+    summary = build_dataset_summary_from_path(FIXTURE)
+    payload = summary.to_llm_json()
+    assert summary.title == "Synthetic visual task"
+    assert summary.task_names == ["visual"]
+    assert summary.event_types == ["face", "house"]
+    assert summary.participants_columns["group"] == ["healthy"]
+    assert summary.participants_columns["sex"] == ["F", "M"]
+    assert "participant_id" not in summary.participants_columns
+    assert "Healthy volunteers" in payload["readme"]
+    assert "SamplingFrequency" in payload["json_metadata_summary"]
+    assert "sub-01/eeg/sub-01_task-visual_eeg.json" in summary.json_metadata_files
+    assert "json_metadata_files" not in payload
+    transmitted = OpenRouterTagger(api_key="unused")._filter_metadata(payload)
+    assert "dataset_id" not in transmitted
+    assert "recording_modality" not in transmitted
+    assert "json_metadata_summary" not in transmitted
+    assert transmitted["tasks"] == ["visual"]
+    assert transmitted["events"] == ["face", "house"]
 
-    with tempfile.TemporaryDirectory() as tmpdir:
-        # Clone the repository
-        clone_path = Path(tmpdir) / openneuro_id
-        result = subprocess.run(
-            ["git", "clone", "--depth", "1", github_url, str(clone_path)],
-            capture_output=True,
-            text=True,
-            timeout=60
-        )
 
-        if result.returncode != 0:
-            print(f"Error cloning repository: {result.stderr}")
-            return False
+def test_missing_optional_files_do_not_invent_metadata(tmp_path):
+    (tmp_path / "dataset_description.json").write_text(json.dumps({"Name": "Minimal fixture"}))
+    summary = build_dataset_summary_from_path(tmp_path)
+    payload = summary.to_llm_json()
+    assert summary.title == "Minimal fixture"
+    assert summary.participants_columns == {}
+    assert payload["tasks"] == []
+    assert payload["events"] == []
+    assert "participants_overview" not in payload
+    assert "readme" not in payload
 
-        print(f"✓ Repository cloned to {clone_path}")
 
-        # Build dataset summary
-        print("Building dataset summary...")
-        summary = build_dataset_summary_from_path(clone_path)
+def test_bad_optional_json_does_not_hide_valid_task(tmp_path):
+    (tmp_path / "dataset_description.json").write_text('{"Name":"mixed fixture"}')
+    (tmp_path / "task-invalid_eeg.json").write_text('not JSON')
+    (tmp_path / "task-valid_eeg.json").write_text('{"TaskName":"valid"}')
+    summary = build_dataset_summary_from_path(tmp_path)
+    assert summary.task_names == ["valid"]
+    assert "task-invalid_eeg.json" not in summary.json_metadata_files
 
-        # Convert to LLM JSON format
-        llm_json = summary.to_llm_json()
 
-        # Check if new field is present
-        print("\n" + "="*60)
-        print("TEST RESULTS")
-        print("="*60)
-
-        if "json_metadata_summary" in llm_json:
-            print("✓ json_metadata_summary field is present in LLM output")
-            print(f"\nContent preview (first 500 chars):")
-            print("-" * 60)
-            content = llm_json["json_metadata_summary"]
-            print(content[:500])
-            if len(content) > 500:
-                print("...")
-            print("-" * 60)
-            print(f"\nTotal length: {len(content)} characters")
-        else:
-            print("✗ json_metadata_summary field is NOT present")
-            print("This could mean no candidate JSON files were found.")
-
-        # Check internal tracking
-        if summary.json_metadata_files:
-            print(f"\n✓ Found {len(summary.json_metadata_files)} JSON files:")
-            for f in summary.json_metadata_files:
-                print(f"  - {f}")
-        else:
-            print("\n✗ No JSON metadata files were discovered")
-
-        # Verify files list is NOT exposed to LLM
-        if "json_metadata_files" not in llm_json:
-            print("\n✓ json_metadata_files is correctly NOT exposed to LLM")
-        else:
-            print("\n✗ WARNING: json_metadata_files should NOT be in LLM output!")
-
-        print("\n" + "="*60)
-        print("Full LLM JSON keys:")
-        print("="*60)
-        for key in sorted(llm_json.keys()):
-            if isinstance(llm_json[key], str):
-                length = len(llm_json[key])
-                print(f"  {key}: <string, {length} chars>")
-            elif isinstance(llm_json[key], list):
-                length = len(llm_json[key])
-                print(f"  {key}: <list, {length} items>")
-            else:
-                print(f"  {key}: {type(llm_json[key]).__name__}")
-
-        return True
-
-if __name__ == "__main__":
-    try:
-        success = test_json_metadata_feature()
-        if success:
-            print("\n✓ Test completed successfully")
-        else:
-            print("\n✗ Test failed")
-    except Exception as e:
-        print(f"\n✗ Test failed with error: {e}")
-        import traceback
-        traceback.print_exc()
+def test_local_payload_limits_are_applied_before_transmission(tmp_path):
+    (tmp_path / "dataset_description.json").write_text(json.dumps({"Name": "X" * 6000}))
+    (tmp_path / "README.md").write_text("fixture " * 2000)
+    (tmp_path / "task-rest_events.tsv").write_text("onset\tduration\ttrial_type\n" + "".join(f"{i}\t1\tevent_{i:03d}\n" for i in range(65)))
+    payload = build_dataset_summary_from_path(tmp_path).to_llm_json()
+    assert len(payload["dataset_description"]) <= 1500
+    assert len(payload["readme"]) <= 4000
+    assert len(payload["events"]) == 40
+    assert payload["events"] == [f"event_{i:03d}" for i in range(40)]

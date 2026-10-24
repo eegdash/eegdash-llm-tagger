@@ -27,6 +27,10 @@ def test_no_concept_on_two_axes():
         ("pathology", ["Schizophrenia/Psychosis"], ["Schizophrenia spectrum"]),
         ("pathology", "Parkinson's Disease", ["Parkinson's"]),
         ("pathology", ["Other"], ["Other clinical"]),
+        ("pathology", ["MCI"], ["Other clinical"]),
+        ("pathology", ["Mild cognitive impairment"], ["Other clinical"]),
+        ("pathology", ["Dementia"], ["Dementia"]),
+        ("pathology", ["DBS"], ["Unknown"]),
         ("pathology", ["Development"], ["Unknown"]),  # retired: needs re-tagging
         ("modality", ["Resting State"], ["No stimulus"]),
         ("modality", ["visual", "AUDITORY"], ["Visual", "Auditory"]),
@@ -62,7 +66,7 @@ def test_tag_with_details_validates_labels(monkeypatch):
     from eegdash_tagger.tagging.llm_tagger import OpenRouterTagger
 
     tagger = OpenRouterTagger(api_key="test")
-    raw = '{"pathology": ["Development"], "modality": ["Resting State"], "type": ["Clinical/Intervention", "Memory/Resting state"], "confidence": {}}'
+    raw = '{"pathology": ["Development"], "modality": ["Resting State"], "type": ["Clinical/Intervention", "Memory/Resting state"], "confidence": {"pathology":0.2,"modality":0.8,"type":0.8}}'
     monkeypatch.setattr(
         tagger, "_call_api", lambda *a: {"choices": [{"message": {"content": raw}}]}
     )
@@ -71,3 +75,19 @@ def test_tag_with_details_validates_labels(monkeypatch):
     assert out["pathology"] == ["Unknown"]
     assert out["modality"] == ["No stimulus"]
     assert out["type"] == ["Clinical"]
+
+
+def test_response_preserves_primary_order_and_distinguishes_mci(monkeypatch):
+    """The normalizer must not turn MCI into dementia or reorder two labels."""
+    from eegdash_tagger.tagging.llm_tagger import OpenRouterTagger
+
+    tagger = OpenRouterTagger(api_key="unused")
+    raw = {"pathology": ["MCI"], "modality": ["Auditory", "Visual"],
+           "type": ["Language", "Clinical"],
+           "confidence": {"pathology": 0.8, "modality": 0.8, "type": 0.7}}
+    monkeypatch.setattr(tagger, "_call_api", lambda *a: {
+        "choices": [{"message": {"content": json.dumps(raw)}}]})
+    output = tagger.tag_with_details({"title": "Synthetic MCI cohort"})
+    assert output["pathology"] == ["Other clinical"]
+    assert output["modality"] == ["Auditory", "Visual"]
+    assert output["type"] == ["Language", "Clinical"]
