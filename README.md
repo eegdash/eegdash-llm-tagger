@@ -159,6 +159,11 @@ time. See `CHANGELOG.md` for the behavior changes in this release candidate.
 
 ## Licence
 
-This release candidate is awaiting the maintainers' licence declaration. The
-software must not be described as a completed open-source release until the
-rights holders supply the licence file.
+The original software and documentation in this repository are available under
+the [MIT licence](LICENSE), copyright (c) 2026 EEGDash contributors.
+
+Third-party dependencies retain their own licences. Dataset metadata and
+documentation, including source material reproduced in the bundled few-shot
+examples and ground-truth tables, retain their original rights and licence
+terms. The MIT licence does not relicense those materials; consult the source
+dataset's licence and attribution requirements before reusing them.
