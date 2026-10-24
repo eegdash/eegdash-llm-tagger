@@ -27,7 +27,7 @@ implied by these source-install instructions. Building a wheel uses the single
 ```bash
 python -m pip install build
 python -m build
-python -m pip install dist/eegdash_tagger-0.1.1-py3-none-any.whl
+python -m pip install dist/eegdash_tagger-0.1.2-py3-none-any.whl
 ```
 
 Git and network access are needed by the remote scraping tools. A model endpoint
@@ -90,6 +90,38 @@ The hashes identify inputs, not generated reasoning. Preserve the input file,
 output file and software release alongside them; hashes alone cannot recover
 missing text. These fields describe new calls made by this version and do not
 reconstruct earlier catalogue runs.
+
+## Curation handoff and corrected labeling policy
+
+Version 0.1.2 corrects two clinical rules: MCI is `Other clinical`, not automatically
+`Dementia`, and a procedure such as DBS is not sufficient evidence for Parkinson's
+or any other specific diagnosis. An explicitly documented clinical population
+without a known diagnosis is `Other clinical`; unclear population evidence is
+`Unknown`. The prompt now specifies a primary-first order for two-label outputs.
+Its confidence is a self-reported evidence-strength score, not a probability.
+
+New `tagger_meta` records include `annotation_origin="machine_generated"` and
+`review_status_at_generation="unreviewed"`. A consuming catalogue should display
+that origin and status together with source evidence. Curators should verify
+candidate dataset records against their source documentation, record their
+review decision separately with the source/output revision, and deduplicate
+related records before participant-level cohort selection. The generation-time
+status is immutable provenance, not a tracking system for later human review.
+These fields do not change the existing EEGDash public interface or backfill
+historical records. The library does not implement a curator user interface.
+
+The 15 bundled examples and allowed labels are unchanged; the prompt and MCI
+alias changed. Earlier catalogue agreement and local-model repeatability used the
+historical prompt and must not be reported as validation of this corrected one.
+No model accuracy improvement is established by the offline regression tests.
+
+The fixed prompt/examples are about 70,000 characters; the archived local-model
+experiment used approximately 18,500–20,500 input tokens plus an allowance of
+4,000 output tokens. Tokenization varies, so measure the actual request and allow
+for output when choosing a model's context window. This does not establish
+compatibility with every OpenAI-style endpoint. Hosted costs depend on provider
+and are not estimated from the historical runs. Local metadata can contain
+non-public information: inspect the actual metadata before sending it to a model.
 
 ## Command-line tools
 

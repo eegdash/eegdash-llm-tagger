@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.2 — release candidate
+
+- Map MCI and mild cognitive impairment to `Other clinical`, not `Dementia`.
+- Require a documented recruiting diagnosis instead of inferring Parkinson's
+  disease from DBS or another condition from a procedure alone.
+- Use one confidence definition: an uncalibrated evidence-strength rubric.
+- Define the first label as primary and any second label as an additional supported
+  category, not an alternative guess; normalization preserves that order.
+- Mark new request provenance as `annotation_origin=machine_generated` and
+  `review_status_at_generation=unreviewed`; these flags are not curator approval.
+- Retain the 15 examples and allowed label lists unchanged. The corrected prompt
+  and alias table apply to new calls only; no production catalogue was retagged.
+  Historical accuracy/agreement or repeatability results do not validate this prompt.
+
 ## 0.1.1 — release candidate
 
 - Include the canonical v2 prompt and 15 examples in non-editable wheels.
@@ -22,4 +36,4 @@
 
 Version 0.1.0 remains the historical version described by the archived catalogue
 analysis. The v2 vocabulary and canonical prompt/example content are unchanged in
-this release candidate; the repair concerns packaging, execution and provenance.
+0.1.1; the repair concerns packaging, execution and provenance.

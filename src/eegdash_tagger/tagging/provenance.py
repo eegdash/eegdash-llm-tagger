@@ -35,6 +35,8 @@ def request_provenance(payload: dict, endpoint: str, response: dict) -> tuple[di
     origin = f"{url.scheme}://{url.hostname}" + (f":{url.port}" if url.port else "")
     provenance = {
         "schema_version": 1, "hash_algorithm": "sha256-canonical-json-v1",
+        "annotation_origin": "machine_generated",
+        "review_status_at_generation": "unreviewed",
         "metadata_hash": canonical_hash(metadata),
         "metadata_hash_scope": "filtered dataset field in the actual user message",
         "request_hash": canonical_hash(payload), "config_hash": canonical_hash(config),

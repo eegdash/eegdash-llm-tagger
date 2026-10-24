@@ -46,7 +46,9 @@ def test_reported_model_and_version_are_not_inferred_from_writer_config(tagged):
     assert provenance["model"] == "requested-model"
     assert provenance["provider_response_model"] == "provider-returned-model"
     assert provenance["vocabulary_version"] == "2"
-    assert provenance["library_version"] == "0.1.1"
+    assert provenance["library_version"] == "0.1.2"
+    assert provenance["annotation_origin"] == "machine_generated"
+    assert provenance["review_status_at_generation"] == "unreviewed"
     assert all(len(provenance[key]) == 64 for key in ("prompt_hash", "examples_hash", "vocabulary_hash", "request_hash", "config_hash"))
     with pytest.raises(ValueError, match="Requested model"):
         verified_result_provenance(tagged, expected_model="different-model")

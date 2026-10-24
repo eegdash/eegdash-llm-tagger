@@ -1,6 +1,6 @@
 [project]
 name = "eegdash-tagger"
-version = "0.1.1"
+version = "0.1.2"
 description = "Automatic tagging of EEG datasets using LLM-based predictions"
 readme = "README.md"
 license = "MIT"

@@ -27,10 +27,18 @@ def main():
     assert module.parent in prompt.parents and module.parent in examples.parents
     assert len(tagger.few_shot_examples) == 15
     assert "Unknown" in tagger._build_system_prompt()
+    assert "Mild cognitive impairment (MCI) alone is not dementia" in tagger._build_system_prompt()
+    assert "never infer a specific pathology" in tagger._build_system_prompt()
+    assert "Return the primary label first" in tagger._build_system_prompt()
+    from eegdash_tagger.tagging.taxonomy import normalize_labels
+    assert normalize_labels("pathology", ["MCI"]) == ["Other clinical"]
     expected = {"pathology":["Unknown"],"modality":["Unknown"],"type":["Unknown"],
                 "confidence":{"pathology":0.0,"modality":0.0,"type":0.0},"reasoning":{}}
     tagger._call_api = lambda *args: {"choices":[{"message":{"content":json.dumps(expected)}}]}
-    assert tagger.tag_with_details({"title":"Synthetic fixture"})["pathology"] == ["Unknown"]
+    record = tagger.tag_with_details({"title":"Synthetic fixture"})
+    assert record["pathology"] == ["Unknown"]
+    assert record["tagger_meta"]["annotation_origin"] == "machine_generated"
+    assert record["tagger_meta"]["review_status_at_generation"] == "unreviewed"
     tagger._call_api = lambda *args: {"choices":[]}
     try:
         tagger.tag_with_details({"title":"Synthetic fixture"})
@@ -62,7 +70,7 @@ def main():
     print(json.dumps({"passed":True,"version":version("eegdash-tagger"),"module":str(module),
         "prompt_sha256":hashlib.sha256(prompt.read_bytes()).hexdigest(),
         "examples_sha256":hashlib.sha256(examples.read_bytes()).hexdigest(),
-        "checks":["noneditable package location", "bundled constructor resources", "successful Unknown",
+        "checks":["noneditable package location", "bundled constructor resources", "corrected clinical rules and ordering", "machine-origin provenance", "successful Unknown",
                   "malformed-output failure", "three CLI help commands", "CSV dry-run", "CSV updates preserve existing and low-confidence values"]},indent=2))
 
 

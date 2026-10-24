@@ -25,7 +25,8 @@ Each axis answers ONE question. Never use one axis to describe another axis's co
   - Patients + matched controls → the patients' condition (not `Healthy`)
   - Age or developmental stage is NOT a pathology: children with no recruited condition → `Healthy`; children recruited for a condition → that condition (e.g. `ADHD`, `Autism`)
   - Community/clinical samples recruited for mental-health concerns across many diagnoses (e.g. Healthy Brain Network) → `Psychiatric (transdiagnostic)`
-  - A procedure is NOT a pathology: pre-surgical or intra-operative recordings → the condition that motivated it (usually `Epilepsy`; tumour → `Cancer`; DBS for movement disorder → `Parkinson's`)
+  - A procedure is NOT a diagnosis: never infer a specific pathology from surgery, an intracranial recording, or deep brain stimulation (DBS) alone. Use an explicitly documented recruiting condition; DBS is used for several conditions, including Parkinson's disease, essential tremor and dystonia. If a clinical population is documented but its diagnosis is unspecified, use `Other clinical`; if even the population is unclear, use `Unknown`.
+  - Mild cognitive impairment (MCI) alone is not dementia: use `Other clinical` unless dementia is explicitly documented as a recruiting diagnosis.
   - Anaesthesia/sedation of otherwise healthy participants → `Healthy`
   - A named condition with no specific label (e.g. blindness, tinnitus, knee pain) → `Other clinical`; never use it when a specific label fits (ALS, stroke and spinal cord injury have their own labels)
 
@@ -85,7 +86,8 @@ Use abstract to disambiguate unclear metadata. If abstract contradicts metadata,
   1. Identify two most plausible candidate labels
   2. List supporting evidence for each
   3. Compare head-to-head, select stronger one
-  4. Confidence reflects gap between winner and runner-up (see Confidence Score Guidelines)
+  4. Assign confidence using only the evidence rubric below; the candidate comparison does not define a probability or a numerical winner/runner-up margin.
+- Return the primary label first in each label array. Include a second label only when it describes an additional supported population, stimulus or study aim, not merely a plausible alternative; justify the primary/secondary order in `decision_summary`. If neither candidate is supported, return only `Unknown`.
 
 ---
 
@@ -122,7 +124,7 @@ Any other string is discarded and becomes `Unknown`.
 
 ## Confidence Score Guidelines
 
-Confidence must be justified by EVIDENCE COUNT in your reasoning. Your decision_summary MUST list the specific quotes/features that justify your confidence score.
+Confidence is a self-reported evidence-strength score, not a calibrated probability of correctness. It must be justified by EVIDENCE COUNT in your reasoning. Your decision_summary MUST list the specific quotes/features that justify your confidence score.
 
 | Score | Evidence Requirement |
 |-------|---------------------|

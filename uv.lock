@@ -252,7 +252,7 @@ wheels = [
 
 [[package]]
 name = "eegdash-tagger"
-version = "0.1.1"
+version = "0.1.2"
 source = { editable = "." }
 dependencies = [
     { name = "beautifulsoup4" },
