@@ -33,7 +33,7 @@ def load_llm_predictions(json_path: Path) -> dict:
     predictions = {}
     for result in data.get('results', []):
         dataset_id = result.get('dataset_id')
-        if not dataset_id:
+        if not dataset_id or result.get('status') == 'error':
             continue
 
         # Extract predictions (lists) and flatten to single values
@@ -88,7 +88,7 @@ def update_csv_with_predictions(
     """
     Update CSV file with LLM predictions.
 
-    Values below confidence threshold are marked with " (low confidence)" suffix.
+    Values below the confidence threshold are left unchanged.
 
     Args:
         csv_path: Path to dataset_summary.csv
@@ -98,7 +98,9 @@ def update_csv_with_predictions(
         verbose: If True, print detailed progress
     """
     # Read CSV
-    df = pd.read_csv(csv_path)
+    # CSV cells are text. Explicit dtype also permits labels in all-empty columns
+    # under pandas 3, which no longer silently upcasts inferred float columns.
+    df = pd.read_csv(csv_path, dtype=str)
 
     # Map column names
     # CSV columns: "Type Subject" (pathology), "modality of exp" (modality), "type of exp" (type)

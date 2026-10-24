@@ -62,7 +62,7 @@ def test_tag_with_details_validates_labels(monkeypatch):
     from eegdash_tagger.tagging.llm_tagger import OpenRouterTagger
 
     tagger = OpenRouterTagger(api_key="test")
-    raw = '{"pathology": ["Development"], "modality": ["Resting State"], "type": ["Clinical/Intervention", "Memory/Resting state"], "confidence": {}}'
+    raw = '{"pathology": ["Development"], "modality": ["Resting State"], "type": ["Clinical/Intervention", "Memory/Resting state"], "confidence": {"pathology":0.2,"modality":0.8,"type":0.8}}'
     monkeypatch.setattr(
         tagger, "_call_api", lambda *a: {"choices": [{"message": {"content": raw}}]}
     )

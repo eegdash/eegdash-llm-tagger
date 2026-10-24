@@ -1,300 +1,164 @@
 # EEGDash LLM Tagger
 
-Automatic tagging of EEG datasets using LLM-based predictions. This tool scrapes the EEGDash website, extracts metadata from BIDS-formatted datasets, and uses machine learning to predict pathology, modality, and experiment type tags.
-
-## Features
-
-- **Dataset Scraping**: Automatically discovers datasets from EEGDash
-- **Metadata Extraction**: Parses BIDS-formatted datasets from GitHub/OpenNeuro
-- **Paper Abstract Fetching**: Extracts DOIs from references and fetches abstracts from CrossRef, Semantic Scholar, and PubMed APIs with persistent caching
-- **Few-Shot Learning**: Uses labeled examples for in-context learning to improve classification accuracy
-- **LLM-based Tagging**: Uses language models (GPT-4, Claude) via OpenRouter.ai with structured reasoning
-- **CSV Updates**: Automatically updates dataset catalogs with predictions
+A Python library and command-line tools for proposing dataset-level labels from
+BIDS electrophysiology documentation. Version 2 of the vocabulary separates
+clinical population, sensory stimulus modality and study type. Returned labels
+are checked against that vocabulary, while evidence and request provenance are
+retained for curator review. Vocabulary membership and model confidence do not
+establish factual correctness; verify source documentation before selecting a
+clinical cohort.
 
 ## Installation
 
-### Requirements
+Python 3.11 or later is required. A normal installation includes the prompt,
+15 labelled examples and the three command-line entry points:
 
-- Python 3.11 or higher
-- Git
-- GitHub Personal Access Token (for API access)
-
-### Setup
-
-1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/eegdash-llm-tagger.git
+git clone https://github.com/eegdash/eegdash-llm-tagger.git
 cd eegdash-llm-tagger
+python -m pip install .
 ```
 
-2. Install the package in development mode:
-```bash
-pip install -e .
-```
-
-3. Set up environment variables:
-```bash
-# Copy the example environment file
-cp .env.example .env
-
-# Edit .env with your actual API keys
-# NEVER commit the .env file to git - it's already in .gitignore
-```
-
-Edit `.env` and add your actual API keys:
-- `OPENROUTER_API_KEY`: Get from https://openrouter.ai/
-- `GITHUB_TOKEN`: Generate at https://github.com/settings/tokens
-
-4. Load environment variables (required for each terminal session):
-```bash
-# Option 1: Source the .env file (bash/zsh)
-export $(cat .env | xargs)
-
-# Option 2: Use python-dotenv (automatic loading)
-pip install python-dotenv
-```
-
-## Usage
-
-### Fetch Incomplete Datasets
-
-Find and process datasets with missing tags:
+For a reproducible installation, check out the published release tag or the exact
+commit identified with that release before installing. No PyPI publication is
+implied by these source-install instructions. Building a wheel uses the single
+`pyproject.toml` configuration:
 
 ```bash
-python scripts/fetch_incomplete_datasets.py \
-    --output-json data/processed/incomplete_metadata.json \
-    --verbose
+python -m pip install build
+python -m build
+python -m pip install dist/eegdash_tagger-0.1.1-py3-none-any.whl
 ```
 
-### Fetch Complete Datasets
+Git and network access are needed by the remote scraping tools. A model endpoint
+key is needed for tagging, and a GitHub token is needed when using the GitHub API
+route. Parsing local metadata and running the offline unit suite need neither.
 
-Process datasets that already have complete tags (for training data):
+## Parse and tag a dataset
+
+```python
+from eegdash_tagger.metadata import build_dataset_summary_from_path
+from eegdash_tagger.tagging import OpenRouterTagger, TaggingError
+
+summary = build_dataset_summary_from_path("/data/ds001971")
+print(summary.to_llm_json())  # Inspect the metadata before submitting it.
+tagger = OpenRouterTagger(model="openai/gpt-5.2")
+try:
+    record = tagger.tag_with_details(summary.to_llm_json(), dataset_id="ds001971")
+except TaggingError as exc:
+    print(f"Tagging failed: {exc}")
+else:
+    for axis in ("pathology", "modality", "type"):
+        print(axis, record[axis], record["confidence"][axis])
+```
+
+Set `OPENROUTER_API_KEY` or `LLM_API_KEY` in the process environment. To load a local
+`.env` file explicitly, call `dotenv.load_dotenv()` before constructing the tagger.
+`LLM_API_BASE` selects another OpenAI-compatible chat endpoint; it is read when
+an instance is constructed. `LLM_TIMEOUT` controls the HTTP timeout in seconds
+(default 300). `max_tokens` defaults to 4,000. Endpoint/model capabilities differ;
+JSON-mode rejection and authentication failures are errors, not successful tags.
+
+`tag()` and `tag_with_details()` raise `TaggingError` on HTTP/transport failures,
+invalid response envelopes, malformed JSON, missing label axes, or missing or
+nonfinite/out-of-range confidence scores. This is a behavior change in 0.1.1:
+callers must handle errors and must not persist or cache them as classifications.
+A valid response containing `Unknown`, including zero confidence, is still a
+successful abstention. Vocabulary aliases and invalid strings are normalized by
+`tagging/taxonomy.py`; this is distinct from response-shape validation. The full
+reasoning mapping is retained, including JSON arrays/objects. Its semantic
+support for the labels is not verified.
+
+The default resources come from the installed wheel. A source/editable checkout
+uses the canonical `prompt.md` and `data/processed/few_shot_examples.json` files;
+the wheel includes their exact bytes. Explicit `prompt_path` and `few_shot_path`
+arguments allow overrides. A missing prompt fails instead of silently replacing
+it with different instructions.
+
+## Request provenance
+
+New detailed records contain `input_metadata` (the actual filtered dataset field
+sent in the user message) and `tagger_meta`. The latter records SHA-256 hashes of
+that metadata, the complete request payload, UTF-8 prompt text, filtered examples,
+vocabulary and configuration; it also records the vocabulary and library
+versions, requested model, timestamp and provider origin. A model name or request
+ID returned by the provider is stored separately as `provider_response_model`
+or `provider_response_id`; neither proves which model a proxy actually served.
+Authentication headers and endpoint credentials are not stored.
+
+The hashes identify inputs, not generated reasoning. Preserve the input file,
+output file and software release alongside them; hashes alone cannot recover
+missing text. These fields describe new calls made by this version and do not
+reconstruct earlier catalogue runs.
+
+## Command-line tools
 
 ```bash
-python scripts/fetch_complete_datasets.py \
-    --output-json data/processed/complete_metadata.json \
-    --limit 10 \
-    --verbose
+eegdash-fetch-incomplete --output-json incomplete.json --limit 10
+eegdash-fetch-complete --output-json complete.json --limit 10
+eegdash-update-csv --llm-json results.json --csv dataset_summary.csv --dry-run
 ```
 
-### Update CSV with LLM Predictions
+The first two commands use remote EEGDash/OpenNeuro metadata services. The CSV
+updater fills empty fields only and applies its confidence threshold (default
+0.5); inspect a dry run before applying updates. The equivalent scripts under
+`scripts/` remain as compatibility wrappers. `--help` works without credentials.
 
-Apply LLM predictions to update a dataset CSV:
+The source checkout also contains batch tagging and catalogue-writer tools.
+`tag_with_llm.py` records unsuccessful attempts explicitly with `status=error`
+and exits nonzero if any call failed. Genuine zero-confidence abstention is not
+counted as a failed call. The API and Mongo writers verify captured request
+provenance before connecting or writing, skip explicit failure records, and
+refuse legacy outputs without the needed provenance. They do not replace a
+missing historical input with model reasoning or with today's prompt.
 
 ```bash
-python scripts/update_csv.py \
-    --llm-json data/processed/llm_output.json \
-    --csv dataset_summary.csv \
-    --confidence-threshold 0.5 \
-    --verbose
+python scripts/tag_with_llm.py --input incomplete.json --output results.json --workers 3
+python scripts/push_tags_to_api.py --llm-json results.json --dry-run
 ```
 
-## LLM-Based Tagging with OpenRouter.ai
+An actual API write requires an explicit `EEGDASH_ADMIN_TOKEN` (or `--admin-token`);
+`EEGDASH_API_URL` (or `--api-url`) selects the catalogue. It checks dataset
+existence and validates the admin endpoint response. Because that endpoint is an
+upsert, a concurrent deletion can still cause insertion; the writer reports an
+unexpected insertion as a failure. A direct Mongo write requires `pymongo` and an explicit
+`MONGO_URI` environment value or `--mongo-uri`; no credential is embedded in the
+source. Neither writer's dry-run needs a database client or connection. Review
+output and source scope before using an administrator-authorized writer.
 
-### Setup
+## Tests and distribution checks
 
-1. Get an API key from https://openrouter.ai/
-2. Add it to your `.env` file (see Installation section above)
-3. Load environment variables:
-   ```bash
-   export $(cat .env | xargs)
-   ```
-
-### Usage
-
-#### Test with Single Dataset
-
-Test the API integration with one dataset first:
+The unit suite uses synthetic local BIDS files and mocked HTTP responses; a
+network guard prevents live calls. It includes extraction assertions, malformed
+response/error tests, request-provenance tests and failed-write-input rejection.
+Dependency installation requires network access unless packages are cached.
 
 ```bash
-python scripts/test_llm_tagger.py
+uv sync --frozen
+uv run pytest --cov=eegdash_tagger --cov-report=term
+uv build
+uv venv /tmp/tagger-wheel --python 3.12
+uv pip install --python /tmp/tagger-wheel/bin/python dist/*.whl
+cd /tmp
+/tmp/tagger-wheel/bin/python /path/to/eegdash-llm-tagger/tools/smoke_installed.py
 ```
 
-This will:
-- Load the first dataset from `data/processed/incomplete_metadata.json`
-- Call the OpenRouter API using GPT-4 Turbo
-- Display tagging results with confidence scores and reasoning
-- Save output to `data/processed/test_llm_output.json`
+The last check must use a normal wheel installation, outside the checkout. It
+checks resource lookup, all three installed `--help` commands, successful
+abstention, malformed-output failure, and CSV dry-run/update behavior on temporary
+fixtures. The GitHub Actions workflow is configured to run unit and wheel checks on Linux/Python 3.11–3.13.
+Test coverage is a measure of exercised code, not evidence of annotation accuracy.
 
-#### Process All Incomplete Datasets
+## Development and support
 
-Tag all incomplete datasets (or a limited subset for testing):
+The vocabulary, prompt and examples must remain consistent; the tests check
+this. Add or update offline regression tests with changes to metadata extraction,
+response handling and persistence-related utilities. File issues or pull requests
+at <https://github.com/eegdash/eegdash-llm-tagger>. There is no guaranteed response
+time. See `CHANGELOG.md` for the behavior changes in this release candidate.
 
-```bash
-# Process first 5 datasets (recommended for testing)
-python scripts/tag_with_llm.py \
-    --input data/processed/incomplete_metadata.json \
-    --output data/processed/llm_output.json \
-    --model openai/gpt-4-turbo \
-    --limit 5 \
-    --verbose
+## Licence
 
-# Process all datasets (may incur significant API costs)
-python scripts/tag_with_llm.py \
-    --input data/processed/incomplete_metadata.json \
-    --output data/processed/llm_output.json \
-    --model openai/gpt-4-turbo \
-    --verbose
-```
-
-#### Update CSV with LLM Results
-
-After generating predictions, update your CSV:
-
-```bash
-python scripts/update_csv.py \
-    --llm-json data/processed/llm_output.json \
-    --csv dataset_summary.csv \
-    --confidence-threshold 0.8 \
-    --verbose
-```
-
-### Supported Models
-
-- **`openai/gpt-4-turbo`** - GPT-4 Turbo (recommended, ~$0.13/dataset)
-- **`openai/gpt-4`** - GPT-4 (more expensive, ~$0.33/dataset)
-- **`anthropic/claude-3-opus`** - Claude 3 Opus (~$0.23/dataset)
-- **`anthropic/claude-3-sonnet`** - Claude 3 Sonnet (faster, cheaper)
-
-### Cost Estimation
-
-Based on ~9,500 tokens per dataset (8K input + 1.5K output):
-
-- **GPT-4 Turbo**: ~$0.13 per dataset (~$38 for all 295)
-- **GPT-4**: ~$0.33 per dataset (~$97 for all 295)
-- **Claude 3 Opus**: ~$0.23 per dataset (~$68 for all 295)
-
-**Recommendation**: Start with `--limit 5` to verify results before processing all datasets.
-
-## Few-Shot Learning
-
-The LLM tagger uses in-context learning with curated labeled examples to improve classification accuracy.
-
-### How It Works
-
-1. **Few-shot examples** (`data/processed/few_shot_examples.json`) contain labeled datasets showing EEGDash's classification patterns
-2. When tagging a new dataset, these examples are included in the prompt as reference
-3. The LLM learns the labeling conventions from examples and applies them consistently
-
-### Structured Reasoning
-
-The LLM follows a priority-based reasoning process (defined in `prompt.md`):
-
-1. **Few-shot analysis**: Compare with similar labeled examples
-2. **Metadata analysis**: Extract relevant info from BIDS metadata fields
-3. **Paper abstract analysis**: Use paper abstracts to disambiguate unclear cases
-4. **Decision summary**: Justify final labels with confidence scores
-
-### Labels
-
-The tagger classifies datasets into three categories:
-
-- **Pathology**: Healthy, Epilepsy, Depression, Parkinson's Disease, etc.
-- **Modality**: Visual, Auditory, Motor, Resting State, Sleep, etc.
-- **Type**: Perception, Memory, Attention, Motor, Clinical/Intervention, etc.
-
-## Paper Abstract Fetching
-
-The tool automatically fetches paper abstracts to provide additional context for classification.
-
-### Data Sources
-
-Abstracts are fetched from multiple APIs (in order):
-
-1. **CrossRef API** - Best for general academic papers
-2. **Semantic Scholar API** - Good for CS/AI papers
-3. **PubMed API** - Best for biomedical papers
-
-### Caching
-
-- Abstracts are cached in `data/processed/abstract_cache.json`
-- Cache is persistent across runs to minimize API calls
-- Both successful fetches and failures are cached
-
-### DOI Extraction
-
-DOIs are automatically extracted from the `References` field in dataset descriptions. The tool filters out OpenNeuro dataset DOIs and only fetches paper abstracts.
-
-## Project Structure
-
-```
-eegdash-llm-tagger/
-├── src/eegdash_tagger/      # Main package
-│   ├── metadata/            # BIDS metadata parsing
-│   │   ├── parser.py        # BIDS file parsing
-│   │   └── providers.py     # GitHub/OpenNeuro data providers
-│   ├── scraping/            # Web scraping and data collection
-│   │   ├── scraper.py       # EEGDash website scraper
-│   │   ├── enrichment.py    # Dataset metadata enrichment
-│   │   ├── abstract_fetcher.py  # Paper abstract fetching (CrossRef/Semantic Scholar/PubMed)
-│   │   └── dataset_filters.py   # Dataset filtering utilities
-│   ├── tagging/             # LLM-based tagging
-│   │   ├── tagger.py        # Tagger protocol and types
-│   │   └── llm_tagger.py    # OpenRouter.ai LLM implementation
-│   └── utils/               # CSV updates and helpers
-│       └── csv_updater.py   # CSV update utilities
-├── scripts/                 # CLI entry points
-│   ├── fetch_incomplete_datasets.py
-│   ├── fetch_complete_datasets.py
-│   ├── tag_with_llm.py
-│   ├── test_llm_tagger.py
-│   └── update_csv.py
-├── tests/                   # Test files
-├── tools/                   # Utility scripts
-├── data/                    # Data files (gitignored)
-│   ├── processed/           # Generated metadata
-│   └── test/                # Test datasets
-├── prompt.md                # LLM system prompt with reasoning framework
-├── environment.yml          # Conda environment
-└── setup.py                 # Package configuration
-```
-
-## Data Directory
-
-The `data/` directory contains generated metadata files and is excluded from git:
-
-- **data/processed/**: Production metadata files
-  - `complete_metadata.json` - Datasets with full tags (used for few-shot examples)
-  - `incomplete_metadata.json` - Datasets needing tags
-  - `few_shot_examples.json` - Curated labeled examples for in-context learning
-  - `llm_output.json` - LLM prediction results
-  - `abstract_cache.json` - Cached paper abstracts (auto-generated)
-
-- **data/test/**: Test datasets for development
-
-## Development
-
-### Running Tests
-
-```bash
-# Test metadata extraction
-python tests/test_metadata.py
-
-# Test GitHub API integration
-export GITHUB_TOKEN="your_token"
-python tests/test_github_api.py
-```
-
-### Utility Tools
-
-```bash
-# Show metadata for a dataset
-python tools/show_metadata.py /path/to/dataset
-
-# Create test/training datasets
-python tools/create_test_set.py
-```
-
-## License
-
-[Add your license here]
-
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request.
-
-## Acknowledgments
-
-- EEGDash project for the dataset catalog
-- OpenNeuro for hosting EEG datasets
-- BIDS format for standardized neuroimaging data
+This release candidate is awaiting the maintainers' licence declaration. The
+software must not be described as a completed open-source release until the
+rights holders supply the licence file.

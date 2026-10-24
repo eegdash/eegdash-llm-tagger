@@ -1,0 +1,120 @@
+{
+  "checked_at_utc": "2026-10-24T03:16:12.068090+00:00",
+  "release_candidate": "0.1.1",
+  "base_commit": "9f8973034f2ee1459d8a34b815aa85fdf181725f",
+  "platform": "macOS-26.5.1-arm64-arm-64bit",
+  "python": "3.12.12",
+  "unit_tests": {
+    "command": "uv run --frozen pytest --cov=eegdash_tagger --cov-report=term --cov-report=json --junitxml=tests.xml -q",
+    "passed": 115,
+    "failed": 0,
+    "duration_seconds": 1.6,
+    "coverage": {
+      "covered_lines": 867,
+      "num_statements": 2268,
+      "percent_covered": 38.22751322751323,
+      "percent_covered_display": "38",
+      "missing_lines": 1401,
+      "excluded_lines": 14,
+      "percent_statements_covered": 38.22751322751323,
+      "percent_statements_covered_display": "38"
+    }
+  },
+  "build": {
+    "command": "uv build",
+    "sdist_and_wheel_passed": true
+  },
+  "wheel_install": {
+    "editable": false,
+    "working_directory": "/tmp",
+    "dependency_install": "normal wheel dependency resolution",
+    "passed": true,
+    "checks": [
+      "noneditable package location",
+      "bundled constructor resources",
+      "successful Unknown",
+      "malformed-output failure",
+      "three CLI help commands",
+      "CSV dry-run",
+      "CSV updates preserve existing and low-confidence values"
+    ],
+    "resource_sha256": {
+      "prompt_sha256": "ce94868472001b8a51e692838634c1e27da78e96bdad9ce70e3d9461c0c30377",
+      "examples_sha256": "016e31eea92d0e310c2ad7fda2d9b2d7221a8531064394df1bee0815ec155113"
+    },
+    "packages": [
+      {
+        "name": "beautifulsoup4",
+        "version": "4.15.0"
+      },
+      {
+        "name": "certifi",
+        "version": "2026.10.23"
+      },
+      {
+        "name": "charset-normalizer",
+        "version": "3.5.2"
+      },
+      {
+        "name": "eegdash-tagger",
+        "version": "0.1.1"
+      },
+      {
+        "name": "idna",
+        "version": "3.20"
+      },
+      {
+        "name": "numpy",
+        "version": "2.5.4"
+      },
+      {
+        "name": "pandas",
+        "version": "3.1.0"
+      },
+      {
+        "name": "python-dateutil",
+        "version": "3.0.0"
+      },
+      {
+        "name": "python-dotenv",
+        "version": "1.2.4"
+      },
+      {
+        "name": "requests",
+        "version": "2.34.2"
+      },
+      {
+        "name": "six",
+        "version": "1.17.0"
+      },
+      {
+        "name": "soupsieve",
+        "version": "3.0.4"
+      },
+      {
+        "name": "typing-extensions",
+        "version": "4.16.0"
+      },
+      {
+        "name": "tzdata",
+        "version": "2026.5"
+      },
+      {
+        "name": "urllib3",
+        "version": "2.8.0"
+      }
+    ]
+  },
+  "canonical_assets_changed": false,
+  "live_model_calls": 0,
+  "catalogue_writes": 0,
+  "limits": [
+    "Tests establish packaging and specified software behavior, not scientific label accuracy.",
+    "Scraping modules and external provider compatibility are not comprehensively exercised; total source line coverage is 38.23%.",
+    "Installed fetch command tests cover import and help, not remote metadata retrieval.",
+    "The admin HTTP endpoint is an upsert; existence check and write are not atomic.",
+    "The licence declaration and release publication remain maintainer actions.",
+    "A CI workflow was added; no remote CI run is claimed by this local record.",
+    "New request identities do not reconstruct historical inputs, writer code, or retention."
+  ]
+}

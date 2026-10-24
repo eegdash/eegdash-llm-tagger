@@ -78,17 +78,8 @@ def tag_single_dataset(tagger: OpenRouterTagger, dataset: Dict[str, Any], index:
     except Exception as e:
         print(f"  [{index}/{total}] ✗ {dataset_id}: {e}")
         return {
-            "dataset_id": dataset_id,
-            "pathology": ["Unknown"],
-            "modality": ["Unknown"],
-            "type": ["Unknown"],
-            "confidence": {"pathology": 0.0, "modality": 0.0, "type": 0.0},
-            "reasoning": {
-                "few_shot_analysis": f"Error: {str(e)}",
-                "metadata_analysis": "N/A",
-                "citation_analysis": "N/A",
-                "decision_summary": "Processing failed"
-            }
+            "dataset_id": dataset_id, "status": "error",
+            "error_type": type(e).__name__, "error": str(e),
         }
 
 
@@ -188,7 +179,7 @@ def main():
 
             with lock:
                 completed += 1
-                if result.get("confidence", {}).get("pathology", 1) == 0.0:
+                if result.get("status") == "error":
                     failed_count += 1
 
                 # Progress update
@@ -228,7 +219,7 @@ def main():
     print("\nNext step:")
     print(f"  python scripts/update_csv.py --llm-json {args.output} --csv ground-truth-data/dataset_summary.csv --dry-run --verbose")
 
-    return 0
+    return 1 if failed_count else 0
 
 
 if __name__ == "__main__":

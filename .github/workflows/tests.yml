@@ -1,0 +1,25 @@
+name: Tests and wheel installation
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.11', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --frozen
+      - run: uv run --frozen pytest --cov=eegdash_tagger --cov-report=term
+      - run: uv build
+      - name: Test ordinary wheel installation outside the checkout
+        run: |
+          uv venv /tmp/tagger-wheel --python '${{ matrix.python }}'
+          uv pip install --python /tmp/tagger-wheel/bin/python dist/*.whl
+          cd /tmp
+          /tmp/tagger-wheel/bin/python "$GITHUB_WORKSPACE/tools/smoke_installed.py"
