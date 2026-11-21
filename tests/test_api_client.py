@@ -11,7 +11,9 @@ class TestEEGDashTaggerClient:
     """Tests for API client."""
 
     @pytest.fixture
-    def client(self):
+    def client(self, monkeypatch):
+        # A key exported in the developer's shell must not leak into tests.
+        monkeypatch.delenv("TAGGER_API_KEY", raising=False)
         return EEGDashTaggerClient("http://localhost:8000")
 
     def test_health_check(self, client):
@@ -200,3 +202,27 @@ class TestEEGDashTaggerClient:
             result = client.delete_cache_entry("nonexistent:key")
 
             assert result == False
+
+
+@pytest.mark.parametrize("method,patch_target,call", [
+    ("tag_dataset", "requests.post", lambda c: c.tag_dataset("ds1", "https://github.com/OpenNeuroDatasets/ds1")),
+    ("clear_cache", "requests.delete", lambda c: c.clear_cache()),
+    ("delete_cache_entry", "requests.delete", lambda c: c.delete_cache_entry("k")),
+])
+@pytest.mark.parametrize("key,expected", [("k123", {"X-API-Key": "k123"}), (None, {})])
+def test_gated_routes_send_api_key(monkeypatch, method, patch_target, call, key, expected):
+    """tag/cache-delete routes are gated server-side; the key must go with them."""
+    monkeypatch.delenv("TAGGER_API_KEY", raising=False)
+    client = EEGDashTaggerClient("http://localhost:8000", api_key=key)
+    with patch(patch_target) as mock_req:
+        mock_req.return_value.status_code = 200
+        mock_req.return_value.json.return_value = {
+            "dataset_id": "ds1", "pathology": [], "modality": [], "type": [], "from_cache": False,
+        }
+        call(client)
+    assert mock_req.call_args.kwargs["headers"] == expected
+
+
+def test_api_key_falls_back_to_env(monkeypatch):
+    monkeypatch.setenv("TAGGER_API_KEY", "from-env")
+    assert EEGDashTaggerClient("http://x")._auth_headers == {"X-API-Key": "from-env"}

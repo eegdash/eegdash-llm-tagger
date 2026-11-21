@@ -37,9 +37,7 @@ class EEGDashTaggerClient:
     This client provides methods to interact with the EEGDash LLM Tagger
     API service for tagging EEG/MEG datasets.
 
-    Args:
-        base_url: API base URL (e.g., "http://localhost:8000")
-        timeout: Request timeout in seconds (default 5 minutes for LLM calls)
+    See ``__init__`` for arguments (``base_url``, ``timeout``, ``api_key``).
 
     Example:
         >>> client = EEGDashTaggerClient("http://localhost:8000")

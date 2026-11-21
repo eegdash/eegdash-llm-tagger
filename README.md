@@ -15,7 +15,7 @@ Automatic tagging of EEG datasets using LLM-based predictions. This tool scrapes
 
 ### Requirements
 
-- Python 3.11 or higher
+- Python 3.11.5 or higher
 - Git
 - GitHub Personal Access Token (for API access)
 
@@ -44,6 +44,7 @@ cp .env.example .env
 Edit `.env` and add your actual API keys:
 - `OPENROUTER_API_KEY`: Get from https://openrouter.ai/
 - `GITHUB_TOKEN`: Generate at https://github.com/settings/tokens
+- `TAGGER_API_KEY`: the eegdash-llm-api key; `EEGDashTaggerClient` sends it as `X-API-Key`
 
 4. Load environment variables (required for each terminal session):
 ```bash
