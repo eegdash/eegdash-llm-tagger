@@ -3,7 +3,7 @@ name = "eegdash-tagger"
 version = "0.1.0"
 description = "Automatic tagging of EEG datasets using LLM-based predictions"
 authors = [{ name = "Kuntal Kokate" }]
-requires-python = ">=3.11"
+requires-python = ">=3.11.5"
 dependencies = [
     "pandas>=2.0",
     "requests",

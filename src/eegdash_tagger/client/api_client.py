@@ -9,6 +9,8 @@ Example:
     result = client.tag_dataset("ds001234", "https://github.com/OpenNeuroDatasets/ds001234")
     print(result.pathology)  # ["Healthy"]
 """
+import os
+
 import requests
 from typing import Dict, Any, Optional, List
 from dataclasses import dataclass
@@ -49,16 +51,25 @@ class EEGDashTaggerClient:
         ['Healthy']
     """
 
-    def __init__(self, base_url: str = "http://localhost:8000", timeout: int = 300):
+    def __init__(
+        self,
+        base_url: str = "http://localhost:8000",
+        timeout: int = 300,
+        api_key: Optional[str] = None,
+    ):
         """
         Initialize client.
 
         Args:
             base_url: API base URL (e.g., "http://localhost:8000")
             timeout: Request timeout in seconds (default 5 minutes for LLM calls)
+            api_key: X-API-Key for tagging and cache-deletion routes
+                (default: ``TAGGER_API_KEY`` environment variable)
         """
         self.base_url = base_url.rstrip("/")
         self.timeout = timeout
+        key = api_key or os.getenv("TAGGER_API_KEY")
+        self._auth_headers = {"X-API-Key": key} if key else {}
 
     def health_check(self) -> Dict[str, Any]:
         """
@@ -101,6 +112,7 @@ class EEGDashTaggerClient:
                 "source_url": source_url,
                 "force_refresh": force_refresh
             },
+            headers=self._auth_headers,
             timeout=self.timeout
         )
         response.raise_for_status()
@@ -240,7 +252,9 @@ class EEGDashTaggerClient:
 
     def clear_cache(self) -> None:
         """Clear entire cache."""
-        response = requests.delete(f"{self.base_url}/api/v1/cache", timeout=10)
+        response = requests.delete(
+            f"{self.base_url}/api/v1/cache", headers=self._auth_headers, timeout=10
+        )
         response.raise_for_status()
 
     def delete_cache_entry(self, cache_key: str) -> bool:
@@ -255,6 +269,7 @@ class EEGDashTaggerClient:
         """
         response = requests.delete(
             f"{self.base_url}/api/v1/cache/{cache_key}",
+            headers=self._auth_headers,
             timeout=10
         )
 
