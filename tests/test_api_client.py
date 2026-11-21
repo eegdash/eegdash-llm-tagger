@@ -304,7 +304,7 @@ def test_batch_continues_on_transient_503(monkeypatch):
     resp = _requests.Response()
     resp.status_code = 503
     resp._content = b"no upstreams available"
-    err = _requests.HTTPError(response=resp)
+    err = _requests.HTTPError("503 Server Error: Service Unavailable", response=resp)
     with patch.object(EEGDashTaggerClient, "tag_dataset", side_effect=err) as tag:
         results = client.batch_tag_datasets(
             [{"dataset_id": "a", "source_url": "u"}, {"dataset_id": "b", "source_url": "u"}],
