@@ -264,3 +264,30 @@ def test_batch_stops_on_auth_errors(monkeypatch, status):
                 skip_cached=False, verbose=False,
             )
     assert tag.call_count == 1
+
+
+def test_api_key_is_stripped_and_empty_string_opts_out(monkeypatch):
+    monkeypatch.setenv("TAGGER_API_KEY", "from-env")
+    assert EEGDashTaggerClient("http://x", api_key=" k1\r\n")._session.headers["X-API-Key"] == "k1"
+    assert "X-API-Key" not in EEGDashTaggerClient("http://x", api_key="")._session.headers
+
+
+def test_key_not_forwarded_on_cross_host_redirect(monkeypatch):
+    import requests as _requests
+    monkeypatch.delenv("TAGGER_API_KEY", raising=False)
+    client = EEGDashTaggerClient("https://api.example", api_key="secret")
+    prep = _requests.Request("GET", "https://evil.example/x", headers={"X-API-Key": "secret"}).prepare()
+    original = _requests.Response()
+    original.request = _requests.Request("GET", "https://api.example/x").prepare()
+    client._session.rebuild_auth(prep, original)
+    assert "X-API-Key" not in prep.headers
+
+
+def test_delete_cache_entry_quotes_the_key(monkeypatch):
+    monkeypatch.delenv("TAGGER_API_KEY", raising=False)
+    client = EEGDashTaggerClient("http://localhost:8000")
+    with patch("requests.Session.delete") as mock_delete:
+        mock_delete.return_value.status_code = 200
+        client.delete_cache_entry("../cache")
+    url = mock_delete.call_args.args[0]
+    assert url.endswith("/api/v1/cache/..%2Fcache"), url

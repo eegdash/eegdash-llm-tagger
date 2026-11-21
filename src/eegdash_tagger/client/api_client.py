@@ -10,10 +10,21 @@ Example:
     print(result.pathology)  # ["Healthy"]
 """
 import os
+from urllib.parse import quote, urlsplit
 
 import requests
 from typing import Dict, Any, Optional, List
 from dataclasses import dataclass
+
+
+class _KeyScopedSession(requests.Session):
+    """requests only strips Authorization on redirects; do the same for X-API-Key."""
+
+    def rebuild_auth(self, prepared_request, response):
+        super().rebuild_auth(prepared_request, response)
+        old, new = urlsplit(response.request.url), urlsplit(prepared_request.url)
+        if (old.hostname, old.scheme) != (new.hostname, new.scheme):
+            prepared_request.headers.pop("X-API-Key", None)
 
 
 @dataclass
@@ -66,10 +77,11 @@ class EEGDashTaggerClient:
         """
         self.base_url = base_url.rstrip("/")
         self.timeout = timeout
-        key = api_key or os.getenv("TAGGER_API_KEY")
+        # api_key="" explicitly opts out of the environment key.
+        key = (api_key if api_key is not None else os.getenv("TAGGER_API_KEY", "")).strip()
         # One session: connections are reused, and the key rides on every
         # call (the Caddy edge in front of the API gates GETs too).
-        self._session = requests.Session()
+        self._session = _KeyScopedSession()
         if key:
             self._session.headers["X-API-Key"] = key
 
@@ -290,7 +302,7 @@ class EEGDashTaggerClient:
             True if deleted, False if not found
         """
         response = self._session.delete(
-            f"{self.base_url}/api/v1/cache/{cache_key}",
+            f"{self.base_url}/api/v1/cache/{quote(cache_key, safe='')}",
             timeout=10
         )
 
