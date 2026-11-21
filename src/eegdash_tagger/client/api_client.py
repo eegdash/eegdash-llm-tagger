@@ -67,7 +67,11 @@ class EEGDashTaggerClient:
         self.base_url = base_url.rstrip("/")
         self.timeout = timeout
         key = api_key or os.getenv("TAGGER_API_KEY")
-        self._auth_headers = {"X-API-Key": key} if key else {}
+        # One session: connections are reused, and the key rides on every
+        # call (the Caddy edge in front of the API gates GETs too).
+        self._session = requests.Session()
+        if key:
+            self._session.headers["X-API-Key"] = key
 
     def health_check(self) -> Dict[str, Any]:
         """
@@ -79,7 +83,7 @@ class EEGDashTaggerClient:
         Raises:
             requests.RequestException: If API is unavailable
         """
-        response = requests.get(f"{self.base_url}/health", timeout=10)
+        response = self._session.get(f"{self.base_url}/health", timeout=10)
         response.raise_for_status()
         return response.json()
 
@@ -103,14 +107,13 @@ class EEGDashTaggerClient:
         Raises:
             requests.RequestException: If API call fails
         """
-        response = requests.post(
+        response = self._session.post(
             f"{self.base_url}/api/v1/tag",
             json={
                 "dataset_id": dataset_id,
                 "source_url": source_url,
                 "force_refresh": force_refresh
             },
-            headers=self._auth_headers,
             timeout=self.timeout
         )
         response.raise_for_status()
@@ -138,7 +141,7 @@ class EEGDashTaggerClient:
         Returns:
             TaggingResult if cached, None if not found
         """
-        response = requests.get(
+        response = self._session.get(
             f"{self.base_url}/api/v1/tags/{dataset_id}",
             timeout=10
         )
@@ -202,6 +205,14 @@ class EEGDashTaggerClient:
                     status = "cached" if result.from_cache else "fresh"
                     print(f"  -> Tagged ({status}): {result.pathology}")
                 results.append(result)
+            except requests.HTTPError as e:
+                # Auth/config errors hit every dataset the same way: stop
+                # instead of recording N "Unknown" results.
+                if e.response is not None and e.response.status_code in (401, 403, 503):
+                    raise
+                if verbose:
+                    print(f"  -> Error: {e}")
+                results.append(self._error_result(dataset_id, e))
             except Exception as e:
                 if verbose:
                     print(f"  -> Error: {e}")
@@ -219,6 +230,19 @@ class EEGDashTaggerClient:
 
         return results
 
+    @staticmethod
+    def _error_result(dataset_id: str, error: Exception) -> "TaggingResult":
+        return TaggingResult(
+            dataset_id=dataset_id,
+            pathology=["Unknown"],
+            modality=["Unknown"],
+            type=["Unknown"],
+            confidence={},
+            reasoning={},
+            from_cache=False,
+            error=str(error),
+        )
+
     def get_cache_stats(self) -> Dict[str, Any]:
         """
         Get cache statistics.
@@ -226,7 +250,7 @@ class EEGDashTaggerClient:
         Returns:
             Dict with total_entries, config_hash, unique_datasets, datasets
         """
-        response = requests.get(f"{self.base_url}/api/v1/cache/stats", timeout=10)
+        response = self._session.get(f"{self.base_url}/api/v1/cache/stats", timeout=10)
         response.raise_for_status()
         return response.json()
 
@@ -244,14 +268,14 @@ class EEGDashTaggerClient:
         if dataset_id:
             url += f"?dataset_id={dataset_id}"
 
-        response = requests.get(url, timeout=10)
+        response = self._session.get(url, timeout=10)
         response.raise_for_status()
         return response.json()
 
     def clear_cache(self) -> None:
         """Clear entire cache."""
-        response = requests.delete(
-            f"{self.base_url}/api/v1/cache", headers=self._auth_headers, timeout=10
+        response = self._session.delete(
+            f"{self.base_url}/api/v1/cache", timeout=10
         )
         response.raise_for_status()
 
@@ -265,9 +289,8 @@ class EEGDashTaggerClient:
         Returns:
             True if deleted, False if not found
         """
-        response = requests.delete(
+        response = self._session.delete(
             f"{self.base_url}/api/v1/cache/{cache_key}",
-            headers=self._auth_headers,
             timeout=10
         )
 
