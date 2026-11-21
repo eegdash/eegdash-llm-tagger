@@ -249,13 +249,16 @@ def test_key_is_sent_on_the_wire_for_reads_too(monkeypatch):
     assert seen["key"] == "k9"
 
 
-@pytest.mark.parametrize("status", [401, 403, 503])
-def test_batch_stops_on_auth_errors(monkeypatch, status):
+@pytest.mark.parametrize("status,body", [
+    (401, b""), (403, b""), (503, b'{"detail":"TAGGER_API_KEY is not configured"}'),
+])
+def test_batch_stops_on_auth_errors(monkeypatch, status, body):
     import requests as _requests
     monkeypatch.delenv("TAGGER_API_KEY", raising=False)
     client = EEGDashTaggerClient("http://localhost:8000")
     resp = _requests.Response()
     resp.status_code = status
+    resp._content = body
     err = _requests.HTTPError(response=resp)
     with patch.object(EEGDashTaggerClient, "tag_dataset", side_effect=err) as tag:
         with pytest.raises(_requests.HTTPError):
@@ -291,3 +294,31 @@ def test_delete_cache_entry_quotes_the_key(monkeypatch):
         client.delete_cache_entry("../cache")
     url = mock_delete.call_args.args[0]
     assert url.endswith("/api/v1/cache/..%2Fcache"), url
+
+
+def test_batch_continues_on_transient_503(monkeypatch):
+    """A proxy 503 (upstream restarting) is per-dataset, not an auth/config error."""
+    import requests as _requests
+    monkeypatch.delenv("TAGGER_API_KEY", raising=False)
+    client = EEGDashTaggerClient("http://localhost:8000")
+    resp = _requests.Response()
+    resp.status_code = 503
+    resp._content = b"no upstreams available"
+    err = _requests.HTTPError(response=resp)
+    with patch.object(EEGDashTaggerClient, "tag_dataset", side_effect=err) as tag:
+        results = client.batch_tag_datasets(
+            [{"dataset_id": "a", "source_url": "u"}, {"dataset_id": "b", "source_url": "u"}],
+            skip_cached=False, verbose=False,
+        )
+    assert tag.call_count == 2 and all(r.error for r in results)
+
+
+def test_key_dropped_on_redirect_to_other_port(monkeypatch):
+    import requests as _requests
+    monkeypatch.delenv("TAGGER_API_KEY", raising=False)
+    client = EEGDashTaggerClient("https://api.example", api_key="secret")
+    prep = _requests.Request("GET", "https://api.example:8443/x", headers={"X-API-Key": "secret"}).prepare()
+    original = _requests.Response()
+    original.request = _requests.Request("GET", "https://api.example/x").prepare()
+    client._session.rebuild_auth(prep, original)
+    assert "X-API-Key" not in prep.headers

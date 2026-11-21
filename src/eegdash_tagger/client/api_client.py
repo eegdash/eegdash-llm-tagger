@@ -17,13 +17,21 @@ from typing import Dict, Any, Optional, List
 from dataclasses import dataclass
 
 
+def _is_fatal_auth_error(response) -> bool:
+    if response is None:
+        return False
+    if response.status_code in (401, 403):
+        return True
+    return response.status_code == 503 and "TAGGER_API_KEY" in (response.text or "")
+
+
 class _KeyScopedSession(requests.Session):
     """requests only strips Authorization on redirects; do the same for X-API-Key."""
 
     def rebuild_auth(self, prepared_request, response):
         super().rebuild_auth(prepared_request, response)
         old, new = urlsplit(response.request.url), urlsplit(prepared_request.url)
-        if (old.hostname, old.scheme) != (new.hostname, new.scheme):
+        if (old.scheme, old.hostname, old.port) != (new.scheme, new.hostname, new.port):
             prepared_request.headers.pop("X-API-Key", None)
 
 
@@ -219,8 +227,10 @@ class EEGDashTaggerClient:
                 results.append(result)
             except requests.HTTPError as e:
                 # Auth/config errors hit every dataset the same way: stop
-                # instead of recording N "Unknown" results.
-                if e.response is not None and e.response.status_code in (401, 403, 503):
+                # instead of recording N "Unknown" results. A bare 503 (proxy
+                # with no healthy upstream) is transient, so only the API's
+                # own "key not configured" 503 is fatal.
+                if _is_fatal_auth_error(e.response):
                     raise
                 if verbose:
                     print(f"  -> Error: {e}")
