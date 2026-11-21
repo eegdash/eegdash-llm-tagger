@@ -162,7 +162,7 @@ class EEGDashTaggerClient:
             TaggingResult if cached, None if not found
         """
         response = self._session.get(
-            f"{self.base_url}/api/v1/tags/{dataset_id}",
+            f"{self.base_url}/api/v1/tags/{quote(dataset_id, safe='')}",
             timeout=10
         )
 
@@ -209,17 +209,17 @@ class EEGDashTaggerClient:
             if verbose:
                 print(f"[{i}/{len(datasets)}] Processing {dataset_id}...")
 
-            # Check cache first if skip_cached enabled
-            if skip_cached:
-                cached = self.get_cached_tags(dataset_id)
-                if cached:
-                    if verbose:
-                        print(f"  -> Using cached result")
-                    results.append(cached)
-                    continue
-
-            # Tag the dataset
             try:
+                # Check cache first if skip_cached enabled
+                if skip_cached:
+                    cached = self.get_cached_tags(dataset_id)
+                    if cached:
+                        if verbose:
+                            print(f"  -> Using cached result")
+                        results.append(cached)
+                        continue
+
+                # Tag the dataset
                 result = self.tag_dataset(dataset_id, source_url)
                 if verbose:
                     status = "cached" if result.from_cache else "fresh"
@@ -286,11 +286,10 @@ class EEGDashTaggerClient:
         Returns:
             List of cache entry summaries
         """
-        url = f"{self.base_url}/api/v1/cache/entries"
-        if dataset_id:
-            url += f"?dataset_id={dataset_id}"
-
-        response = self._session.get(url, timeout=10)
+        params = {"dataset_id": dataset_id} if dataset_id else None
+        response = self._session.get(
+            f"{self.base_url}/api/v1/cache/entries", params=params, timeout=10
+        )
         response.raise_for_status()
         return response.json()
 
