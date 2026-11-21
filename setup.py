@@ -14,7 +14,7 @@ setup(
         "requests",
         "beautifulsoup4",
     ],
-    python_requires=">=3.11",
+    python_requires=">=3.11.5",
     entry_points={
         "console_scripts": [
             "eegdash-fetch-incomplete=scripts.fetch_incomplete_datasets:main",

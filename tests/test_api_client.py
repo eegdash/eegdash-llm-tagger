@@ -11,12 +11,14 @@ class TestEEGDashTaggerClient:
     """Tests for API client."""
 
     @pytest.fixture
-    def client(self):
+    def client(self, monkeypatch):
+        # A key exported in the developer's shell must not leak into tests.
+        monkeypatch.delenv("TAGGER_API_KEY", raising=False)
         return EEGDashTaggerClient("http://localhost:8000")
 
     def test_health_check(self, client):
         """Test health check."""
-        with patch('requests.get') as mock_get:
+        with patch('requests.Session.get') as mock_get:
             mock_get.return_value.json.return_value = {
                 "status": "healthy",
                 "cache_entries": 5,
@@ -31,7 +33,7 @@ class TestEEGDashTaggerClient:
 
     def test_tag_dataset(self, client):
         """Test tagging a dataset."""
-        with patch('requests.post') as mock_post:
+        with patch('requests.Session.post') as mock_post:
             mock_post.return_value.json.return_value = {
                 "dataset_id": "ds001234",
                 "pathology": ["Healthy"],
@@ -52,7 +54,7 @@ class TestEEGDashTaggerClient:
 
     def test_tag_dataset_with_force_refresh(self, client):
         """Test tagging with force refresh."""
-        with patch('requests.post') as mock_post:
+        with patch('requests.Session.post') as mock_post:
             mock_post.return_value.json.return_value = {
                 "dataset_id": "ds001234",
                 "pathology": ["Healthy"],
@@ -72,7 +74,7 @@ class TestEEGDashTaggerClient:
 
     def test_get_cached_tags_found(self, client):
         """Test getting cached tags when they exist."""
-        with patch('requests.get') as mock_get:
+        with patch('requests.Session.get') as mock_get:
             mock_get.return_value.status_code = 200
             mock_get.return_value.json.return_value = {
                 "dataset_id": "ds001234",
@@ -92,7 +94,7 @@ class TestEEGDashTaggerClient:
 
     def test_get_cached_tags_not_found(self, client):
         """Test getting cached tags when they don't exist."""
-        with patch('requests.get') as mock_get:
+        with patch('requests.Session.get') as mock_get:
             mock_get.return_value.status_code = 404
 
             result = client.get_cached_tags("ds999999")
@@ -159,7 +161,7 @@ class TestEEGDashTaggerClient:
 
     def test_get_cache_stats(self, client):
         """Test getting cache stats."""
-        with patch('requests.get') as mock_get:
+        with patch('requests.Session.get') as mock_get:
             mock_get.return_value.json.return_value = {
                 "total_entries": 10,
                 "config_hash": "abc123",
@@ -175,7 +177,7 @@ class TestEEGDashTaggerClient:
 
     def test_clear_cache(self, client):
         """Test clearing cache."""
-        with patch('requests.delete') as mock_delete:
+        with patch('requests.Session.delete') as mock_delete:
             mock_delete.return_value.raise_for_status = Mock()
 
             client.clear_cache()
@@ -184,7 +186,7 @@ class TestEEGDashTaggerClient:
 
     def test_delete_cache_entry_found(self, client):
         """Test deleting cache entry that exists."""
-        with patch('requests.delete') as mock_delete:
+        with patch('requests.Session.delete') as mock_delete:
             mock_delete.return_value.status_code = 200
             mock_delete.return_value.raise_for_status = Mock()
 
@@ -194,9 +196,129 @@ class TestEEGDashTaggerClient:
 
     def test_delete_cache_entry_not_found(self, client):
         """Test deleting cache entry that doesn't exist."""
-        with patch('requests.delete') as mock_delete:
+        with patch('requests.Session.delete') as mock_delete:
             mock_delete.return_value.status_code = 404
 
             result = client.delete_cache_entry("nonexistent:key")
 
             assert result == False
+
+
+@pytest.mark.parametrize("method,patch_target,call", [
+    ("tag_dataset", "requests.Session.post", lambda c: c.tag_dataset("ds1", "https://github.com/OpenNeuroDatasets/ds1")),
+    ("clear_cache", "requests.Session.delete", lambda c: c.clear_cache()),
+    ("delete_cache_entry", "requests.Session.delete", lambda c: c.delete_cache_entry("k")),
+])
+@pytest.mark.parametrize("key,expected", [("k123", {"X-API-Key": "k123"}), (None, {})])
+def test_gated_routes_send_api_key(monkeypatch, method, patch_target, call, key, expected):
+    """tag/cache-delete routes are gated server-side; the key must go with them."""
+    monkeypatch.delenv("TAGGER_API_KEY", raising=False)
+    client = EEGDashTaggerClient("http://localhost:8000", api_key=key)
+    with patch(patch_target) as mock_req:
+        mock_req.return_value.status_code = 200
+        mock_req.return_value.json.return_value = {
+            "dataset_id": "ds1", "pathology": [], "modality": [], "type": [], "from_cache": False,
+        }
+        call(client)
+    assert mock_req.called
+    sent = {k: v for k, v in client._session.headers.items() if k == "X-API-Key"}
+    assert sent == expected
+
+
+def test_api_key_falls_back_to_env(monkeypatch):
+    monkeypatch.setenv("TAGGER_API_KEY", "from-env")
+    assert EEGDashTaggerClient("http://x")._session.headers["X-API-Key"] == "from-env"
+
+
+def test_key_is_sent_on_the_wire_for_reads_too(monkeypatch):
+    """The Caddy edge gates GETs as well, so the key must be on every request."""
+    import requests as _requests
+    monkeypatch.delenv("TAGGER_API_KEY", raising=False)
+    client = EEGDashTaggerClient("http://localhost:8000", api_key="k9")
+    seen = {}
+
+    def fake_send(self, request, **kwargs):
+        seen["key"] = request.headers.get("X-API-Key")
+        resp = _requests.Response()
+        resp.status_code = 200
+        resp._content = b'{"status": "healthy"}'
+        return resp
+
+    with patch.object(_requests.Session, "send", fake_send):
+        client.health_check()
+    assert seen["key"] == "k9"
+
+
+@pytest.mark.parametrize("status,body", [
+    (401, b""), (403, b""), (503, b'{"detail":"TAGGER_API_KEY is not configured"}'),
+])
+def test_batch_stops_on_auth_errors(monkeypatch, status, body):
+    import requests as _requests
+    monkeypatch.delenv("TAGGER_API_KEY", raising=False)
+    client = EEGDashTaggerClient("http://localhost:8000")
+    resp = _requests.Response()
+    resp.status_code = status
+    resp._content = body
+    err = _requests.HTTPError(response=resp)
+    with patch.object(EEGDashTaggerClient, "tag_dataset", side_effect=err) as tag:
+        with pytest.raises(_requests.HTTPError):
+            client.batch_tag_datasets(
+                [{"dataset_id": "a", "source_url": "u"}, {"dataset_id": "b", "source_url": "u"}],
+                skip_cached=False, verbose=False,
+            )
+    assert tag.call_count == 1
+
+
+def test_api_key_is_stripped_and_empty_string_opts_out(monkeypatch):
+    monkeypatch.setenv("TAGGER_API_KEY", "from-env")
+    assert EEGDashTaggerClient("http://x", api_key=" k1\r\n")._session.headers["X-API-Key"] == "k1"
+    assert "X-API-Key" not in EEGDashTaggerClient("http://x", api_key="")._session.headers
+
+
+def test_key_not_forwarded_on_cross_host_redirect(monkeypatch):
+    import requests as _requests
+    monkeypatch.delenv("TAGGER_API_KEY", raising=False)
+    client = EEGDashTaggerClient("https://api.example", api_key="secret")
+    prep = _requests.Request("GET", "https://evil.example/x", headers={"X-API-Key": "secret"}).prepare()
+    original = _requests.Response()
+    original.request = _requests.Request("GET", "https://api.example/x").prepare()
+    client._session.rebuild_auth(prep, original)
+    assert "X-API-Key" not in prep.headers
+
+
+def test_delete_cache_entry_quotes_the_key(monkeypatch):
+    monkeypatch.delenv("TAGGER_API_KEY", raising=False)
+    client = EEGDashTaggerClient("http://localhost:8000")
+    with patch("requests.Session.delete") as mock_delete:
+        mock_delete.return_value.status_code = 200
+        client.delete_cache_entry("../cache")
+    url = mock_delete.call_args.args[0]
+    assert url.endswith("/api/v1/cache/..%2Fcache"), url
+
+
+def test_batch_continues_on_transient_503(monkeypatch):
+    """A proxy 503 (upstream restarting) is per-dataset, not an auth/config error."""
+    import requests as _requests
+    monkeypatch.delenv("TAGGER_API_KEY", raising=False)
+    client = EEGDashTaggerClient("http://localhost:8000")
+    resp = _requests.Response()
+    resp.status_code = 503
+    resp._content = b"no upstreams available"
+    err = _requests.HTTPError("503 Server Error: Service Unavailable", response=resp)
+    with patch.object(EEGDashTaggerClient, "tag_dataset", side_effect=err) as tag:
+        results = client.batch_tag_datasets(
+            [{"dataset_id": "a", "source_url": "u"}, {"dataset_id": "b", "source_url": "u"}],
+            skip_cached=False, verbose=False,
+        )
+    assert tag.call_count == 2 and all(r.error for r in results)
+
+
+def test_key_dropped_on_redirect_to_other_port(monkeypatch):
+    import requests as _requests
+    monkeypatch.delenv("TAGGER_API_KEY", raising=False)
+    client = EEGDashTaggerClient("https://api.example", api_key="secret")
+    prep = _requests.Request("GET", "https://api.example:8443/x", headers={"X-API-Key": "secret"}).prepare()
+    original = _requests.Response()
+    original.request = _requests.Request("GET", "https://api.example/x").prepare()
+    client._session.rebuild_auth(prep, original)
+    assert "X-API-Key" not in prep.headers

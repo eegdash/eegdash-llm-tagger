@@ -16,6 +16,12 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from eegdash_tagger.client import EEGDashTaggerClient
 
+try:  # pick up TAGGER_API_KEY from .env, like the other scripts
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 
 def tag_incomplete_datasets(
     api_url: str = "http://localhost:8000",
