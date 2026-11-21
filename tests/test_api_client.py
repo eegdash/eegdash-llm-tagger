@@ -322,3 +322,36 @@ def test_key_dropped_on_redirect_to_other_port(monkeypatch):
     original.request = _requests.Request("GET", "https://api.example/x").prepare()
     client._session.rebuild_auth(prep, original)
     assert "X-API-Key" not in prep.headers
+
+
+def test_batch_survives_transient_503_on_cache_lookup(monkeypatch):
+    """The cache lookup sits in the same per-dataset error policy as tagging."""
+    import requests as _requests
+    monkeypatch.delenv("TAGGER_API_KEY", raising=False)
+    client = EEGDashTaggerClient("http://localhost:8000")
+    resp = _requests.Response()
+    resp.status_code = 503
+    resp._content = b"no upstreams available"
+    err = _requests.HTTPError("503 Server Error", response=resp)
+    with patch.object(EEGDashTaggerClient, "get_cached_tags", side_effect=[err, None]), \
+         patch.object(EEGDashTaggerClient, "tag_dataset") as tag:
+        tag.return_value = TaggingResult("b", ["H"], [], [], {}, {}, False)
+        results = client.batch_tag_datasets(
+            [{"dataset_id": "a", "source_url": "u"}, {"dataset_id": "b", "source_url": "u"}],
+            verbose=False,
+        )
+    assert [r.dataset_id for r in results] == ["a", "b"]
+    assert results[0].error and not results[1].error
+
+
+def test_read_urls_quote_ids(monkeypatch):
+    monkeypatch.delenv("TAGGER_API_KEY", raising=False)
+    client = EEGDashTaggerClient("http://localhost:8000")
+    with patch("requests.Session.get") as get:
+        get.return_value.status_code = 404
+        client.get_cached_tags("../cache/stats")
+        assert get.call_args.args[0].endswith("/api/v1/tags/..%2Fcache%2Fstats")
+        get.return_value.status_code = 200
+        get.return_value.json.return_value = []
+        client.list_cache_entries("ds1&dataset_id=ds2")
+        assert get.call_args.kwargs.get("params") == {"dataset_id": "ds1&dataset_id=ds2"}
